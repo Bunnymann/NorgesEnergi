@@ -28,13 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.import_from_db = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // import_from_db
+            // 
+            this.import_from_db.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.import_from_db.Location = new System.Drawing.Point(171, 127);
+            this.import_from_db.Name = "import_from_db";
+            this.import_from_db.Size = new System.Drawing.Size(134, 44);
+            this.import_from_db.TabIndex = 0;
+            this.import_from_db.Text = "Hent fra DB";
+            this.import_from_db.UseVisualStyleBackColor = false;
+            this.import_from_db.Click += new System.EventHandler(this.import_from_db_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 505);
+            this.ClientSize = new System.Drawing.Size(511, 298);
+            this.Controls.Add(this.import_from_db);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -43,6 +56,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button import_from_db;
     }
 }
 
