@@ -29,7 +29,7 @@ namespace NorgesEnergi_main
         //test if i can get the information from help_text from the database. 
         private void import_from_db_Click(object sender, EventArgs e)
         {
-            SqlConnection sqlConnection1 = new SqlConnection ("Data Source=neb-server.database.windows.net;Initial Catalog=NorgesEnergi;Persist Security Info=True;User ID=mariusfosseli@hotmail.com@neb-server;Password=***********");
+            SqlConnection sqlConnection1 = new SqlConnection ("Data Source=neb-server.database.windows.net;Initial Catalog=NorgesEnergi;Persist Security Info=True;User ID=mariusfosseli@hotmail.com@neb-server;Password=ne_bachelor_1");
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
 
@@ -41,6 +41,10 @@ namespace NorgesEnergi_main
 
             reader = cmd.ExecuteReader();
             // Data is accessible through the DataReader object here.
+
+            Console.WriteLine(reader);
+            Console.WriteLine("hente info fra database");
+
 
             sqlConnection1.Close();
         }
