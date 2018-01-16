@@ -30,16 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             this.import_from_db = new System.Windows.Forms.Button();
-            this.norgesEnergiDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.norgesEnergiDataSet11 = new NorgesEnergi_main.NorgesEnergiDataSet1();
             this.helppage_tableTableAdapter1 = new NorgesEnergi_main.NorgesEnergiDataSet1TableAdapters.helppage_tableTableAdapter();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSetBindingSource)).BeginInit();
+            this.norgesEnergiDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.goto_login = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSet11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // import_from_db
@@ -60,6 +61,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(338, 196);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button1
             // 
@@ -95,20 +97,34 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // goto_login
+            // 
+            this.goto_login.Location = new System.Drawing.Point(511, 39);
+            this.goto_login.Name = "goto_login";
+            this.goto_login.Size = new System.Drawing.Size(75, 23);
+            this.goto_login.TabIndex = 4;
+            this.goto_login.Text = "Go to login";
+            this.goto_login.UseVisualStyleBackColor = true;
+            this.goto_login.Click += new System.EventHandler(this.goto_login_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(889, 451);
+<<<<<<< HEAD
+=======
+            this.Controls.Add(this.goto_login);
+>>>>>>> 64be9eaf0d6b33205e3c23424b3a8d578a61b6d7
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.import_from_db);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSet11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,6 +140,7 @@
         private NorgesEnergiDataSet1 norgesEnergiDataSet11;
         private NorgesEnergiDataSet1TableAdapters.helppage_tableTableAdapter helppage_tableTableAdapter1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button goto_login;
     }
 }
 
