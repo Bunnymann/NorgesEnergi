@@ -67,9 +67,14 @@ namespace NorgesEnergi_main
 
         private void goto_login_Click(object sender, EventArgs e)
         {
-            Form login_form = new login_form();
+            Form salg_form = new prototypeForm();
             this.Hide();
-            login_form.Show();
+            salg_form.Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -29,6 +29,9 @@ namespace NorgesEnergi_main
 
         }
 
+        /*
+         * Validates a user before login
+         */
         private void login_btn_Click(object sender, EventArgs e)
         {
             using (Form1.sqlCon = new SqlConnection(Connectionstring))
@@ -54,9 +57,54 @@ namespace NorgesEnergi_main
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        //Error when adding existing primary key
+        /*
+         * Adds new user to system using @paramaters, parameters defined using input text box
+         * Checks if data is added
+         */ 
+        private void new_user_btn_Click(object sender, EventArgs e)
+        {
+            using (Form1.sqlCon = new SqlConnection(Connectionstring))
+            {
+                Form1.sqlCon.Open();
+                string new_userid = user_IDTextBox.Text;
+                string new_username = user_nameTextBox.Text;
+                SqlCommand cmd = new SqlCommand("INSERT INTO user_table (user_ID, user_name) VALUES (@user_ID, @user_name)", Form1.sqlCon);
+                cmd.Parameters.AddWithValue("@user_ID", new_userid);
+                cmd.Parameters.AddWithValue("@user_name", new_username);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                cmd.ExecuteNonQuery();
+                if (dt.Rows.Count > 0)
+                {
+                    MessageBox.Show("New user created!");   
+                }
+                else
+                {
+                    MessageBox.Show("User does allready exist or something else happened");
+                }
+            }
+        }
+
+        private void login_form_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void login_help_btn_Click(object sender, EventArgs e)
+        {
+            using (Form1.sqlCon = new SqlConnection(Connectionstring))
+            {
+                Form1.sqlCon.Open();
+                SqlDataAdapter sqlDainfo = new SqlDataAdapter("SELECT help_text FROM help_table ", Form1.sqlCon);
+                DataSet dtBlInfo = new DataSet();
+                sqlDainfo.Fill(dtBlInfo);
+
+                // Insert btBl into textTable 
+                textBox1.Text += dtBlInfo.Tables[0].Rows[0]["help_text"].ToString();
+            }
         }
     }
 }

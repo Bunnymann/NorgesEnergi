@@ -53,6 +53,8 @@
             this.user_nameTextBox = new System.Windows.Forms.TextBox();
             this.login_btn = new System.Windows.Forms.Button();
             this.new_user_btn = new System.Windows.Forms.Button();
+            this.login_help_btn = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             user_IDLabel = new System.Windows.Forms.Label();
             user_nameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSet1)).BeginInit();
@@ -64,7 +66,7 @@
             // user_IDLabel
             // 
             user_IDLabel.AutoSize = true;
-            user_IDLabel.Location = new System.Drawing.Point(284, 77);
+            user_IDLabel.Location = new System.Drawing.Point(181, 63);
             user_IDLabel.Name = "user_IDLabel";
             user_IDLabel.Size = new System.Drawing.Size(44, 13);
             user_IDLabel.TabIndex = 1;
@@ -73,7 +75,7 @@
             // user_nameLabel
             // 
             user_nameLabel.AutoSize = true;
-            user_nameLabel.Location = new System.Drawing.Point(284, 128);
+            user_nameLabel.Location = new System.Drawing.Point(181, 114);
             user_nameLabel.Name = "user_nameLabel";
             user_nameLabel.Size = new System.Drawing.Size(59, 13);
             user_nameLabel.TabIndex = 3;
@@ -231,7 +233,7 @@
             // user_IDTextBox
             // 
             this.user_IDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.user_tableBindingSource, "user_ID", true));
-            this.user_IDTextBox.Location = new System.Drawing.Point(363, 74);
+            this.user_IDTextBox.Location = new System.Drawing.Point(260, 60);
             this.user_IDTextBox.Name = "user_IDTextBox";
             this.user_IDTextBox.Size = new System.Drawing.Size(100, 20);
             this.user_IDTextBox.TabIndex = 2;
@@ -239,14 +241,14 @@
             // user_nameTextBox
             // 
             this.user_nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.user_tableBindingSource, "user_name", true));
-            this.user_nameTextBox.Location = new System.Drawing.Point(363, 125);
+            this.user_nameTextBox.Location = new System.Drawing.Point(260, 111);
             this.user_nameTextBox.Name = "user_nameTextBox";
             this.user_nameTextBox.Size = new System.Drawing.Size(100, 20);
             this.user_nameTextBox.TabIndex = 4;
             // 
             // login_btn
             // 
-            this.login_btn.Location = new System.Drawing.Point(521, 195);
+            this.login_btn.Location = new System.Drawing.Point(418, 181);
             this.login_btn.Name = "login_btn";
             this.login_btn.Size = new System.Drawing.Size(75, 23);
             this.login_btn.TabIndex = 5;
@@ -256,19 +258,39 @@
             // 
             // new_user_btn
             // 
-            this.new_user_btn.Location = new System.Drawing.Point(408, 195);
+            this.new_user_btn.Location = new System.Drawing.Point(305, 181);
             this.new_user_btn.Name = "new_user_btn";
             this.new_user_btn.Size = new System.Drawing.Size(75, 23);
             this.new_user_btn.TabIndex = 6;
             this.new_user_btn.Text = "Create New User";
             this.new_user_btn.UseVisualStyleBackColor = true;
-            this.new_user_btn.Click += new System.EventHandler(this.button1_Click);
+            this.new_user_btn.Click += new System.EventHandler(this.new_user_btn_Click);
+            // 
+            // login_help_btn
+            // 
+            this.login_help_btn.Location = new System.Drawing.Point(606, 63);
+            this.login_help_btn.Name = "login_help_btn";
+            this.login_help_btn.Size = new System.Drawing.Size(75, 23);
+            this.login_help_btn.TabIndex = 7;
+            this.login_help_btn.Text = "Help";
+            this.login_help_btn.UseVisualStyleBackColor = true;
+            this.login_help_btn.Click += new System.EventHandler(this.login_help_btn_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(593, 92);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 135);
+            this.textBox1.TabIndex = 8;
             // 
             // login_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(730, 261);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.login_help_btn);
             this.Controls.Add(this.new_user_btn);
             this.Controls.Add(this.login_btn);
             this.Controls.Add(user_nameLabel);
@@ -278,6 +300,7 @@
             this.Controls.Add(this.user_tableBindingNavigator);
             this.Name = "login_form";
             this.Text = "login_form";
+            this.Load += new System.EventHandler(this.login_form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_tableBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_tableBindingNavigator)).EndInit();
@@ -311,5 +334,7 @@
         private System.Windows.Forms.TextBox user_nameTextBox;
         private System.Windows.Forms.Button login_btn;
         private System.Windows.Forms.Button new_user_btn;
+        private System.Windows.Forms.Button login_help_btn;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

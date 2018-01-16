@@ -103,7 +103,7 @@
             this.goto_login.Name = "goto_login";
             this.goto_login.Size = new System.Drawing.Size(75, 23);
             this.goto_login.TabIndex = 4;
-            this.goto_login.Text = "Go to login";
+            this.goto_login.Text = "Til salg";
             this.goto_login.UseVisualStyleBackColor = true;
             this.goto_login.Click += new System.EventHandler(this.goto_login_Click);
             // 
@@ -119,6 +119,7 @@
             this.Controls.Add(this.import_from_db);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSet11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.norgesEnergiDataSetBindingSource)).EndInit();
