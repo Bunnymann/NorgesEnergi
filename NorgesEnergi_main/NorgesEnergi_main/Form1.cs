@@ -17,7 +17,7 @@ namespace NorgesEnergi_main
     {
 
         string Connectionstring = ("Data Source=neb-server.database.windows.net;Initial Catalog=NorgesEnergi;Persist Security Info=True;User ID=mariusfosseli@hotmail.com@neb-server;Password=ne_bachelor_1");
-       
+
         public Form1()
         {
             InitializeComponent();
@@ -43,6 +43,24 @@ namespace NorgesEnergi_main
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection sqlCon = new SqlConnection(Connectionstring))
+            {
+                sqlCon.Open();
+                SqlDataAdapter sqlDainfo = new SqlDataAdapter("SELECT help_text FROM help_table ", sqlCon);
+                DataSet dtBlInfo = new DataSet();
+                sqlDainfo.Fill(dtBlInfo);
+
+                // Insert btBl into textTable 
+                textBox1.Text += dtBlInfo.Tables[0].Rows[0]["help_text"].ToString();
+                textBox1.Text += Environment.NewLine + dtBlInfo.Tables[0].Rows[1]["help_text"].ToString();
+                textBox1.Text += Environment.NewLine + dtBlInfo.Tables[0].Rows[2]["help_text"].ToString();
+                textBox1.Text += Environment.NewLine + dtBlInfo.Tables[0].Rows[3]["help_text"].ToString();
+              
+            }
+        }
+        
     }
 }
 
