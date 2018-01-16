@@ -17,13 +17,13 @@ namespace NorgesEnergi_main
     {
 
         string Connectionstring = ("Data Source=neb-server.database.windows.net;Initial Catalog=NorgesEnergi;Persist Security Info=True;User ID=mariusfosseli@hotmail.com@neb-server;Password=ne_bachelor_1");
+        internal static SqlConnection sqlCon= new SqlConnection();
 
         public Form1()
         {
             InitializeComponent();
 
         }
-
 
         //test if i can get the information from help_text from the database. 
         private void import_from_db_Click(object sender, EventArgs e)
@@ -38,8 +38,7 @@ namespace NorgesEnergi_main
 
                 // Insert btBl into datagrid1 
                 dataGridView1.DataSource = dtBl;
-
-
+                
             }
         }
 
@@ -60,7 +59,18 @@ namespace NorgesEnergi_main
               
             }
         }
-        
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void goto_login_Click(object sender, EventArgs e)
+        {
+            Form login_form = new login_form();
+            this.Hide();
+            login_form.Show();
+        }
     }
 }
 
