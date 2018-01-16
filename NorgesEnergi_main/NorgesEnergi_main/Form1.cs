@@ -15,13 +15,12 @@ namespace NorgesEnergi_main
 {
     public partial class Form1 : Form
     {
+
+        string Connectionstring = ("Data Source=neb-server.database.windows.net;Initial Catalog=NorgesEnergi;Persist Security Info=True;User ID=mariusfosseli@hotmail.com@neb-server;Password=ne_bachelor_1");
+       
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
 
         }
 
@@ -29,25 +28,21 @@ namespace NorgesEnergi_main
         //test if i can get the information from help_text from the database. 
         private void import_from_db_Click(object sender, EventArgs e)
         {
-            SqlConnection sqlConnection1 = new SqlConnection ("Data Source=neb-server.database.windows.net;Initial Catalog=NorgesEnergi;Persist Security Info=True;User ID=mariusfosseli@hotmail.com@neb-server;Password=ne_bachelor_1");
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader reader;
-
-            cmd.CommandText = "SELECT * FROM page_table";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = sqlConnection1;
-
-            sqlConnection1.Open();
-
-            reader = cmd.ExecuteReader();
-            // Data is accessible through the DataReader object here.
-
-            Console.WriteLine(reader);
-            Console.WriteLine("hente info fra database");
+            using (SqlConnection sqlCon = new SqlConnection(Connectionstring))
+            {
+                sqlCon.Open();
+                SqlDataAdapter sqlDa = new SqlDataAdapter("SELECT * FROM user_table", sqlCon);
+                DataTable dtBl = new DataTable();
+                sqlDa.Fill(dtBl);
 
 
-            sqlConnection1.Close();
+                // Insert btBl into datagrid1 
+                dataGridView1.DataSource = dtBl;
+
+
+            }
         }
+
     }
 }
 
