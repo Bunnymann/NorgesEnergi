@@ -42,7 +42,6 @@ namespace NorgesEnergi_main
             }
         }
 
-        //finding elements from the database, and insert them into a textbox. through a button.
         private void button1_Click(object sender, EventArgs e)
         {
             using (SqlConnection sqlCon = new SqlConnection(Connectionstring))

@@ -127,9 +127,18 @@
     <value>822, 17</value>
   </metadata>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   <metadata name="norgesEnergiDataSetBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>183, 17</value>
   </metadata>
 >>>>>>> 64be9eaf0d6b33205e3c23424b3a8d578a61b6d7
+=======
+  <metadata name="contextMenuStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
+  <metadata name="norgesEnergiDataSet12.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>172, 56</value>
+  </metadata>
+>>>>>>> parent of 58a9af1... Inserted informatin
 </root>
