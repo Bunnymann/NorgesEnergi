@@ -106,5 +106,10 @@ namespace NorgesEnergi_main
                 textBox1.Text += dtBlInfo.Tables[0].Rows[0]["help_text"].ToString();
             }
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
