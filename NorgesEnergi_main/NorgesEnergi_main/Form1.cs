@@ -42,6 +42,9 @@ namespace NorgesEnergi_main
             }
         }
 
+        /*
+         * Select help_table from help_text class in the database, and display it in a textbox with the click of an button. 
+         */
         private void button1_Click(object sender, EventArgs e)
         {
             using (SqlConnection sqlCon = new SqlConnection(Connectionstring))
