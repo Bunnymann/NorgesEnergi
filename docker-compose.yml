@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  norgesenergiwepapp:
+    image: norgesenergiwepapp
+    build:
+      context: .\NorgesEnergi wep app
+      dockerfile: Dockerfile
