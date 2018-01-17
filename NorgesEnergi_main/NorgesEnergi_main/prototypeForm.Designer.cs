@@ -40,7 +40,8 @@
             this.salg_tlf_help_btn = new System.Windows.Forms.Button();
             this.salg_add_cust_btn = new System.Windows.Forms.Button();
             this.salg_add_cust_help_btn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // label1
@@ -85,7 +86,6 @@
             this.navn_textBox.Name = "navn_textBox";
             this.navn_textBox.Size = new System.Drawing.Size(100, 20);
             this.navn_textBox.TabIndex = 4;
-            this.navn_textBox.TextChanged += new System.EventHandler(this.navn_textBox_TextChanged);
             // 
             // adresse_textBox
             // 
@@ -93,7 +93,6 @@
             this.adresse_textBox.Name = "adresse_textBox";
             this.adresse_textBox.Size = new System.Drawing.Size(100, 20);
             this.adresse_textBox.TabIndex = 5;
-            this.adresse_textBox.TextChanged += new System.EventHandler(this.adresse_textBox_TextChanged);
             // 
             // telefon_textBox
             // 
@@ -101,7 +100,6 @@
             this.telefon_textBox.Name = "telefon_textBox";
             this.telefon_textBox.Size = new System.Drawing.Size(100, 20);
             this.telefon_textBox.TabIndex = 6;
-            this.telefon_textBox.TextChanged += new System.EventHandler(this.telefon_textBox_TextChanged);
             // 
             // salg_navn_help_btn
             // 
@@ -141,7 +139,6 @@
             this.salg_add_cust_btn.TabIndex = 10;
             this.salg_add_cust_btn.Text = "Legg til kunde";
             this.salg_add_cust_btn.UseVisualStyleBackColor = true;
-            this.salg_add_cust_btn.Click += new System.EventHandler(this.salg_add_cust_btn_Click);
             // 
             // salg_add_cust_help_btn
             // 
@@ -151,24 +148,33 @@
             this.salg_add_cust_help_btn.TabIndex = 11;
             this.salg_add_cust_help_btn.Text = "?";
             this.salg_add_cust_help_btn.UseVisualStyleBackColor = true;
-            this.salg_add_cust_help_btn.Click += new System.EventHandler(this.salg_add_cust_help_btn_Click);
             // 
-            // textBox1
+            // listBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(275, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(100, 86);
-            this.textBox1.TabIndex = 12;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(417, 12);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(118, 95);
+            this.listBox1.TabIndex = 13;
+            // 
+            // listView1
+            // 
+            this.listView1.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listView1.Location = new System.Drawing.Point(321, 151);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(217, 149);
+            this.listView1.TabIndex = 14;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // prototypeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 329);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(618, 329);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.salg_add_cust_help_btn);
             this.Controls.Add(this.salg_add_cust_btn);
             this.Controls.Add(this.salg_tlf_help_btn);
@@ -203,6 +209,7 @@
         private System.Windows.Forms.Button salg_tlf_help_btn;
         private System.Windows.Forms.Button salg_add_cust_btn;
         private System.Windows.Forms.Button salg_add_cust_help_btn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListView listView1;
     }
 }
