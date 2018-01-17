@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using NorgesEnergi_webapp.Models;
 
-namespace ProductsApp.Controllers
+namespace NorgesEnergi_webapp.Controllers
 {
     public class ProductsController : ApiController
     {
