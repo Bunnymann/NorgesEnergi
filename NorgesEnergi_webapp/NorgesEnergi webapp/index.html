@@ -1,19 +1,76 @@
-﻿<!DOCTYPE html>
+﻿
+
+
+
+<!DOCTYPE html>
 <html>
     <link rel="stylesheet" type="text/css" href="css/main.css"> 
 <head>
-    <title>Stats</title>
+    <title>NoregesEnergi</title>
 </head>
 <body>
     <h1>Det nye gode hjelpesystemet til NorgesEnergi</h1>
-    <div class="container">
-        <a href="index.html">
-        </a>
-        <!--Main meny-->
-            <ul class="mainmeny">
-                <li class="mainmeny">Test Page 1</li>
-                <li class="mainmeny">Test Page 2</li>
-            </ul>
-        </div>
+
+    <div class="sidebar">
+        <ul class="mainmeny">
+            <li class="mainmeny"><a href="http://youtube.com">Profil</a></li>
+            <li class="mainmeny"><a href="http://googel.com">Hjelp</a></li>
+        </ul>
+    </div>
+
+    <div class="staticinfo">
+        <p>Test for statisk info</p><br />
+        <p>Nå vises side 1</p><br />
+        <p>Det statiske, tror jeg, skal være likt</p>
+    </div>
+
+    <div class="mainmeny">
+        <ul class="mainmeny">
+            <li class="mainmeny">HjelpeSide 1</li>
+            <li class="mainmeny"><a href="helppage2.html">HjelpSide 2</a></li>
+        </ul>
+    </div>
+
+    <div class="info">
+        <p>Test for meny relatert info</p><br />
+        <p>Nå vises side 1</p><br />
+        <p>Her vil informasjonen variere iht. siden</p>
+    </div>
+
+    <div class="buttom">
+        <br />
+    </div>
+
+    <script>
+    var uri = 'api/products';
+
+    $(document).ready(function () {
+      // Send an AJAX request
+      $.getJSON(uri)
+          .done(function (data) {
+            // On success, 'data' contains a list of products.
+            $.each(data, function (key, item) {
+              // Add a list item for the product.
+              $('<li>', { text: formatItem(item) }).appendTo($('#products'));
+            });
+          });
+    });
+
+    function formatItem(item) {
+      return item.Name + ': $' + item.Price;
+    }
+
+    function find() {
+      var id = $('#prodId').val();
+      $.getJSON(uri + '/' + id)
+          .done(function (data) {
+            $('#product').text(formatItem(data));
+          })
+          .fail(function (jqXHR, textStatus, err) {
+            $('#product').text('Error: ' + err);
+          });
+    }
+    </script>
+
 </body>
 </html>
