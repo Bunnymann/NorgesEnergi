@@ -26,8 +26,9 @@
 
     <div class="mainmeny">
         <ul class="mainmeny">
-            <li class="mainmeny">HjelpeSide 1</li>
-            <li class="mainmeny"><a href="helppage2.html">HjelpSide 2</a></li>
+            <li class="mainmeny"><a href="index.html">Marius</a></li>
+            <li class="mainmeny"><a href="helppage2.html">Eirik</a></li>
+            <li class="mainmeny"><a href="helppage3.html">Benjamin</a></li>
         </ul>
     </div>
 
@@ -40,37 +41,5 @@
     <div class="buttom">
         <br />
     </div>
-
-    <script>
-    var uri = 'api/products';
-
-    $(document).ready(function () {
-      // Send an AJAX request
-      $.getJSON(uri)
-          .done(function (data) {
-            // On success, 'data' contains a list of products.
-            $.each(data, function (key, item) {
-              // Add a list item for the product.
-              $('<li>', { text: formatItem(item) }).appendTo($('#products'));
-            });
-          });
-    });
-
-    function formatItem(item) {
-      return item.Name + ': $' + item.Price;
-    }
-
-    function find() {
-      var id = $('#prodId').val();
-      $.getJSON(uri + '/' + id)
-          .done(function (data) {
-            $('#product').text(formatItem(data));
-          })
-          .fail(function (jqXHR, textStatus, err) {
-            $('#product').text('Error: ' + err);
-          });
-    }
-    </script>
-
 </body>
 </html>
