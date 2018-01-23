@@ -17,12 +17,7 @@
             <li class="mainmeny"><a href="http://youtube.com">Profil</a></li>
             <li class="mainmeny"><a href="http://googel.com">Hjelp</a></li>
             <li>
-                </asp:FormView>
-            </li>
-            <li>
-               <p></p>
-                <p>Den funker enda kun når jeg går inn på den via VS og ikke når jeg trykker på siden</p>
-                <p>er er list boksen som trekker ut hovedkat fra databasen</p>
+                <p>&nbsp;</p>
             </li>
             <li>
                 <asp:ListBox ID="ListBox1" runat="server" DataSourceID="SqlDataSource1" DataTextField="hovedkategori" DataValueField="hovedkategori" AppendDataBoundItems="True" AutoPostBack="True" Width="314px" SelectionMode="Multiple"></asp:ListBox>
@@ -30,8 +25,8 @@
             </li>
             
         </ul>
-
     </div>
+
     <div class="staticinfo">
         <p>Test for statisk info</p><br />
         <p>Nå vises side 1</p><br />
