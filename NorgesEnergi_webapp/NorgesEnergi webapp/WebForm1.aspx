@@ -1,11 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="NorgesEnergi_webapp.WebForm1" %>
 
 <!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="css/main.css">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
-<html>
-<link rel="stylesheet" type="text/css" href="css/main.css">
 <head>
     <title>NoregesEnergi</title>
 </head>

@@ -180,6 +180,20 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="form_bedrift.aspx.cs">
+      <DependentUpon>form_bedrift.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="form_bedrift.aspx.designer.cs">
+      <DependentUpon>form_bedrift.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="form_privat.aspx.cs">
+      <DependentUpon>form_privat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="form_privat.aspx.designer.cs">
+      <DependentUpon>form_privat.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +217,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="form_bedrift.aspx" />
+    <Content Include="form_privat.aspx" />
     <Content Include="Global.asax" />
     <Content Include="helppage2.html" />
     <Content Include="helppage3.html" />
