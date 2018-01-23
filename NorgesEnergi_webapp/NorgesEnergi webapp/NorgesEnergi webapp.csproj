@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -192,6 +193,7 @@
     <Compile Include="Form_hp2.aspx.designer.cs">
       <DependentUpon>Form_hp2.aspx</DependentUpon>
     </Compile>
+    <Compile Include="System\Web\UI\WebControls\ListView.cs" />
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -257,7 +259,6 @@
     <Content Include="Content\Site.css" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="System\Web\UI\WebControls\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>

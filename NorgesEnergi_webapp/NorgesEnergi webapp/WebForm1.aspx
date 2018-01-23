@@ -16,19 +16,29 @@
         <ul class="mainmeny">
             <li class="mainmeny"><a href="http://youtube.com">Profil</a></li>
             <li class="mainmeny"><a href="http://googel.com">Hjelp</a></li>
-            
+            <li>
+                <br />
+            </li>
         </ul>
         <p>
-            &nbsp;</p>
+            <asp:GridView ID="start_grid_view" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" ForeColor="Black" GridLines="Horizontal">
+                <FooterStyle BackColor="#CCCCCC" />
+                <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                <RowStyle BackColor="White" />
+                <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                <SortedAscendingHeaderStyle BackColor="#808080" />
+                <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                <SortedDescendingHeaderStyle BackColor="#383838" />
+            </asp:GridView>
+        </p>
         <ul class="mainmeny">
-            <li>
-                <p>
-                    <asp:GridView ID="GridView1" runat="server">
-                    </asp:GridView>
-                </p>
-            </li>
-            
+            <asp:Table ID="Table1" runat="server">
+            </asp:Table>
         </ul>
+            
+  
     </div>
 
     <div class="staticinfo">
@@ -46,9 +56,33 @@
     </div>
 
     <div class="info">
-        <p>Test for meny relatert info</p><br />
-        <p>Nå vises side 1</p><br />
-        <p>Her vil informasjonen variere iht. siden</p>
+        <p>Test for meny relatert info</p>
+&nbsp;&nbsp;&nbsp;&nbsp; KundeNummer<br />
+        &nbsp;<input id="Kundenummer_Text" type="text" /><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br />
+        &nbsp; <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="list_Db_list" runat="server" OnClick="list_Db_list_Click" Text="getDbList" Width="122px" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="Button1" runat="server" Text="Button" Width="122px" />
+&nbsp;<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:GridView ID="Db_GridView" runat="server" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" ForeColor="Black">
+                <FooterStyle BackColor="#CCCCCC" />
+                <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                <RowStyle BackColor="White" />
+                <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                <SortedAscendingHeaderStyle BackColor="#808080" />
+                <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                <SortedDescendingHeaderStyle BackColor="#383838" />
+            </asp:GridView>
+        </p><br />
     </div>
 
     <div class="buttom">
