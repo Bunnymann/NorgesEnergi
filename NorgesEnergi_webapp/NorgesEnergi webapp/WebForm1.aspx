@@ -16,12 +16,16 @@
         <ul class="mainmeny">
             <li class="mainmeny"><a href="http://youtube.com">Profil</a></li>
             <li class="mainmeny"><a href="http://googel.com">Hjelp</a></li>
+            
+        </ul>
+        <p>
+            &nbsp;</p>
+        <ul class="mainmeny">
             <li>
-                <p>&nbsp;</p>
-            </li>
-            <li>
-                <asp:ListBox ID="ListBox1" runat="server" DataSourceID="SqlDataSource1" DataTextField="hovedkategori" DataValueField="hovedkategori" AppendDataBoundItems="True" AutoPostBack="True" Width="314px" SelectionMode="Multiple"></asp:ListBox>
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Norges_EnergiConnectionString %>" SelectCommand="SELECT [hovedkategori] FROM [hoved_kat]"></asp:SqlDataSource>
+                <p>
+                    <asp:GridView ID="GridView1" runat="server">
+                    </asp:GridView>
+                </p>
             </li>
             
         </ul>
