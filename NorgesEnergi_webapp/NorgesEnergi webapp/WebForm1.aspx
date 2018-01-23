@@ -20,9 +20,12 @@
                 </asp:FormView>
             </li>
             <li>
+               <p></p>
+                <p>Den funker enda kun når jeg går inn på den via VS og ikke når jeg trykker på siden</p>
+                <p>er er list boksen som trekker ut hovedkat fra databasen</p>
             </li>
             <li>
-                <asp:ListBox ID="ListBox1" runat="server" DataSourceID="SqlDataSource1" DataTextField="hovedkategori" DataValueField="hovedkategori"></asp:ListBox>
+                <asp:ListBox ID="ListBox1" runat="server" DataSourceID="SqlDataSource1" DataTextField="hovedkategori" DataValueField="hovedkategori" AppendDataBoundItems="True" AutoPostBack="True" Width="314px" SelectionMode="Multiple"></asp:ListBox>
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Norges_EnergiConnectionString %>" SelectCommand="SELECT [hovedkategori] FROM [hoved_kat]"></asp:SqlDataSource>
             </li>
             
