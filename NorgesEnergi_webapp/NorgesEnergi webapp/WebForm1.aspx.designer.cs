@@ -58,15 +58,6 @@ namespace NorgesEnergi_webapp {
         protected global::System.Web.UI.WebControls.Button list_Db_list;
         
         /// <summary>
-        /// update_grid_color control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button update_grid_color;
-        
-        /// <summary>
         /// Db_GridView control.
         /// </summary>
         /// <remarks>

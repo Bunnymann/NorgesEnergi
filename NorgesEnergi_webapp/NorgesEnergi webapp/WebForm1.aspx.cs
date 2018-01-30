@@ -33,7 +33,7 @@ namespace NorgesEnergi_webapp
             {
                 // Pass the connection to the command object, so the command object knows on which
                 // connection to execute the command
-                SqlCommand list_db_cmd = new SqlCommand("SELECT hjelpekst FROM hjelpeinfo", list_db_connection);
+                SqlCommand list_db_cmd = new SqlCommand("SELECT hjelptekst FROM hjelpeinfo", list_db_connection);
                 // Open the connection. Otherwise you get a runtime error. An open connection is
                 // required to execute the command
                 list_db_connection.Open();
