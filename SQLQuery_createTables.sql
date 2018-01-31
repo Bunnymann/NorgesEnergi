@@ -1,33 +1,33 @@
-﻿CREATE TABLE user_table(
-user_ID INT NOT NULL,
-user_name VARCHAR(50),
-CONSTRAINT user_PK PRIMARY KEY(user_ID)
+CREATE TABLE info(
+info_ID INT IDENTITY(1,1) NOT NULL,
+stage1 VARCHAR(50),
+stage2 VARCHAR(50),
+stage3 VARCHAR(50),
+stage4 VARCHAR(50),
+helptext_sum TEXT,
+helptext_full TEXT,
+helptext_header VARCHAR(50),
+CONSTRAINT info_PK PRIMARY KEY(info_ID)
 );
 
-CREATE TABLE page_table(
-page_ID INT NOT NULL,
-page_text TEXT,
-user_ID INT NOT NULL,
-CONSTRAINT page_PK PRIMARY KEY(page_ID),
-CONSTRAINT page_user_FK FOREIGN KEY(user_ID) REFERENCES dbo.user_table(user_ID)
+CREATE TABLE category(
+category_ID INT IDENTITY(1,1) NOT NULL,
+category_name VARCHAR(50),
+parent_ID INT,
+CONSTRAINT category_PK PRIMARY KEY(category_ID),
+CONSTRAINT category_FK FOREIGN KEY(parent_ID) REFERENCES category(category_ID) ON DELETE CASCADE
 );
 
-CREATE TABLE help_table(
-help_ID INT NOT NULL,
-help_text TEXT NOT NULL,
-CONSTRAINT help_FK PRIMARY KEY(help_ID)
+CREATE TABLE metatag(
+metatag_ID INT IDENTITY(1,1) NOT NULL,
+metatag_tag VARCHAR(50) NOT NULL,
+CONSTRAINT metatag_PK PRIMARY KEY(metatag_ID)
 );
 
-CREATE TABLE helppage_table(
-page_ID INT NOT NULL,
-help_ID INT NOT NULL,
-CONSTRAINT helppage_page_FK FOREIGN KEY(page_ID) REFERENCES dbo.page_table(page_ID),
-CONSTRAINT helppage_help_FK FOREIGN KEY(help_ID) REFERENCES dbo.help_table(help_ID)
-);
-
-CREATE TABLE helpedit_table(
-user_ID INT NOT NULL,
-help_ID INT NOT NULL,
-CONSTRAINT helpedit_user_FK FOREIGN KEY(user_ID) REFERENCES dbo.user_table(user_ID),
-CONSTRAINT helpedit_help_FK FOREIGN KEY(help_ID) REFERENCES dbo.help_table(help_ID)
-); 
+CREATE TABLE metainfo (
+category_ID INT NOT NULL,
+metatag_ID INT NOT NULL,
+CONSTRAINT metainfo_PK PRIMARY KEY(category_ID, metatag_ID),
+CONSTRAINT category_ID FOREIGN KEY(category_ID) REFERENCES category(category_ID) ON DELETE CASCADE,
+CONSTRAINT metatag_ID FOREIGN KEY(metatag_ID) REFERENCES metatag(metatag_ID) ON DELETE CASCADE
+);  
