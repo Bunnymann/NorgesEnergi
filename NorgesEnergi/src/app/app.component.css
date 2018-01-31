@@ -1,0 +1,36 @@
+h1 {
+  text-align: center;
+  display: inline-block;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607D8B;
+  line-height: 1em;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+h3 {
+  text-align: left;
+  text-decoration: underline;
+}
+
+div.admin {
+  float: left;
+  width: 20%;
+}
+
+label.dropdown {
+  float: right;
+  color: black;
+}
+
+label.helptext {
+  text-align: left;
+  text-decoration: underline;
+  margin-right: 75px;
+}
+
+
+
+
