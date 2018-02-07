@@ -1,24 +1,25 @@
-<h1>Weather forecast</h1>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
-<p>This component demonstrates fetching data from the server.</p>
+<h1>Create new help</h1>
+<div class="login-block">
+    <div ng-controller="AppCtrl">
+        <p>Stage1 - {{ddSelectSelected}}</p>
+        <div dropdown-select="ddSelectOptions"
+             dropdown-model="ddSelectSelected"
+             dropdown-item-label="text">
+        </div>
+    </div>
+    <br /><input type="text" placeholder="search" id="search" />
+    <input type="text" placeholder="stage1" id="stage" /><br />
+    <input type="text" placeholder="stage2" id="stage" /><br />
+    <input type="text" placeholder="stage3" id="stage" /><br />
+    <input type="text" placeholder="stage4" id="stage" /><br />
+    <input type="text" placeholder="header" id="header" /><br />
+    <input type="text" placeholder="summary" id="summary" /><br />
+    <input type="text" placeholder="long help text" id="longtext" /><br />
+    <input type="text" placeholder="metatags" id="header" />
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
-
-<table class='table' *ngIf="forecasts">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let forecast of forecasts">
-            <td>{{ forecast.dateFormatted }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
-        </tr>
-    </tbody>
-</table>
+    <button>Add help</button>
+    <button>Edit help</button>
+    <button>Delete help</button>
+</div>
