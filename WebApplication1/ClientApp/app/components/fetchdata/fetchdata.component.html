@@ -1,15 +1,6 @@
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-
-<h1>Create new help</h1>
 <div class="login-block">
-    <div ng-controller="AppCtrl">
-        <p>Stage1 - {{ddSelectSelected}}</p>
-        <div dropdown-select="ddSelectOptions"
-             dropdown-model="ddSelectSelected"
-             dropdown-item-label="text">
-        </div>
-    </div>
-    <br /><input type="text" placeholder="search" id="search" />
+    <h1>Create new help</h1>
+    <input type="text" placeholder="search" id="search" />
     <input type="text" placeholder="stage1" id="stage" /><br />
     <input type="text" placeholder="stage2" id="stage" /><br />
     <input type="text" placeholder="stage3" id="stage" /><br />
@@ -18,8 +9,7 @@
     <input type="text" placeholder="summary" id="summary" /><br />
     <input type="text" placeholder="long help text" id="longtext" /><br />
     <input type="text" placeholder="metatags" id="header" />
-
-    <button>Add help</button>
-    <button>Edit help</button>
-    <button>Delete help</button>
+    <button (click)="alertAdd()">Add help</button>
+    <button (click)="alertEdit()">Edit help</button>
+    <button (click)="alertDelete()">Delete help</button>
 </div>

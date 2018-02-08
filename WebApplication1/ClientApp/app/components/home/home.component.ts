@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'home',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
     styleUrls: ['./Login.css']
 })
 export class HomeComponent {
+
+    constructor(private router: Router) {
+    }
+
+    public gotoAdmin() {
+        this.router.navigate(["admin"]);
+    }
 }
