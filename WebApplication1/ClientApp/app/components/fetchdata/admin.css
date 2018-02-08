@@ -93,3 +93,17 @@ body {
         .login-block button:hover {
             background: #ff7b81;
         }
+
+    .login-block select {
+        width: 55%;
+        height: 35px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+        font-size: 12px;
+        font-family: Montserrat;
+        padding: 0 20px 0 50px;
+        outline: none;
+        float: right;
+    }

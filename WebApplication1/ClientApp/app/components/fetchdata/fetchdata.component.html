@@ -1,10 +1,18 @@
 <div class="login-block">
     <h1>Create new help</h1>
     <input type="text" placeholder="search" id="search" />
-    <input type="text" placeholder="stage1" id="stage" /><br />
-    <input type="text" placeholder="stage2" id="stage" /><br />
-    <input type="text" placeholder="stage3" id="stage" /><br />
-    <input type="text" placeholder="stage4" id="stage" /><br />
+    <select [(ngModel)]="selectedStage1">
+        <option *ngFor="let s of stage1" [ngValue]="s"> {{s.name}} </option>
+    </select>
+    <select [(ngModel)]="selectedStage2">
+        <option *ngFor="let s of stage2" [ngValue]="s"> {{s.name}} </option>
+    </select>
+    <select [(ngModel)]="selectedStage3">
+        <option *ngFor="let s of stage3" [ngValue]="s"> {{s.name}} </option>
+    </select>
+    <select [(ngModel)]="selectedStage4">
+        <option *ngFor="let s of stage4" [ngValue]="s"> {{s.name}} </option>
+    </select>
     <input type="text" placeholder="header" id="header" /><br />
     <input type="text" placeholder="summary" id="summary" /><br />
     <input type="text" placeholder="long help text" id="longtext" /><br />
