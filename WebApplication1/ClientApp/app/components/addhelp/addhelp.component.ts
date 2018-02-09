@@ -2,11 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 
 @Component({
-    selector: 'fetchdata',
-    templateUrl: './fetchdata.component.html',
-    styleUrls: ['./admin.css']
+    selector: 'addhelp',
+    templateUrl: './addhelp.component.html',
+    styleUrls: ['./addhelp.component.css']
 })
-export class FetchDataComponent {
+export class AddHelpComponent {
     
     stage1 = [{ 'name': 'NOR' }, { 'name': 'SWE' }, { 'name': 'FIN' }];
     selectedStage1 = this.stage1[0];

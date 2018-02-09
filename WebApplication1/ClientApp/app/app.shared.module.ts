@@ -5,15 +5,15 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
-import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
+import { LoginComponent } from './components/login/login.component';
+import { AddHelpComponent } from './components/addhelp/addhelp.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        FetchDataComponent,
-        HomeComponent
+        AddHelpComponent,
+        LoginComponent
     ],
     imports: [
         CommonModule,
@@ -21,9 +21,9 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
         FormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'admin', component: FetchDataComponent },
+            { path: 'home', component: LoginComponent },
+            { path: 'fetch-data', component: AddHelpComponent },
+            { path: 'admin', component: AddHelpComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
