@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Dapper;
 using System.Configuration;
+using System.Data;
 
 namespace WebApplication1
 {
@@ -18,24 +19,8 @@ namespace WebApplication1
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
+            IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         }
-            static void ReadProducts()
-            {
-                var connectionString = ConfigurationManager.ConnectionStrings["Category"].ConnectionString;
-                string queryString = "SELECT Id, ProductName FROM dbo.Products;";
-                using (var connection = new SqlConnection(connectionString))
-                {
-                    var command = new SqlCommand(queryString, connection);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Console.WriteLine(String.Format("{0}, {1}", reader[0], reader[1]));
-                        }
-                    }
-                }
-            }
         
 
         public static IWebHost BuildWebHost(string[] args) =>
