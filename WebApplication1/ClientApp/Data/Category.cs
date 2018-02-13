@@ -15,8 +15,4 @@ namespace WebApplication1.ClientApp.Data
         public int parent_ID { get; set; }
     }
 
-    public List<Category> ReadAll()
-    {
-        using ConfigurationManager.Equals(2);
-    }
 }
