@@ -10,8 +10,9 @@ namespace WebApplication1.ClientApp.Data
 {
     public class Category
     {
-        public int Category_ID { get; set; }
-        public string Category_name { get; set; }
-        public int Parent_ID { get; set; }
+        public int category_ID { get; set; }
+        public string category_name { get; set; }
+        public int parent_ID { get; set; }
     }
+
 }
