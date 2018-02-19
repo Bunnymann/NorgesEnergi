@@ -59,5 +59,29 @@ namespace WebApplication1.Controllers
             }
             return false;
         }
+
+        [HttpGet]
+        public ActionResult EditCategory(int id)
+        {
+            var obj = conn.Query<Category>("SELECT Category_name, Parent_ID FROM category WHERE Category_ID = @Category_ID", new { Category_ID = id });
+
+            if (obj != null)
+            {
+                Category model = new Category();
+                model.Category_name = obj.FirstOrDefault().Category_name;
+                model.Parent_ID = obj.FirstOrDefault().Parent_ID;
+                return View(model);
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditCategory(Category model, int id)
+        {
+            var obj = conn.Execute("UPDATE category set [Category_name] = @Category_name, [Parent_ID] = @Parent_ID WHERE Category_ID = @Category_ID", new { Category_ID = id });
+
+            return RedirectToAction("List");
+        }
+
+
     }
 }
