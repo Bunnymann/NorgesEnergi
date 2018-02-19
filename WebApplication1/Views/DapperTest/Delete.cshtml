@@ -33,6 +33,10 @@
     
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <div>
+            <if (Request.UrlReferrer !=null>
+                <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Back</a><br />
+            </if>
+        </div>
     </form>
 </div>

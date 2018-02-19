@@ -23,9 +23,10 @@
         </form>
     </div>
 </div>
-
 <div>
-    <a asp-action="Index">Back to List</a>
+    <if (Request.UrlReferrer !=null>
+        <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Back</a><br />
+    </if>
 </div>
 
 @section Scripts {
