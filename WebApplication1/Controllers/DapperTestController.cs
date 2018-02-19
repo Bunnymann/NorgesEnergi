@@ -61,27 +61,42 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditCategory(int id)
+        public ActionResult Details(int id)
         {
-            var obj = conn.Query<Category>("SELECT Category_name, Parent_ID FROM category WHERE Category_ID = @Category_ID", new { Category_ID = id });
+            var obj = conn.Query<Category>("select * from category where category_ID =  @categoryID", new { categoryID = id });
+
+            if(obj != null)
+            {
+                Category model = new Category();
+                    model.Category_ID = obj.FirstOrDefault().Category_ID;
+                    model.Category_name = obj.FirstOrDefault().Category_name;
+                    model.Parent_ID = obj.FirstOrDefault().Parent_ID;
+                    return View(model);                
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var obj = conn.Query<Category>("select category_name from category where category_ID = @categoryID", new { categoryID = id });
 
             if (obj != null)
             {
                 Category model = new Category();
                 model.Category_name = obj.FirstOrDefault().Category_name;
-                model.Parent_ID = obj.FirstOrDefault().Parent_ID;
                 return View(model);
             }
             return View();
         }
+        
         [HttpPost]
-        public ActionResult EditCategory(Category model, int id)
+        public ActionResult Edit(Category model, int id)
         {
-            var obj = conn.Execute("UPDATE category set [Category_name] = @Category_name, [Parent_ID] = @Parent_ID WHERE Category_ID = @Category_ID", new { Category_ID = id });
+            var obj = conn.Execute("update category set [category_name] = @categoryName where category_ID = @categoryID", new { categoryID = id, categoryName = model.Category_name });
 
-            return RedirectToAction("List");
+            return RedirectToAction("list");
         }
-
 
     }
 }
