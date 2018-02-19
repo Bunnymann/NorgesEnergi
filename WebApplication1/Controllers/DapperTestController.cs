@@ -79,12 +79,14 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var obj = conn.Query<Category>("select category_name from category where category_ID = @categoryID", new { categoryID = id });
+            var obj = conn.Query<Category>("select * from category where category_ID = @categoryID", new { categoryID = id });
 
             if (obj != null)
             {
                 Category model = new Category();
+                model.Category_ID = obj.FirstOrDefault().Category_ID;
                 model.Category_name = obj.FirstOrDefault().Category_name;
+                model.Parent_ID = obj.FirstOrDefault().Parent_ID;
                 return View(model);
             }
             return View();
@@ -94,6 +96,30 @@ namespace WebApplication1.Controllers
         public ActionResult Edit(Category model, int id)
         {
             var obj = conn.Execute("update category set [category_name] = @categoryName where category_ID = @categoryID", new { categoryID = id, categoryName = model.Category_name });
+
+            return RedirectToAction("list");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var obj = conn.Query<Category>("select * from category where category_ID = @categoryID", new { categoryID = id });
+
+            if (obj != null)
+            {
+                Category model = new Category();
+                model.Category_ID = obj.FirstOrDefault().Category_ID;
+                model.Category_name = obj.FirstOrDefault().Category_name;
+                model.Parent_ID = obj.FirstOrDefault().Parent_ID;
+                return View(model);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Category model, int id)
+        {
+            var obj = conn.Execute("delete from category where category_ID = @categoryID", new { categoryID = id });
 
             return RedirectToAction("list");
         }

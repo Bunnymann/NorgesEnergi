@@ -18,6 +18,11 @@
                 <span asp-validation-for="Category_name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Parent_ID" class="control-label"></label>
+                <input asp-for="Parent_ID" class="form-control" />
+                <span asp-validation-for="Parent_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
