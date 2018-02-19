@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
                 foreach (var row in obj)
                 {
                     Category model = new Category();
-                    model.Category_ID = row.Category_ID;
+                    model.Info_ID = row.Info_ID;
                     model.Category_name = row.Category_name;
                     model.Parent_ID = row.Parent_ID;
                     result.Add(model);
@@ -35,7 +35,7 @@ namespace WebApplication1.Controllers
         }
         public List<Category> GetAll()
         {
-            var obj = conn.Query<Category>("Select * FROM category").OrderByDescending(u => u.Category_ID).Take(10).ToList();
+            var obj = conn.Query<Category>("Select * FROM category").OrderByDescending(u => u.Info_ID).Take(10).ToList();
             return obj;
         }
 
@@ -68,7 +68,7 @@ namespace WebApplication1.Controllers
             if(obj != null)
             {
                 Category model = new Category();
-                    model.Category_ID = obj.FirstOrDefault().Category_ID;
+                    model.Info_ID = obj.FirstOrDefault().Info_ID;
                     model.Category_name = obj.FirstOrDefault().Category_name;
                     model.Parent_ID = obj.FirstOrDefault().Parent_ID;
                     return View(model);                
@@ -84,7 +84,7 @@ namespace WebApplication1.Controllers
             if (obj != null)
             {
                 Category model = new Category();
-                model.Category_ID = obj.FirstOrDefault().Category_ID;
+                model.Info_ID = obj.FirstOrDefault().Info_ID;
                 model.Category_name = obj.FirstOrDefault().Category_name;
                 model.Parent_ID = obj.FirstOrDefault().Parent_ID;
                 return View(model);
@@ -95,7 +95,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Category model, int id)
         {
-            var obj = conn.Execute("update category set [category_name] = @categoryName where category_ID = @categoryID", new { categoryID = id, categoryName = model.Category_name });
+            var obj = conn.Execute("update category set [category_name] = @categoryName where _ID = @categoryID", new { categoryID = id, categoryName = model.Category_name });
 
             return RedirectToAction("list");
         }
@@ -108,7 +108,7 @@ namespace WebApplication1.Controllers
             if (obj != null)
             {
                 Category model = new Category();
-                model.Category_ID = obj.FirstOrDefault().Category_ID;
+                model.Info_ID = obj.FirstOrDefault().Info_ID;
                 model.Category_name = obj.FirstOrDefault().Category_name;
                 model.Parent_ID = obj.FirstOrDefault().Parent_ID;
                 return View(model);
