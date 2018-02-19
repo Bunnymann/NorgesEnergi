@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebApplication1.ClientApp.Data.MetaInfo>
+
+@{
+    ViewData["Title"] = "list";
+}
+
+<h2>GetAll</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.category_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.metatag_ID)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.category_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.metatag_ID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.category_ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.category_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.category_ID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
