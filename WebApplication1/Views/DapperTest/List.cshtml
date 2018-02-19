@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication1.ClientApp.Data.Category>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "list";
 }
 
 <h2>List</h2>
@@ -13,13 +13,7 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Category_ID)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Category_name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Parent_ID)
                 </th>
             <th></th>
         </tr>
@@ -28,13 +22,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Category_ID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Category_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Parent_ID)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

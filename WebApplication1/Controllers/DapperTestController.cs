@@ -38,5 +38,26 @@ namespace WebApplication1.Controllers
             var obj = conn.Query<Category>("Select * FROM category").OrderByDescending(u => u.Category_ID).Take(10).ToList();
             return obj;
         }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Category model)
+        {
+            var obj = InsertCategory(model);
+            return RedirectToAction("list");
+        }
+        public bool InsertCategory(Category model)
+        {
+            int rowsAffected = conn.Execute("INSERT INTO category([category_name]) VALUES (@categoryName)", new { categoryName = model.Category_name });
+            if( rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
