@@ -16,7 +16,7 @@ namespace WebApplication1.Controllers
          */
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
 
-        public ActionResult List(Category name, MetaTags tag)
+        public ActionResult List()
         {
             var obj = GetAll();
             List<MetaInfo> result = new List<MetaInfo>();

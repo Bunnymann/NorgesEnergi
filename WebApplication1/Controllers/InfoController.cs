@@ -24,6 +24,7 @@ namespace WebApplication1.Controllers
                 foreach (var row in obj)
                 {
                     Info model = new Info();
+                    model.info_ID = row.info_ID;
                     model.stage1 = row.stage1;
                     model.stage2 = row.stage2;
                     model.stage3 = row.stage3;
@@ -57,7 +58,7 @@ namespace WebApplication1.Controllers
         }
         public bool InsertInfo(Info model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO info ([stage1]),([stage2]),([stage3]),([stage4]),([Helptext_sum]),([helptext_full]),([helptext_header]) VALUES (@stage01), (@stage02), (@stage03), (@stage04), (@helptextsum), (@helptextfull), (@helptextheader)", new { stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4, helptextsum = model.helptext_sum, helptextfull = model.helptext_full, helptextheader = model.helptext_header });
+            int rowsAffected = conn.Execute("INSERT INTO info ([stage1],[stage2],[stage3],[stage4],[Helptext_sum],[helptext_full],[helptext_header]) VALUES (@stage01, @stage02, @stage03, @stage04, @helptextsum, @helptextfull, @helptextheader)", new { stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4, helptextsum = model.helptext_sum, helptextfull = model.helptext_full, helptextheader = model.helptext_header });
             if (rowsAffected > 0)
             {
                 return true;
@@ -109,7 +110,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Info model, int id)
         {
-            var obj = conn.Execute("update category set ([stage1]), ([stage2]), ([stage3]), ([stage4]), ([Helptext_sum]), ([helptext_full]), ([helptext_header]) VALUES (@stage01), (@stage02), (@stage03), (@stage04), (@helptextsum), (@helptextfull), (@helptextheader) where Info_ID = @InfoID", new { InfoID = id, stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4, helptextsum = model.helptext_sum, helptextfull = model.helptext_full, helptextheader = model.helptext_header });
+            var obj = conn.Execute("update info set [stage1] = @stage01 ,[stage2] = @stage02,[stage3] = @stage03,[stage4] = @stage04,[Helptext_sum] = @helptextsum,[helptext_full] = @Helptextfull,[helptext_header] = @helptextheader where Info_ID = @InfoID", new { InfoID = id, stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4, helptextsum = model.helptext_sum, helptextfull = model.helptext_full, helptextheader = model.helptext_header });
 
             return RedirectToAction("list");
         }
