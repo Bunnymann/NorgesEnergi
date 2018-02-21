@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="helptext_full" class="control-label"></label>
-                <input asp-for="helptext_full" class="form-control" />
+                <input asp-for="helptext_full" class="control-label" style="height:100px" />
                 <span asp-validation-for="helptext_full" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -56,7 +56,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="list">Back to List</a>
 </div>
 
 @section Scripts {

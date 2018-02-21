@@ -31,9 +31,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Category_ID }) |
-    <if (Request.UrlReferrer !=null>
-        <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Back</a><br />
-    </if>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Category_ID }) 
+        <a asp-action="list">Back to List</a>
 </div>
 

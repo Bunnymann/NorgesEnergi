@@ -12,21 +12,21 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.category_ID)
+            @Html.DisplayNameFor(model => model.category_name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.category_ID)
+            @Html.DisplayFor(model => model.category_name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.metatag_ID)
+            @Html.DisplayNameFor(model => model.metatag_tag)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.metatag_ID)
+            @Html.DisplayFor(model => model.metatag_tag)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="list">Back to List</a>
     </form>
 </div>

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<WebApplication1.ClientApp.Data.MetaInfo>
 
 @{
-    ViewData["Title"] = "list";
+    ViewData["Title"] = "List";
 }
 
-<h2>GetAll</h2>
+<h2>List</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,10 +13,10 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.category_ID)
+                    @Html.DisplayNameFor(model => model.category_name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.metatag_ID)
+                    @Html.DisplayNameFor(model => model.metatag_tag)
                 </th>
             <th></th>
         </tr>
@@ -25,15 +25,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.category_ID)
+                @Html.DisplayFor(modelItem => item.category_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.metatag_ID)
+                @Html.DisplayFor(modelItem => item.metatag_tag)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.category_ID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.category_ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.category_ID })
+                @Html.ActionLink("Delete", "Delete", new {id=item.metainfo_ID })
             </td>
         </tr>
 }

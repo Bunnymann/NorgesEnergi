@@ -25,8 +25,11 @@ namespace WebApplication1.Controllers
                 foreach (var row in obj)
                 {
                     MetaInfo model = new MetaInfo();
+                    model.metainfo_ID = row.metainfo_ID;
                     model.category_ID = row.category_ID;
+                    model.category_name = row.category_name;
                     model.metatag_ID = row.metatag_ID;
+                    model.metatag_tag = row.metatag_tag;
                     result.Add(model);
                 }
             }
@@ -34,7 +37,7 @@ namespace WebApplication1.Controllers
         }
         public List<MetaInfo> GetAll()
         {
-            var obj = conn.Query<MetaInfo>("select category.category_name, metatag.metatag_tag from category inner join metainfo on category.category_ID = metainfo.category_ID inner join metatag on metainfo.metatag_ID = metatag.metatag_ID").ToList();
+            var obj = conn.Query<MetaInfo>("select metainfo_ID, category.category_name, category.category_ID, metatag.metatag_tag, metatag.metatag_ID from category inner join metainfo on category.category_ID = metainfo.category_ID inner join metatag on metainfo.metatag_ID = metatag.metatag_ID").ToList();
             return obj;
         }
 
@@ -62,18 +65,21 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var obj = conn.Query<MetaInfo>("select * from metainfo where category_ID =  @categoryID", new { categoryID = id });
+            var obj = conn.Query<MetaInfo>("select category.category_name, category.category_ID, metatag.metatag_tag, metatag.metatag_ID from category inner join metainfo on category.category_ID = metainfo.category_ID inner join metatag on metainfo.metatag_ID = metatag.metatag_ID where category.category_ID =  @categoryID", new { categoryID = id });
 
-            if (obj != null)
+            foreach (var row in obj)
             {
                 MetaInfo model = new MetaInfo();
-                model.category_ID = obj.FirstOrDefault().category_ID;
-                model.metatag_ID = obj.FirstOrDefault().metatag_ID;
+                model.category_ID = row.category_ID;
+                model.category_name = row.category_name;
+                model.metatag_ID = row.metatag_ID;
+                model.metatag_tag = row.metatag_tag;
                 return View(model);
             }
             return View();
         }
 
+        /*
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -96,16 +102,20 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("list");
         }
+        */
 
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var obj = conn.Query<MetaInfo>("select * from metainfo where category_ID = @categoryID", new { categoryID = id });
+            var obj = conn.Query<MetaInfo>("select metainfo_ID, category.category_name, category.category_ID, metatag.metatag_tag, metatag.metatag_ID from category inner join metainfo on category.category_ID = metainfo.category_ID inner join metatag on metainfo.metatag_ID = metatag.metatag_ID where metainfo_ID = @metainfoID", new { metainfoID = id });
 
             if (obj != null)
             {
                 MetaInfo model = new MetaInfo();
+                model.metainfo_ID = obj.FirstOrDefault().metainfo_ID;
                 model.category_ID = obj.FirstOrDefault().category_ID;
+                model.category_name = obj.FirstOrDefault().category_name;
+                model.metatag_tag = obj.FirstOrDefault().metatag_tag;
                 model.metatag_ID = obj.FirstOrDefault().metatag_ID;
                 return View(model);
             }
@@ -115,10 +125,9 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Delete(MetaInfo model, int id)
         {
-            var obj = conn.Execute("delete  from metainfo where metatag_ID = @metatagID", new { metatagID = id });
+            var obj = conn.Execute("delete from metainfo where metainfo_ID = @metainfoID", new { metainfoID = id });
 
             return RedirectToAction("list");
         }
-
     }
 }

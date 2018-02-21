@@ -17,14 +17,25 @@
             @Html.DisplayFor(model => model.category_ID)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.category_name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.category_name)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.metatag_ID)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.metatag_ID)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.metatag_tag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.metatag_tag)
+        </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="list">Back to List</a>
 </div>
