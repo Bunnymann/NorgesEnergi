@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
     styleUrls: ['./addhelp.component.css']
 })
 export class AddHelpComponent {
+    constructor(private _httpService: Http) { }
+    title: string = "Ny hjelpetekst";
+    apiValues: string[] = [];
     
     stage1 = [{ 'name': 'NOR' }, { 'name': 'SWE' }, { 'name': 'FIN' }];
     selectedStage1 = this.stage1[0];
@@ -34,4 +37,3 @@ export class AddHelpComponent {
     }
 
 }
-
