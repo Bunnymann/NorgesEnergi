@@ -48,12 +48,12 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Create(Stage1 model)
         {
-            var obj = InsertCategory(model);
+            var obj = InsertStage1(model);
             return RedirectToAction("list");
         }
-        public bool InsertCategory(Stage1 model)
+        public bool InsertStage1(Stage1 model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO stage1([stage1_name]) VALUES (@stage1Name)", new { stage1Name = model.stage1_name });
+            int rowsAffected = conn.Execute("INSERT INTO stage1([stage1_name], [helptext_ID]) VALUES (@name, @helptextID) ", new { name = model.stage1_name, helptextID = model.helptext_ID });
             if (rowsAffected > 0)
             {
                 return true;
@@ -64,7 +64,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var obj = conn.Query<Stage1>("select * from stage1 where stage1_ID =  @stage1_ID", new { stage1_ID = id });
+            var obj = conn.Query<Stage1>("SELECT * from stage1 WHERE stage1_ID =  @stage1_ID", new { stage1_ID = id });
 
             if (obj != null)
             {
@@ -80,7 +80,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var obj = conn.Query<Stage1>("select * from stage1 where stage1_ID = @stage1_ID", new { stage1_ID = id });
+            var obj = conn.Query<Stage1>("SELECT * from stage1 WHERE stage1_ID = @stage1_ID", new { stage1_ID = id });
 
             if (obj != null)
             {
@@ -96,7 +96,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Stage1 model, int id)
         {
-            var obj = conn.Execute("update stage1 set [stage1_name] = @stage1Name where stage1_ID = @stage1_ID", new { stage1_ID = id, stage1Name = model.stage1_name });
+            var obj = conn.Execute("UPDATE stage1 set [stage1_name] = @stage1Name WHERE stage1_ID = @stage1_ID", new { stage1_ID = id, stage1Name = model.stage1_name });
 
             return RedirectToAction("list");
         }
@@ -104,7 +104,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var obj = conn.Query<Stage1>("select * from stage1 where stage1_ID = @stage1_ID", new { stage1_ID = id });
+            var obj = conn.Query<Stage1>("SELECT * from stage1 WHERE stage1_ID = @stage1_ID", new { stage1_ID = id });
 
             if (obj != null)
             {
@@ -120,7 +120,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Delete(Stage1 model, int id)
         {
-            var obj = conn.Execute("delete from stage1 where stage1_ID = @stage1_ID", new { stage1_ID = id });
+            var obj = conn.Execute("DELETE from stage1 WHERE stage1_ID = @stage1_ID", new { stage1_ID = id });
 
             return RedirectToAction("list");
         }

@@ -13,6 +13,11 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="stage3_name" class="control-label"></label>
+                <input asp-for="stage3_name" class="form-control" />
+                <span asp-validation-for="stage3_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="helptext_ID" class="control-label"></label>
                 <input asp-for="helptext_ID" class="form-control" />
                 <span asp-validation-for="helptext_ID" class="text-danger"></span>
