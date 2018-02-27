@@ -48,12 +48,12 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Create(Stage2 model)
         {
-            var obj = InsertStage3(model);
+            var obj = InsertStage2(model);
             return RedirectToAction("list");
         }
-        public bool InsertStage3(Stage2 model)
+        public bool InsertStage2(Stage2 model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO Stage2([stage2_name]) VALUES (@Stage2Name)", new { categoryName = model.stage2_name });
+            int rowsAffected = conn.Execute("INSERT INTO Stage2([stage2_name]) VALUES (@stage2_name)", new { stage2_name = model.stage2_name });
             if (rowsAffected > 0)
             {
                 return true;
@@ -96,7 +96,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Stage2 model, int id)
         {
-            var obj = conn.Execute("update Stage2 set [Stage2_name] = @stage2_name where _ID = @stage2_ID", new { categoryID = id, categoryName = model.stage2_name });
+            var obj = conn.Execute("update Stage2 set [stage2_name] = @stage2_name where stage2_ID = @stage2_ID", new { stage2_ID = id, stage2_name = model.stage2_name });
 
             return RedirectToAction("list");
         }

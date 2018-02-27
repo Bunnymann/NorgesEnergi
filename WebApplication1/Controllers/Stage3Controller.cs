@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
                 {
                     Stage3 model = new Stage3();
                     model.Stage3_ID = row.Stage3_ID;
-                    model.Stage_name = row.Stage_name;
+                    model.stage3_name = row.stage3_name;
                     model.helptext_ID = row.helptext_ID;
                     result.Add(model);
                 }
@@ -47,12 +47,12 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Create(Stage3 model)
         {
-            var obj = InsertCategory(model);
+            var obj = InsertStage3(model);
             return RedirectToAction("list");
         }
-        public bool InsertCategory(Stage3 model)
+        public bool InsertStage3(Stage3 model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO Stage3([stage_name], [helptext_ID]) VALUES (@stageName, @helptextID)", new { stageName = model.Stage_name, helptextID = model.helptext_ID});
+            int rowsAffected = conn.Execute("INSERT INTO Stage3([stage3_name], [helptext_ID]) VALUES (@stage3_name, @helptext_ID)", new { stage3_name = model.stage3_name, helptextID = model.helptext_ID});
             if( rowsAffected > 0)
             {
                 return true;
@@ -69,7 +69,7 @@ namespace WebApplication1.Controllers
             {
                 Stage3 model = new Stage3();
                     model.Stage3_ID = obj.FirstOrDefault().Stage3_ID;
-                    model.Stage_name = obj.FirstOrDefault().Stage_name;
+                    model.stage3_name = obj.FirstOrDefault().stage3_name;
                     model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                     return View(model);                
             }
@@ -85,7 +85,7 @@ namespace WebApplication1.Controllers
             {
                 Stage3 model = new Stage3();
                 model.Stage3_ID = obj.FirstOrDefault().Stage3_ID;
-                model.Stage_name = obj.FirstOrDefault().Stage_name;
+                model.stage3_name = obj.FirstOrDefault().stage3_name;
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 return View(model);
             }
@@ -95,7 +95,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Stage3 model, int id)
         {
-            var obj = conn.Execute("update stage3 set [Stage_name] = @stageName where _ID = @stage3ID", new { stage3ID = id, stageName = model.Stage_name });
+            var obj = conn.Execute("update stage3 set [Stage3_name] = @stage3_Name where _ID = @stage3_ID", new { stage3ID = id, stage3_Name = model.stage3_name });
 
             return RedirectToAction("list");
         }
@@ -109,7 +109,7 @@ namespace WebApplication1.Controllers
             {
                 Stage3 model = new Stage3();
                 model.Stage3_ID = obj.FirstOrDefault().Stage3_ID;
-                model.Stage_name = obj.FirstOrDefault().Stage_name;
+                model.stage3_name = obj.FirstOrDefault().stage3_name;
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 return View(model);
             }

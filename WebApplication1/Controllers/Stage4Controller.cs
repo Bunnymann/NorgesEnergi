@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
         }
         public List<Stage4> GetAll()
         {
-            var obj = conn.Query<Stage4>("Select * FROM category").OrderByDescending(u => u.stage4_ID).Take(10).ToList();
+            var obj = conn.Query<Stage4>("Select * FROM Stage4").OrderByDescending(u => u.stage4_ID).Take(10).ToList();
             return obj;
         }
 
@@ -48,12 +48,12 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Create(Stage4 model)
         {
-            var obj = InsertCategory(model);
+            var obj = InsertStage4(model);
             return RedirectToAction("list");
         }
-        public bool InsertCategory(Stage4 model)
+        public bool InsertStage4(Stage4 model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO Stage4([stage4_name]) VALUES (@stage4_Name)", new { categoryName = model.stage4_name });
+            int rowsAffected = conn.Execute("INSERT INTO Stage4([stage4_name]) VALUES (@stage4_name)", new { stage4_name = model.stage4_name });
             if (rowsAffected > 0)
             {
                 return true;
@@ -64,7 +64,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var obj = conn.Query<Stage4>("select * from category where category_ID =  @categoryID", new { categoryID = id });
+            var obj = conn.Query<Stage4>("select * from Stage4 where stage4_ID =  @stage4_ID", new { stage4_ID = id });
 
             if (obj != null)
             {
@@ -96,7 +96,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Stage4 model, int id)
         {
-            var obj = conn.Execute("update Stage4 set [stage4_name] = @stage4_Name where _ID = @stage4_ID", new { stage4_ID = id, categoryName = model.stage4_name });
+            var obj = conn.Execute("update Stage4 set [stage4_name] = @stage4_name where stage4_ID = @stage4_ID", new { stage4_ID = id, stage4_name = model.stage4_name });
 
             return RedirectToAction("list");
         }

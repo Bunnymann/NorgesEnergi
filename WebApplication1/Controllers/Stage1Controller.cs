@@ -96,7 +96,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Stage1 model, int id)
         {
-            var obj = conn.Execute("update stage1 set [stage1_name] = @stage1Name where _ID = @stage1_ID", new { stage1_ID = id, stage1Name = model.stage1_name });
+            var obj = conn.Execute("update stage1 set [stage1_name] = @stage1Name where stage1_ID = @stage1_ID", new { stage1_ID = id, stage1Name = model.stage1_name });
 
             return RedirectToAction("list");
         }
