@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
         }
         public List<MetaInfo> GetAll()
         {
-            var obj = conn.Query<MetaInfo>("select metainfo_ID, category.category_name, category.category_ID, metatag.metatag_tag, metatag.metatag_ID from category inner join metainfo on category.category_ID = metainfo.category_ID inner join metatag on metainfo.metatag_ID = metatag.metatag_ID").ToList();
+            var obj = conn.Query<MetaInfo>("SELECT * FROM metatag").ToList();
             return obj;
         }
 

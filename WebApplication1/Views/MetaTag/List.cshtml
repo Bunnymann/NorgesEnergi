@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication1.ClientApp.Data.MetaTag>
+﻿@model IEnumerable<WebApplication1.ClientApp.Data.Metatag>
 
 @{
     ViewData["Title"] = "List";
@@ -16,7 +16,7 @@
                     @Html.DisplayNameFor(model => model.metatag_ID)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.metatag_tag)
+                    @Html.DisplayNameFor(model => model.tag)
                 </th>
             <th></th>
         </tr>
@@ -28,17 +28,14 @@
                 @Html.DisplayFor(modelItem => item.metatag_ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.metatag_tag)
+                @Html.DisplayFor(modelItem => item.tag)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.metatag_ID  }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.metatag_ID  }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.metatag_ID  })
+                @Html.ActionLink("Edit", "Edit", new { id=item.metatag_ID }) 
+                @Html.ActionLink("Details", "Details", new { id=item.metatag_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.metatag_ID })
             </td>
         </tr>
 }
     </tbody>
 </table>
-<div>
-    <a asp-action="list">Back to List</a>
-</div>
