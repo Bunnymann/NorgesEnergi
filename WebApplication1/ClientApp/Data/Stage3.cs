@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.ClientApp.Data
 {
-    public class Category
+    public class Stage3
     {
-        public int Category_ID { get; set; }
-        public string Category_name { get; set; }
-        public int Parent_ID { get; set; }
+        public int Stage3_ID { get; set; }
+        public string Stage_name { get; set; }
+        public int helptext_ID { get; set; }
     }
 }

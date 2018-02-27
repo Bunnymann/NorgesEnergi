@@ -1,0 +1,36 @@
+﻿@model WebApplication1.ClientApp.Data.Stage3
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Stage3</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Stage3_ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stage3_ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stage_name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stage_name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.helptext_ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.helptext_ID)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Stage3_ID }) |
+    <a asp-action="Index">Back to List</a>
+</div>
