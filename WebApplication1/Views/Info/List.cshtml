@@ -12,7 +12,9 @@
 <table class="table">
     <thead>
         <tr>
-              
+                <th>
+                    @Html.DisplayNameFor(model => model.info_ID)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.stage1)
                 </th>
@@ -25,22 +27,15 @@
                 <th>
                     @Html.DisplayNameFor(model => model.stage4)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.helptext_sum)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.helptext_full)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.helptext_header)
-                </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-          
+            <td>
+                @Html.DisplayFor(modelItem => item.info_ID)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.stage1)
             </td>
@@ -54,18 +49,9 @@
                 @Html.DisplayFor(modelItem => item.stage4)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_sum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.helptext_full)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.helptext_header)
-            </td>
-            <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.info_ID}) |
-                @Html.ActionLink("Details", "Details", new { id=item.info_ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.info_ID})
+                @Html.ActionLink("Details", "Details", new { id = item.info_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.info_ID })
             </td>
         </tr>
 }

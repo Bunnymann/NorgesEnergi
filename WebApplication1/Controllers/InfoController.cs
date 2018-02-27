@@ -29,9 +29,7 @@ namespace WebApplication1.Controllers
                     model.stage2 = row.stage2;
                     model.stage3 = row.stage3;
                     model.stage4 = row.stage4;
-                    model.helptext_sum = row.helptext_sum;
-                    model.helptext_full = row.helptext_full;
-                    model.helptext_header = row.helptext_header;
+               
                     result.Add(model);
                 }
             }
@@ -58,7 +56,7 @@ namespace WebApplication1.Controllers
         }
         public bool InsertInfo(Info model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO info ([stage1],[stage2],[stage3],[stage4],[Helptext_sum],[helptext_full],[helptext_header]) VALUES (@stage01, @stage02, @stage03, @stage04, @helptextsum, @helptextfull, @helptextheader)", new { stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4, helptextsum = model.helptext_sum, helptextfull = model.helptext_full, helptextheader = model.helptext_header });
+            int rowsAffected = conn.Execute("INSERT INTO info ([stage1],[stage2],[stage3],[stage4] VALUES (@stage01, @stage02, @stage03, @stage04)", new { stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4});
             if (rowsAffected > 0)
             {
                 return true;
@@ -79,9 +77,7 @@ namespace WebApplication1.Controllers
                 model.stage2 = obj.FirstOrDefault().stage2;
                 model.stage3 = obj.FirstOrDefault().stage3;
                 model.stage4 = obj.FirstOrDefault().stage4;
-                model.helptext_sum = obj.FirstOrDefault().helptext_sum;
-                model.helptext_full = obj.FirstOrDefault().helptext_full;
-                model.helptext_header = obj.FirstOrDefault().helptext_header;
+          
                 return View(model);
             }
             return View();
@@ -99,9 +95,7 @@ namespace WebApplication1.Controllers
                 model.stage2 = obj.FirstOrDefault().stage2;
                 model.stage3 = obj.FirstOrDefault().stage3;
                 model.stage4 = obj.FirstOrDefault().stage4;
-                model.helptext_sum = obj.FirstOrDefault().helptext_sum;
-                model.helptext_full = obj.FirstOrDefault().helptext_full;
-                model.helptext_header = obj.FirstOrDefault().helptext_header;
+           
                 return View(model);
             }
             return View();
@@ -110,7 +104,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Info model, int id)
         {
-            var obj = conn.Execute("update info set [stage1] = @stage01 ,[stage2] = @stage02,[stage3] = @stage03,[stage4] = @stage04,[Helptext_sum] = @helptextsum,[helptext_full] = @Helptextfull,[helptext_header] = @helptextheader where Info_ID = @InfoID", new { InfoID = id, stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4, helptextsum = model.helptext_sum, helptextfull = model.helptext_full, helptextheader = model.helptext_header });
+            var obj = conn.Execute("update info set [stage1] = @stage01 ,[stage2] = @stage02,[stage3] = @stage03,[stage4] = @stage04 where Info_ID = @InfoID", new { InfoID = id, stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4 });
 
             return RedirectToAction("list");
         }
@@ -128,9 +122,7 @@ namespace WebApplication1.Controllers
                 model.stage2 = obj.FirstOrDefault().stage2;
                 model.stage3 = obj.FirstOrDefault().stage3;
                 model.stage4 = obj.FirstOrDefault().stage4;
-                model.helptext_sum = obj.FirstOrDefault().helptext_sum;
-                model.helptext_full = obj.FirstOrDefault().helptext_full;
-                model.helptext_header = obj.FirstOrDefault().helptext_header;
+          
                 return View(model);
             }
             return View();

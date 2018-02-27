@@ -12,7 +12,6 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           
             <div class="form-group">
                 <label asp-for="stage1" class="control-label"></label>
                 <input asp-for="stage1" class="form-control" />
@@ -34,21 +33,6 @@
                 <span asp-validation-for="stage4" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="helptext_sum" class="control-label"></label>
-                <input asp-for="helptext_sum" class="form-control" />
-                <span asp-validation-for="helptext_sum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="helptext_full" class="control-label"></label>
-                <input asp-for="helptext_full" class="form-control" />
-                <span asp-validation-for="helptext_full" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="helptext_header" class="control-label"></label>
-                <input asp-for="helptext_header" class="form-control" />
-                <span asp-validation-for="helptext_header" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
@@ -56,7 +40,7 @@
 </div>
 
 <div>
-    <a asp-action="list">Back to List</a>
+    <a asp-action="List">Back to List</a>
 </div>
 
 @section Scripts {

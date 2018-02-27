@@ -40,27 +40,9 @@
         <dd>
             @Html.DisplayFor(model => model.stage4)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.helptext_sum)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.helptext_sum)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.helptext_full)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.helptext_full)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.helptext_header)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.helptext_header)
-        </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new {id = Model.info_ID }) |
-    <a asp-action="list">Back to List</a>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.info_ID}) |
+    <a asp-action="List">Back to List</a>
 </div>
