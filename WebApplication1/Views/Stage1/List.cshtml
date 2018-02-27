@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebApplication1.ClientApp.Model.Stage1>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.stage1_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.stage1_name)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.stage1_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stage1_name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.stage1_ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.stage1_ID}) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.stage1_ID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
