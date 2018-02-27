@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication1.ClientApp.Data.Helptext>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.helptext_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.helptext_header)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.helptext_short)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.helptext_long)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.helptext_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.helptext_header)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.helptext_short)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.helptext_long)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.helptext_ID }) 
+                @Html.ActionLink("Details", "Details", new {  id=item.helptext_ID  }) 
+                @Html.ActionLink("Delete", "Delete", new {  id=item.helptext_ID  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
