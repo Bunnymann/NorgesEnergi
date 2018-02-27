@@ -1,21 +1,21 @@
-﻿@model WebApplication1.ClientApp.Data.MetaInfo
+﻿@model WebApplication1.ClientApp.Data.Helptexttag
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
-<h4>MetaInfo</h4>
+<h4>Helptexttag</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="category_ID" class="control-label"></label>
-                <input asp-for="category_ID" class="form-control" />
-                <span asp-validation-for="category_ID" class="text-danger"></span>
+                <label asp-for="helptext_ID" class="control-label"></label>
+                <input asp-for="helptext_ID" class="form-control" />
+                <span asp-validation-for="helptext_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="metatag_ID" class="control-label"></label>
@@ -23,14 +23,14 @@
                 <span asp-validation-for="metatag_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="list">Back to List</a>
+    <a asp-action="List">Back to List</a>
 </div>
 
 @section Scripts {

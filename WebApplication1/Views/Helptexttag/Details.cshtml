@@ -1,0 +1,36 @@
+﻿@model WebApplication1.ClientApp.Data.Helptexttag
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Helptexttag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.helptexttag_ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.helptexttag_ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.helptext_ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.helptext_ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.metatag_ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.metatag_ID)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.helptexttag_ID }) 
+    <a asp-action="List">Back to List</a>
+</div>
