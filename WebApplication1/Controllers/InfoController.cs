@@ -25,11 +25,15 @@ namespace WebApplication1.Controllers
                 {
                     Info model = new Info();
                     model.info_ID = row.info_ID;
-                    model.stage1 = row.stage1;
-                    model.stage2 = row.stage2;
-                    model.stage3 = row.stage3;
-                    model.stage4 = row.stage4;
-               
+                    model.stage1_name = row.stage1_name;
+                    model.stage2_name = row.stage2_name;
+                    model.stage3_name = row.stage3_name;
+                    model.stage4_name = row.stage4_name;
+                    model.stage1_ID = row.stage1_ID;
+                    model.stage2_ID = row.stage2_ID;
+                    model.stage3_ID = row.stage3_ID;
+                    model.stage4_ID = row.stage4_ID;
+
                     result.Add(model);
                 }
             }
@@ -37,7 +41,7 @@ namespace WebApplication1.Controllers
         }
         public List<Info> GetAll()
         {
-            var obj = conn.Query<Info>("Select * FROM info").OrderByDescending(u => u.info_ID).Take(10).ToList();
+            var obj = conn.Query<Info>("select info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name from info inner join stage1 on info.stage1_ID = stage1.stage1_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID inner join stage4 on info.stage4_ID = stage4.stage4_ID; ").OrderByDescending(u => u.info_ID).Take(10).ToList();
             return obj;
         }
 
@@ -56,7 +60,7 @@ namespace WebApplication1.Controllers
         }
         public bool InsertInfo(Info model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO info ([stage1_ID],[stage2_ID],[stage3_ID],[stage4_ID]) VALUES (@stage01, @stage02, @stage03, @stage04)", new { stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4});
+            int rowsAffected = conn.Execute("INSERT INTO info ([stage1_ID],[stage2_ID],[stage3_ID],[stage4_ID]) VALUES (@stage01, @stage02, @stage03, @stage04)", new { stage01 = model.stage1_ID, stage02 = model.stage2_ID, stage03 = model.stage3_ID, stage04 = model.stage4_ID});
             if (rowsAffected > 0)
             {
                 return true;
@@ -67,16 +71,16 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var obj = conn.Query<Info>("SELECT * FROM info WHERE info_ID = @infoID", new { infoID = id });
+            var obj = conn.Query<Info>("select info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name from info inner join stage1 on info.stage1_ID = stage1.stage1_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID inner join stage4 on info.stage4_ID = stage4.stage4_ID WHERE info_ID = @infoID", new { infoID = id });
 
             if (obj != null)
             {
                 Info model = new Info();
                 model.info_ID = obj.FirstOrDefault().info_ID;
-                model.stage1 = obj.FirstOrDefault().stage1;
-                model.stage2 = obj.FirstOrDefault().stage2;
-                model.stage3 = obj.FirstOrDefault().stage3;
-                model.stage4 = obj.FirstOrDefault().stage4;
+                model.stage1_name = obj.FirstOrDefault().stage1_name;
+                model.stage2_name = obj.FirstOrDefault().stage2_name;
+                model.stage3_name = obj.FirstOrDefault().stage3_name;
+                model.stage4_name = obj.FirstOrDefault().stage4_name;
           
                 return View(model);
             }
@@ -91,10 +95,10 @@ namespace WebApplication1.Controllers
             if (obj != null)
             {
                 Info model = new Info();
-                model.stage1 = obj.FirstOrDefault().stage1;
-                model.stage2 = obj.FirstOrDefault().stage2;
-                model.stage3 = obj.FirstOrDefault().stage3;
-                model.stage4 = obj.FirstOrDefault().stage4;
+                model.stage1_name = obj.FirstOrDefault().stage1_name;
+                model.stage2_name = obj.FirstOrDefault().stage2_name;
+                model.stage3_name = obj.FirstOrDefault().stage3_name;
+                model.stage4_name = obj.FirstOrDefault().stage4_name;
            
                 return View(model);
             }
@@ -104,7 +108,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Info model, int id)
         {
-            var obj = conn.Execute("update info set [stage1_ID] = @stage01 ,[stage2_ID] = @stage02,[stage3_ID] = @stage03,[stage4_ID] = @stage04 where Info_ID = @InfoID", new { InfoID = id, stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4 });
+            var obj = conn.Execute("update info set [stage1_ID] = @stage01 ,[stage2_ID] = @stage02,[stage3_ID] = @stage03,[stage4_ID] = @stage04 where Info_ID = @InfoID", new { InfoID = id, stage01 = model.stage1_ID, stage02 = model.stage2_ID, stage03 = model.stage3_ID, stage04 = model.stage4_ID });
 
             return RedirectToAction("list");
         }
@@ -118,10 +122,10 @@ namespace WebApplication1.Controllers
             {
                 Info model = new Info();
                 model.info_ID = obj.FirstOrDefault().info_ID;
-                model.stage1 = obj.FirstOrDefault().stage1;
-                model.stage2 = obj.FirstOrDefault().stage2;
-                model.stage3 = obj.FirstOrDefault().stage3;
-                model.stage4 = obj.FirstOrDefault().stage4;
+                model.stage1_name = obj.FirstOrDefault().stage1_name;
+                model.stage2_name = obj.FirstOrDefault().stage2_name;
+                model.stage3_name = obj.FirstOrDefault().stage3_name;
+                model.stage4_name = obj.FirstOrDefault().stage4_name;
           
                 return View(model);
             }
