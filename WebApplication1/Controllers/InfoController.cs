@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.ClientApp.Data;
 using Dapper;
-
 
 namespace WebApplication1.Controllers
 {
@@ -29,10 +26,6 @@ namespace WebApplication1.Controllers
                     model.stage2_name = row.stage2_name;
                     model.stage3_name = row.stage3_name;
                     model.stage4_name = row.stage4_name;
-                    model.stage1_ID = row.stage1_ID;
-                    model.stage2_ID = row.stage2_ID;
-                    model.stage3_ID = row.stage3_ID;
-                    model.stage4_ID = row.stage4_ID;
 
                     result.Add(model);
                 }
@@ -116,7 +109,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var obj = conn.Query<Info>("select * from info where info_Id = @infoID", new { infoID = id });
+            var obj = conn.Query<Info>("select info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name from info inner join stage1 on info.stage1_ID = stage1.stage1_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID inner join stage4 on info.stage4_ID = stage4.stage4_ID WHERE info_ID = @infoID", new { infoID = id });
 
             if (obj != null)
             {

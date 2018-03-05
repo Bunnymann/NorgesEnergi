@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Norges_EnergiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="stage1">
+    <Key>
+      <PropertyRef Name="stage1_ID" />
+    </Key>
+    <Property Name="stage1_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="stage1_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="helptext_ID" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="NE_Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="stage1" EntityType="Self.stage1" />
+  </EntityContainer>
+</Schema>

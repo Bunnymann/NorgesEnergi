@@ -14,7 +14,7 @@ namespace WebApplication1.ClientApp.Data
         public string stage1_name { get; set; }
         [DisplayName("Stage 2")]
         public string stage2_name { get; set; }
-        [DisplayName("Stage3 ")]
+        [DisplayName("Stage 3")]
         public string stage3_name { get; set; }
         [DisplayName("Stage 4")]
         public string stage4_name { get; set; }

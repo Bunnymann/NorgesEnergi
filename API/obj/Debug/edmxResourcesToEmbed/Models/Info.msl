@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Norges_EnergiModelStoreContainer" CdmEntityContainer="NE_Entity_Info">
+    <EntitySetMapping Name="info">
+      <EntityTypeMapping TypeName="Norges_EnergiModel.info">
+        <MappingFragment StoreEntitySet="info">
+          <ScalarProperty Name="info_ID" ColumnName="info_ID" />
+          <ScalarProperty Name="stage1_ID" ColumnName="stage1_ID" />
+          <ScalarProperty Name="stage2_ID" ColumnName="stage2_ID" />
+          <ScalarProperty Name="stage3_ID" ColumnName="stage3_ID" />
+          <ScalarProperty Name="stage4_ID" ColumnName="stage4_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
