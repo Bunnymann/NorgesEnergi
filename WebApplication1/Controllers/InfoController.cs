@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
         }
         public bool InsertInfo(Info model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO info ([stage1],[stage2],[stage3],[stage4]) VALUES (@stage01, @stage02, @stage03, @stage04)", new { stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4});
+            int rowsAffected = conn.Execute("INSERT INTO info ([stage1_ID],[stage2_ID],[stage3_ID],[stage4_ID]) VALUES (@stage01, @stage02, @stage03, @stage04)", new { stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4});
             if (rowsAffected > 0)
             {
                 return true;
@@ -104,7 +104,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Info model, int id)
         {
-            var obj = conn.Execute("update info set [stage1] = @stage01 ,[stage2] = @stage02,[stage3] = @stage03,[stage4] = @stage04 where Info_ID = @InfoID", new { InfoID = id, stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4 });
+            var obj = conn.Execute("update info set [stage1_ID] = @stage01 ,[stage2_ID] = @stage02,[stage3_ID] = @stage03,[stage4_ID] = @stage04 where Info_ID = @InfoID", new { InfoID = id, stage01 = model.stage1, stage02 = model.stage2, stage03 = model.stage3, stage04 = model.stage4 });
 
             return RedirectToAction("list");
         }
