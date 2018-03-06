@@ -1,14 +1,17 @@
-﻿@Model OI
+﻿@Model
 @{
     ViewBag.Title = "StagesDDL";
 }
 
 <h2>StagesDDL</h2>
 
-@Html.DropDownList("stage1List", ViewBag.stage1List as SelectList, "Select Stage 1")
-@Html.DropDownList("stage2List", ViewBag.stage2List as SelectList, "Select Stage 2")
 <div class="form-group">
+    @Html.DropDownList("stage1List", ViewBag.stage1List as SelectList, "Select Stage 1")
+    @Html.DropDownList("stage2List", ViewBag.stage2List as SelectList, "Select Stage 2")
+</div>
+<div class="form-group" style="width: 30%">
     @Html.DropDownList("stage3List", ViewBag.stage3List as SelectList, "Select Stage 3")
 </div>
-@Html.DropDownList("stage4List", ViewBag.stage4List as SelectList, "Select Stage 4")
-
+<div class="form-group" style="width: 30%">
+    @Html.DropDownList("stage4List", ViewBag.stage4List as SelectList, "Select Stage 4")
+</div>

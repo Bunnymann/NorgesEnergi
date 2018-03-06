@@ -156,8 +156,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HelptextController.cs" />
+    <Compile Include="Controllers\HelptexttagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfoController.cs" />
+    <Compile Include="Controllers\MetatagController.cs" />
+    <Compile Include="Controllers\Stage1Controller.cs" />
+    <Compile Include="Controllers\Stage2Controller.cs" />
+    <Compile Include="Controllers\Stage3Controller.cs" />
+    <Compile Include="Controllers\Stage4Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

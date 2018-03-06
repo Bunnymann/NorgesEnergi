@@ -1,36 +1,23 @@
-﻿@{
+﻿@model IEnumerable<API.Models.stage3>
+
+@{
     ViewBag.Title = "Stage3DDLSearch";
 }
-<link href="~/Content/css/select2.min.css" rel="stylesheet" />
 
-<h2>Stage 3 searchable dropdownlist</h2>
+<h2>Quickly Generate Invoice</h2>
 
-<div class="jumbotron">
-    <select class="stages" style="width:300px;"></select>
-</div>
+@using (Html.BeginForm("Stage3DDLSearch", "stage3", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
 
-<script>
-    $(document).ready(function () {
-        $(".stages").select2({
-            placeholder: "Select stage",
-            allowClear: true,
-            theme: "classic",
-            ajax: {
-                url: "/Info/Stage3DDLSearch",
-                datatype: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        search: params.term
-                    };
-                },
-                processResults: function (data, params) {
-                    return {
-                        results: data.Results
-                    };
-                }
-            }
-        });
-    });
-</script>
-<script src="~/Scripts/select2.min.js"></script>
+    @Html.DropDownList("stage3search", (SelectList)ViewBag.stage3List, "Select stage3", new { @class = "form-control" })
+    <input type="submit" value="Search" class="btn btn-primary" />
+}
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        @Html.DisplayFor(model => item.stage3_name)
+    }
+}
