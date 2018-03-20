@@ -177,6 +177,7 @@
     <Compile Include="Models\info.cs">
       <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InfoViewModel.cs" />
     <Compile Include="Models\metatag.cs">
       <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
     </Compile>
@@ -293,6 +294,8 @@
     <Content Include="Views\Stage1\Details.cshtml" />
     <Content Include="Views\Stage1\Edit.cshtml" />
     <Content Include="Views\Stage1\List.cshtml" />
+    <Content Include="Views\Info\List.cshtml" />
+    <Content Include="Views\Info\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

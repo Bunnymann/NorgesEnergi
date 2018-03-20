@@ -1,0 +1,58 @@
+﻿@model IEnumerable<API.Models.info>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.info_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage1_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage2_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage3_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage4_ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.info_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stage1_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stage2_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stage3_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stage4_ID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
