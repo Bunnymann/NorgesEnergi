@@ -270,6 +270,11 @@
     <Content Include="Views\Helptext\List.cshtml" />
     <Content Include="Views\Helptext\Create.cshtml" />
     <Content Include="Views\Helptext\Details.cshtml" />
+    <Content Include="Views\Stage4\List.cshtml" />
+    <Content Include="Views\Stage4\Create.cshtml" />
+    <Content Include="Views\Stage4\Details.cshtml" />
+    <Content Include="Views\Stage4\Edit.cshtml" />
+    <Content Include="Views\Stage4\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
