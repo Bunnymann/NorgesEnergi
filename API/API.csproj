@@ -270,6 +270,24 @@
     <Content Include="Views\Helptext\List.cshtml" />
     <Content Include="Views\Helptext\Create.cshtml" />
     <Content Include="Views\Helptext\Details.cshtml" />
+    <Content Include="Views\Helptext\Edit.cshtml" />
+    <Content Include="Views\Helptext\Delete.cshtml" />
+    <Content Include="Views\Helptexttag\Create.cshtml" />
+    <Content Include="Views\Stage1\List.cshtml" />
+    <Content Include="Views\Stage1\Create.cshtml" />
+    <Content Include="Views\Stage1\Details.cshtml" />
+    <Content Include="Views\Stage1\Edit.cshtml" />
+    <Content Include="Views\Stage1\Delete.cshtml" />
+    <Content Include="Views\Stage2\List.cshtml" />
+    <Content Include="Views\Stage2\Create.cshtml" />
+    <Content Include="Views\Stage2\Details.cshtml" />
+    <Content Include="Views\Stage2\Edit.cshtml" />
+    <Content Include="Views\Stage2\Delete.cshtml" />
+    <Content Include="Views\stage3\List.cshtml" />
+    <Content Include="Views\stage3\Create.cshtml" />
+    <Content Include="Views\stage3\Details.cshtml" />
+    <Content Include="Views\stage3\Edit.cshtml" />
+    <Content Include="Views\stage3\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
