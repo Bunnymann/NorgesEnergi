@@ -168,6 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\HelpTagsViewModel.cs" />
     <Compile Include="Models\helptext.cs">
       <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
     </Compile>
@@ -296,6 +297,8 @@
     <Content Include="Views\Stage1\List.cshtml" />
     <Content Include="Views\Info\List.cshtml" />
     <Content Include="Views\Info\Create.cshtml" />
+    <Content Include="Views\Info\Index.cshtml" />
+    <Content Include="Views\Info\AddTags.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

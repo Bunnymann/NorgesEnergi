@@ -1,0 +1,35 @@
+﻿@model API.Models.HelpTagsViewModel
+@{
+    ViewBag.Title = "AddTags";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create new helptext</h2>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+<div class="container" style="width:40%;margin-top:2%">
+
+    @using (Html.BeginForm("AddTags", "Info", FormMethod.Post))
+    {
+        @Html.TextBoxFor(model => model.helptext_header, new { @class = "form-control", @placeholder = "header" })
+        @Html.TextBoxFor(model => model.helptext_header, new { @class = "form-control", @placeholder = "summary" })
+        @Html.TextBoxFor(model => model.helptext_header, new { @class = "form-control", @placeholder = "text" })
+
+        @Html.TextBoxFor(model => model.tag, new { @class = "form-control", @placeholder = "tags" })
+
+        <input type="submit" value="Submit" class="btn btn-block btn-primary" />
+
+    }
+
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -5,6 +5,9 @@ using System.Linq;
 using Dapper;
 using System.Web.Mvc;
 using API.Models;
+using System;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace WebApplication1.Controllers
 {
@@ -12,6 +15,7 @@ namespace WebApplication1.Controllers
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
 
+        /**
         public ActionResult StagesDDL()
         {
             Norges_EnergiEntities myStages1 = new Norges_EnergiEntities();
@@ -35,7 +39,7 @@ namespace WebApplication1.Controllers
             ViewBag.stage4List = list4;
 
             return View();
-        }
+        }*/
 
         public ActionResult DDLSearchStage3()
         {
@@ -53,7 +57,7 @@ namespace WebApplication1.Controllers
         {
             Norges_EnergiEntities stages = new Norges_EnergiEntities();
             var stageList = stages.stage3.Where(x => x.stage3_name.Contains(search)).ToList();
-            return Json(stageList,JsonRequestBehavior.AllowGet);
+            return Json(stageList, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult viewAll()
@@ -183,6 +187,128 @@ namespace WebApplication1.Controllers
         }
     
      */
+
+
+        public ActionResult Index()
+        {
+            Norges_EnergiEntities db = new Norges_EnergiEntities();
+
+            List<stage1> stage1List = db.stage1.ToList();
+            ViewBag.stage1List = new SelectList(stage1List, "stage1_ID", "stage1_name");
+
+            List<stage2> stage2List = db.stage2.ToList();
+            ViewBag.stage2List = new SelectList(stage2List, "stage2_ID", "stage2_name");
+
+            List<stage3> stage3List = db.stage3.ToList();
+            ViewBag.stage3List = new SelectList(stage3List, "stage3_ID", "stage3_name");
+
+            List<stage4> stage4List = db.stage4.ToList();
+            ViewBag.stage4List = new SelectList(stage4List, "stage4_ID", "stage4_name");
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Index(InfoViewModel model)
+        {
+            try
+            {
+                Norges_EnergiEntities db = new Norges_EnergiEntities();
+
+                List<stage1> stage1List = db.stage1.ToList();
+                ViewBag.stage1List = new SelectList(stage1List, "stage1_ID", "stage1_name");
+
+                List<stage2> stage2List = db.stage2.ToList();
+                ViewBag.stage2List = new SelectList(stage2List, "stage2_ID", "stage2_name");
+
+                List<stage3> stage3List = db.stage3.ToList();
+                ViewBag.stage3List = new SelectList(stage3List, "stage3_ID", "stage3_name");
+
+                List<stage4> stage4List = db.stage4.ToList();
+                ViewBag.stage4List = new SelectList(stage4List, "stage4_ID", "stage4_name");
+
+                helptext help = new helptext();
+                help.helptext_header = model.helptext_header;
+                help.helptext_short = model.helptext_short;
+                help.helptext_long = model.helptext_long;
+
+                db.helptext.Add(help);
+                db.SaveChanges();
+                int latesthelp = help.helptext_ID;
+
+                metatag tag = new metatag();
+                tag.metatag_ID = model.metatag_ID;
+                tag.tag = model.tag;
+
+                db.metatag.Add(tag);
+                db.SaveChanges();
+                int latesttag = tag.metatag_ID;
+
+                helptexttag hptag = new helptexttag();
+                hptag.helptext_ID = latesthelp;
+                hptag.metatag_ID = latesttag;
+
+                db.helptexttag.Add(hptag);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return View(model);
+        }
+
+        public ActionResult AddTags()
+        {
+            Norges_EnergiEntities db = new Norges_EnergiEntities();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddTags(HelpTagsViewModel model)
+        {
+            try
+            {
+                Norges_EnergiEntities db = new Norges_EnergiEntities();
+
+                helptext help = new helptext();
+                help.helptext_ID = model.helptext_ID;
+                help.helptext_header = model.helptext_header;
+                help.helptext_short = model.helptext_short;
+                help.helptext_long = model.helptext_long;
+
+                db.helptext.Add(help);
+                db.SaveChanges();
+                int lasthelp = help.helptext_ID;
+
+                metatag tag = new metatag();
+                tag.metatag_ID = model.tag_ID;
+                tag.tag = model.tag;
+
+                db.metatag.Add(tag);
+                db.SaveChanges();
+                int lasttag = tag.metatag_ID;
+
+                helptexttag htag = new helptexttag();
+                htag.helptext_ID = lasthelp;
+                htag.metatag_ID = lasttag;
+
+                db.helptexttag.Add(htag);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                                                validationError.PropertyName,
+                                                validationError.ErrorMessage);
+                    }
+                }
+            }
+            return View(model);
+        }
 
     }
 }
