@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
             ViewBag.stage2List = list2;
 
             Norges_EnergiEntities myStages3 = new Norges_EnergiEntities();
-            var getStages3 = myStages3.stage3_name.ToList();
+            var getStages3 = myStages3.stage3.ToList();
             SelectList list3 = new SelectList(getStages3, "stage3_ID", "stage3_name");
             ViewBag.stage3List = list3;
 
@@ -39,7 +39,7 @@ namespace WebApplication1.Controllers
         public ActionResult DDLSearchStage3()
         {
             Norges_EnergiEntities stages = new Norges_EnergiEntities();
-            return View(stages.stage3_name.ToList());
+            return View(stages.stage3.ToList());
         }
 
         public ActionResult DDLSearchStage4()
@@ -51,7 +51,7 @@ namespace WebApplication1.Controllers
         public ActionResult Stage3DDLSearch(string search)
         {
             Norges_EnergiEntities stages = new Norges_EnergiEntities();
-            var stageList = stages.stage3_name.Where(x => x.stage3_name.Contains(search)).ToList();
+            var stageList = stages.stage3.Where(x => x.stage3_name.Contains(search)).ToList();
             return Json(stageList,JsonRequestBehavior.AllowGet);
         }
     }

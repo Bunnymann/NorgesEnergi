@@ -4,9 +4,9 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using WebApplication1.ClientApp.Data;
 using Dapper;
+using System.Web.Mvc;
+using API.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -19,12 +19,12 @@ namespace WebApplication1.Controllers
         public ActionResult List()
         {
             var obj = GetAll();
-            List<Metatag> result = new List<Metatag>();
+            List<metatag> result = new List<metatag>();
             if (obj != null)
             {
                 foreach (var row in obj)
                 {
-                    Metatag model = new Metatag();
+                    metatag model = new metatag();
                     model.metatag_ID = row.metatag_ID;
                     model.tag = row.tag;
                     result.Add(model);
@@ -32,9 +32,9 @@ namespace WebApplication1.Controllers
             }
             return View(result);
         }
-        public List<Metatag> GetAll()
+        public List<metatag> GetAll()
         {
-            var obj = conn.Query<Metatag>("SELECT * FROM Metatag").OrderByDescending(u => u.metatag_ID).Take(10).ToList();
+            var obj = conn.Query<metatag>("SELECT * FROM Metatag").OrderByDescending(u => u.metatag_ID).Take(10).ToList();
             return obj;
         }
 
@@ -44,12 +44,12 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Metatag model)
+        public ActionResult Create(metatag model)
         {
             var obj = InsertMetatag(model);
             return RedirectToAction("list");
         }
-        public bool InsertMetatag(Metatag model)
+        public bool InsertMetatag(metatag model)
         {
             int rowsAffected = conn.Execute("INSERT INTO Metatag([tag]) VALUES (@metatag)", new { metatag = model.tag });
             if (rowsAffected > 0)
@@ -62,11 +62,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var obj = conn.Query<Metatag>("SELECT * FROM Metatag WHERE metatag_ID = @metatag_ID", new { Metatag_ID = id });
+            var obj = conn.Query<metatag>("SELECT * FROM Metatag WHERE metatag_ID = @metatag_ID", new { Metatag_ID = id });
 
             if (obj != null)
             {
-                Metatag model = new Metatag();
+                metatag model = new metatag();
                 model.metatag_ID = obj.FirstOrDefault().metatag_ID;
                 model.tag = obj.FirstOrDefault().tag;
                 return View(model);
@@ -77,11 +77,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var obj = conn.Query<Metatag>("SELECT * FROM Metatag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id });
+            var obj = conn.Query<metatag>("SELECT * FROM Metatag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id });
 
             if (obj != null)
             {
-                Metatag model = new Metatag();
+                metatag model = new metatag();
                 model.metatag_ID = obj.FirstOrDefault().metatag_ID;
                 model.tag = obj.FirstOrDefault().tag;
                 return View(model);
@@ -90,9 +90,9 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Metatag model, int id)
+        public ActionResult Edit(metatag model, int id)
         {
-            var obj = conn.Execute("UPDATE Metatag set [tag] = @tag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id, tag = model.tag });
+            var obj = conn.Execute("UPDATE Metatag set [tag] = @mtag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id, mtag = model.tag });
 
             return RedirectToAction("list");
         }
@@ -100,11 +100,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var obj = conn.Query<Metatag>("SELECT * FROM Metatag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id });
+            var obj = conn.Query<metatag>("SELECT * FROM Metatag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id });
 
             if (obj != null)
             {
-                Metatag model = new Metatag();
+                metatag model = new metatag();
                 model.metatag_ID = obj.FirstOrDefault().metatag_ID;
                 model.tag = obj.FirstOrDefault().tag;
                 return View(model);
@@ -113,7 +113,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(Metatag model, int id)
+        public ActionResult Delete(metatag model, int id)
         {
             var obj = conn.Execute("DELETE FROM Metatag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id });
 

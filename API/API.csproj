@@ -267,6 +267,9 @@
     <Content Include="Views\Info\DDLSearchStage3.cshtml" />
     <Content Include="Views\Info\DDLSearchStage4.cshtml" />
     <Content Include="Views\Info\Stage3DDLSearch.cshtml" />
+    <Content Include="Views\Helptext\List.cshtml" />
+    <Content Include="Views\Helptext\Create.cshtml" />
+    <Content Include="Views\Helptext\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

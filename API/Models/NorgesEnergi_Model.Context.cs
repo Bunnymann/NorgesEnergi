@@ -31,7 +31,7 @@ namespace API.Models
         public virtual DbSet<metatag> metatag { get; set; }
         public virtual DbSet<stage1> stage1 { get; set; }
         public virtual DbSet<stage2> stage2 { get; set; }
-        public virtual DbSet<stage3> stage3_name { get; set; }
+        public virtual DbSet<stage3> stage3 { get; set; }
         public virtual DbSet<stage4> stage4 { get; set; }
     }
 }

@@ -11,8 +11,7 @@ namespace API.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class stage3
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,8 +27,5 @@ namespace API.Models
         public virtual helptext helptext { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<info> info { get; set; }
-
-        [NotMapped]
-        public IEnumerable<stage3> stageCollection { get; set; }
     }
 }

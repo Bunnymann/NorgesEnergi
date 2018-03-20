@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using WebApplication1.ClientApp.Data;
 using Dapper;
+using API.Models;
+using System.Web.Mvc;
+using System.Configuration;
 
 namespace WebApplication1.Controllers
 {
@@ -18,12 +16,12 @@ namespace WebApplication1.Controllers
         public ActionResult List()
         {
             var obj = GetAll();
-            List<Helptext> result = new List<Helptext>();
+            List<helptext> result = new List<helptext>();
             if (obj != null)
             {
                 foreach (var row in obj)
                 {
-                    Helptext model = new Helptext();
+                    helptext model = new helptext();
                     model.helptext_ID = row.helptext_ID;
                     model.helptext_header = row.helptext_header;
                     model.helptext_short = row.helptext_short;
@@ -35,9 +33,9 @@ namespace WebApplication1.Controllers
         }
 
         //Get all values from table helptext ordered by helptext header name
-        public List<Helptext> GetAll()
+        public List<helptext> GetAll()
         {
-            var obj = conn.Query<Helptext>("Select * FROM helptext").OrderByDescending(u => u.helptext_header).Take(10).ToList();
+            var obj = conn.Query<helptext>("Select * FROM helptext").OrderByDescending(u => u.helptext_header).Take(10).ToList();
             return obj;
         }
 
@@ -47,12 +45,12 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Helptext model)
+        public ActionResult Create(helptext model)
         {
             var obj = InsertHelptext(model);
             return RedirectToAction("list");
         }
-        public bool InsertHelptext(Helptext model)
+        public bool InsertHelptext(helptext model)
         {
             int rowsAffected = conn.Execute("INSERT INTO helptext([helptext_header], [helptext_short], [helptext_long]) VALUES (@header, @text_short, @text_long)", new { header = model.helptext_header, text_short = model.helptext_short, text_long = model.helptext_long });
             if (rowsAffected > 0)
@@ -65,11 +63,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var obj = conn.Query<Helptext>("SELECT * FROM helptext WHERE helptext_ID =  @text_ID", new { text_ID = id });
+            var obj = conn.Query<helptext>("SELECT * FROM helptext WHERE helptext_ID =  @text_ID", new { text_ID = id });
 
             if (obj != null)
             {
-                Helptext model = new Helptext();
+                helptext model = new helptext();
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 model.helptext_header = obj.FirstOrDefault().helptext_header;
                 model.helptext_short = obj.FirstOrDefault().helptext_short;
@@ -82,11 +80,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var obj = conn.Query<Helptext>("SELECT * FROM helptext WHERE helptext_ID = @textID", new { textID = id });
+            var obj = conn.Query<helptext>("SELECT * FROM helptext WHERE helptext_ID = @textID", new { textID = id });
 
             if (obj != null)
             {
-                Helptext model = new Helptext();
+                helptext model = new helptext();
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 model.helptext_header = obj.FirstOrDefault().helptext_header;
                 model.helptext_short = obj.FirstOrDefault().helptext_short;
@@ -97,7 +95,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Helptext model, int id)
+        public ActionResult Edit(helptext model, int id)
         {
             var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @helpID", new { helpID = id, header = model.helptext_header, text_short = model.helptext_short, text_long = model.helptext_long });
 
@@ -107,11 +105,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var obj = conn.Query<Helptext>("SELECT * FROM helptext WHERE helptext_ID = @textID", new { textID = id });
+            var obj = conn.Query<helptext>("SELECT * FROM helptext WHERE helptext_ID = @textID", new { textID = id });
 
             if (obj != null)
             {
-                Helptext model = new Helptext();
+                helptext model = new helptext();
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 model.helptext_header = obj.FirstOrDefault().helptext_header;
                 model.helptext_short = obj.FirstOrDefault().helptext_short;
@@ -122,7 +120,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(Helptext model, int id)
+        public ActionResult Delete(helptext model, int id)
         {
             var obj = conn.Execute("DELETE FROM helptext WHERE helptext_ID = @textID", new { textID = id });
 

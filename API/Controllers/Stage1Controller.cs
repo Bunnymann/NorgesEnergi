@@ -4,10 +4,9 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using WebApplication1.ClientApp.Data;
 using Dapper;
-using WebApplication1.ClientApp.Model;
+using System.Web.Mvc;
+using API.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -20,12 +19,12 @@ namespace WebApplication1.Controllers
         public ActionResult List()
         {
             var obj = GetAll();
-            List<Stage1> result = new List<Stage1>();
+            List<stage1> result = new List<stage1>();
             if (obj != null)
             {
                 foreach (var row in obj)
                 {
-                    Stage1 model = new Stage1();
+                    stage1 model = new stage1();
                     model.stage1_ID = row.stage1_ID;
                     model.stage1_name = row.stage1_name;
                     model.helptext_ID = row.helptext_ID;
@@ -34,9 +33,9 @@ namespace WebApplication1.Controllers
             }
             return View(result);
         }
-        public List<Stage1> GetAll()
+        public List<stage1> GetAll()
         {
-            var obj = conn.Query<Stage1>("Select * FROM stage1").OrderByDescending(u => u.stage1_ID).Take(10).ToList();
+            var obj = conn.Query<stage1>("Select * FROM stage1").OrderByDescending(u => u.stage1_ID).Take(10).ToList();
             return obj;
         }
 
@@ -46,12 +45,12 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Stage1 model)
+        public ActionResult Create(stage1 model)
         {
             var obj = InsertStage1(model);
             return RedirectToAction("list");
         }
-        public bool InsertStage1(Stage1 model)
+        public bool InsertStage1(stage1 model)
         {
             int rowsAffected = conn.Execute("INSERT INTO stage1([stage1_name], [helptext_ID]) VALUES (@name, @helptextID) ", new { name = model.stage1_name, helptextID = model.helptext_ID });
             if (rowsAffected > 0)
@@ -64,11 +63,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var obj = conn.Query<Stage1>("SELECT * from stage1 WHERE stage1_ID =  @stage1_ID", new { stage1_ID = id });
+            var obj = conn.Query<stage1>("SELECT * from stage1 WHERE stage1_ID =  @stage1_ID", new { stage1_ID = id });
 
             if (obj != null)
             {
-                Stage1 model = new Stage1();
+                stage1 model = new stage1();
                 model.stage1_ID = obj.FirstOrDefault().stage1_ID;
                 model.stage1_name = obj.FirstOrDefault().stage1_name;
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
@@ -80,11 +79,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var obj = conn.Query<Stage1>("SELECT * from stage1 WHERE stage1_ID = @stage1_ID", new { stage1_ID = id });
+            var obj = conn.Query<stage1>("SELECT * from stage1 WHERE stage1_ID = @stage1_ID", new { stage1_ID = id });
 
             if (obj != null)
             {
-                Stage1 model = new Stage1();
+                stage1 model = new stage1();
                 model.stage1_ID = obj.FirstOrDefault().stage1_ID;
                 model.stage1_name = obj.FirstOrDefault().stage1_name;
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
@@ -94,7 +93,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Stage1 model, int id)
+        public ActionResult Edit(stage1 model, int id)
         {
             var obj = conn.Execute("UPDATE stage1 set [stage1_name] = @stage1Name WHERE stage1_ID = @stage1_ID", new { stage1_ID = id, stage1Name = model.stage1_name });
 
@@ -104,11 +103,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var obj = conn.Query<Stage1>("SELECT * from stage1 WHERE stage1_ID = @stage1_ID", new { stage1_ID = id });
+            var obj = conn.Query<stage1>("SELECT * from stage1 WHERE stage1_ID = @stage1_ID", new { stage1_ID = id });
 
             if (obj != null)
             {
-                Stage1 model = new Stage1();
+                stage1 model = new stage1();
                 model.stage1_ID = obj.FirstOrDefault().stage1_ID;
                 model.stage1_name = obj.FirstOrDefault().stage1_name;
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
@@ -118,7 +117,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(Stage1 model, int id)
+        public ActionResult Delete(stage1 model, int id)
         {
             var obj = conn.Execute("DELETE from stage1 WHERE stage1_ID = @stage1_ID", new { stage1_ID = id });
 
