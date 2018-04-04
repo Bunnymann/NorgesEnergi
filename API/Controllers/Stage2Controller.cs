@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Web.Mvc;
 using API.Models;
+using System.Data.Entity.Infrastructure;
 
-namespace WebApplication1.Controllers
+namespace WebApplication .Controllers
 {
     public class Stage2Controller : Controller
     {
         /** To view the list, write /dappertest/list after localhost port
          */
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
-
+        Norges_EnergiEntities db = new Norges_EnergiEntities();
         public ActionResult List()
         {
             var obj = GetAll();
@@ -122,6 +123,42 @@ namespace WebApplication1.Controllers
             var obj = conn.Execute("DELETE from Stage2 WHERE stage2_ID = @stage2_ID", new { stage2_ID = id });
 
             return RedirectToAction("list");
+        }
+
+        public ActionResult CreateStage2()
+        {
+            PopulateHelpDropDownList();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateStage2([Bind(Include = "stage2_ID, stage2_name, helptext_ID")] stage2 stage)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.stage2.Add(stage);
+                    db.SaveChanges();
+                    return RedirectToAction("FullList");
+                }
+            }
+            catch (RetryLimitExceededException /*dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            PopulateHelpDropDownList(stage.helptext_ID);
+            return View(stage);
+        }
+
+        private void PopulateHelpDropDownList(object selecthelp = null)
+        {
+            var helptext = from h in db.helptext
+                           orderby h.helptext_header
+                           select h;
+            ViewBag.helptext_ID = new SelectList(helptext, "helptext_ID", "helptext_header", selecthelp);
         }
 
     }

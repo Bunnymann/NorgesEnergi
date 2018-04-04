@@ -46,7 +46,6 @@ C:\Users\mariu\Documents\NorgesEnergi\API\bin\Microsoft.AI.Web.xml
 C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.csproj.CoreCompileInputs.cache
 C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.dll
 C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.pdb
-C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.csprojResolveAssemblyReference.cache
 C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\ApplicationInsights.config
 C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\API.dll.config
 C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\API.dll
@@ -145,3 +144,4 @@ C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.csprojResolveAsse
 C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.csproj.CoreCompileInputs.cache
 C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.dll
 C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.pdb
+C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.csprojResolveAssemblyReference.cache

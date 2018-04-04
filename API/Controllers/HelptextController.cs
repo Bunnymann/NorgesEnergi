@@ -5,13 +5,14 @@ using Dapper;
 using API.Models;
 using System.Web.Mvc;
 using System.Configuration;
+using System.Data.Entity.Infrastructure;
 
 namespace WebApplication1.Controllers
 {
     public class HelptextController : Controller
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
-
+        Norges_EnergiEntities db = new Norges_EnergiEntities();
         //Get list from function "GetALL" under
         public ActionResult List()
         {
@@ -125,6 +126,32 @@ namespace WebApplication1.Controllers
             var obj = conn.Execute("DELETE FROM helptext WHERE helptext_ID = @textID", new { textID = id });
 
             return RedirectToAction("list");
+        }
+
+        public ActionResult CreateHelptext()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateHelptext([Bind(Include = "helptext_ID, helptext_header, helptext_short, helptext_long")]helptext help)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.helptext.Add(help);
+                    db.SaveChanges();
+                    return RedirectToAction("FullList");
+                }
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            return View(help);
         }
 
     }

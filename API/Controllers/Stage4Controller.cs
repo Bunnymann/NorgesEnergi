@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Web.Mvc;
 using API.Models;
+using System.Data.Entity.Infrastructure;
+using System.Net;
 
 namespace WebApplication1.Controllers
 {
@@ -15,7 +17,7 @@ namespace WebApplication1.Controllers
         /** To view the list, write /dappertest/list after localhost port
          */
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
-
+        Norges_EnergiEntities db = new Norges_EnergiEntities();
         public ActionResult List()
         {
             var obj = GetAll();
@@ -122,6 +124,84 @@ namespace WebApplication1.Controllers
             var obj = conn.Execute("DELETE from Stage4 WHERE Stage4_ID = @Stage4_ID", new { Stage4_ID = id });
 
             return RedirectToAction("list");
+        }
+
+        public ActionResult CreateStage4()
+        {
+            PopulateHelpDropDownList();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateStage4([Bind(Include = "stage4_ID, stage4_name, helptext_ID")] stage4 stage)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.stage4.Add(stage);
+                    db.SaveChanges();
+                    return RedirectToAction("FullList");
+                }
+            }
+            catch (RetryLimitExceededException /*dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            PopulateHelpDropDownList(stage.helptext_ID);
+            return View(stage);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            stage4 stage = db.stage4.Find(id);
+            if (stage == null)
+            {
+                return HttpNotFound();
+            }
+            //PopulateHelpDropDownList(stage.helptext_ID);
+            return View(stage);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var stage4ToUpdate = db.stage4.Find(id);
+            if (TryUpdateModel(stage4ToUpdate, "",
+                new string[] { "helptext" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("FullList");
+                }
+                catch (RetryLimitExceededException  /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            //PopulateHelpDropDownList(stage4ToUpdate.helptext_ID);
+            return View(stage4ToUpdate);
+        }
+
+        private void PopulateHelpDropDownList(object selecthelp = null)
+        {
+            var helptext = from h in db.helptext
+                           orderby h.helptext_header
+                           select h;
+            ViewBag.helptext_ID = new SelectList(helptext, "helptext_ID", "helptext_header", selecthelp);
         }
 
     }

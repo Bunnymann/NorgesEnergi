@@ -168,6 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\HelpTagsViewModel.cs" />
     <Compile Include="Models\helptext.cs">
       <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
@@ -265,8 +266,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Info\StagesDDL.cshtml" />
-    <Content Include="Views\Info\DDLSearchStage3.cshtml" />
     <Content Include="Views\Info\DDLSearchStage4.cshtml" />
     <Content Include="Views\Helptext\List.cshtml" />
     <Content Include="Views\Helptext\Create.cshtml" />
@@ -295,11 +294,15 @@
     <Content Include="Views\Stage1\Details.cshtml" />
     <Content Include="Views\Stage1\Edit.cshtml" />
     <Content Include="Views\Stage1\List.cshtml" />
-    <Content Include="Views\Info\List.cshtml" />
-    <Content Include="Views\Info\Create.cshtml" />
-    <Content Include="Views\Info\Index.cshtml" />
-    <Content Include="Views\Info\AddTags.cshtml" />
     <Content Include="Views\Info\FullList.cshtml" />
+    <Content Include="Views\Info\Edit.cshtml" />
+    <Content Include="Views\Info\CreateInfo.cshtml" />
+    <Content Include="Views\Info\CreateHelpText.cshtml" />
+    <Content Include="Views\Stage1\CreateStage1.cshtml" />
+    <Content Include="Views\Stage2\CreateStage2.cshtml" />
+    <Content Include="Views\stage3\CreateStage3.cshtml" />
+    <Content Include="Views\Stage4\CreateStage4.cshtml" />
+    <Content Include="Views\Helptext\CreateHelptext.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
