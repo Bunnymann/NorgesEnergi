@@ -310,5 +310,36 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
+        public List<InfoViewModel> GetFullList()
+        {
+            var obj = conn.Query<InfoViewModel>("select info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long, metatag.tag from info inner join stage1 on info.stage1_ID = stage1.stage1_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID inner join stage4 on info.stage4_ID = stage4.stage4_ID inner join helptext on stage4.helptext_ID = helptext.helptext_ID inner join helptexttag on helptext.helptext_ID = helptexttag.helptext_ID inner join metatag on helptexttag.metatag_ID = metatag.metatag_ID;").OrderByDescending(u => u.info_ID).ToList();
+
+            return obj;
+        }
+
+        public ActionResult FullList()
+        {
+            var obj = GetFullList();
+            List<InfoViewModel> result = new List<InfoViewModel>();
+            if (obj != null)
+            {
+                foreach (var row in obj)
+                {
+                    InfoViewModel model = new InfoViewModel();
+                    model.info_ID = row.info_ID;
+                    model.stage1_name = row.stage1_name;
+                    model.stage2_name = row.stage2_name;
+                    model.stage3_name = row.stage3_name;
+                    model.stage4_name = row.stage4_name;
+                    model.helptext_header = row.helptext_header;
+                    model.helptext_short = row.helptext_short;
+                    model.helptext_long = row.helptext_long;
+
+                    result.Add(model);
+                }
+            }
+            return View(result);
+        }
+
     }
 }

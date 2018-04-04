@@ -1,0 +1,75 @@
+﻿@model IEnumerable<API.Models.InfoViewModel>
+
+@{
+    ViewBag.Title = "FullList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FullList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.stage1_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage2_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage3_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage4_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.helptext_header)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.helptext_short)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.helptext_long)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tag)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.stage1_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stage2_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stage3_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stage4_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.helptext_header)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.helptext_short)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.helptext_long)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tag)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

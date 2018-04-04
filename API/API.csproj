@@ -299,6 +299,7 @@
     <Content Include="Views\Info\Create.cshtml" />
     <Content Include="Views\Info\Index.cshtml" />
     <Content Include="Views\Info\AddTags.cshtml" />
+    <Content Include="Views\Info\FullList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
