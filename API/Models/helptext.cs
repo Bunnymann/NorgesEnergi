@@ -11,7 +11,8 @@ namespace API.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class helptext
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,10 +24,13 @@ namespace API.Models
             this.stage3 = new HashSet<stage3>();
             this.stage4 = new HashSet<stage4>();
         }
-    
+       
         public int helptext_ID { get; set; }
+        [DisplayName ("Helptext Header")]
         public string helptext_header { get; set; }
+        [DisplayName("Helptext Summary")]
         public string helptext_short { get; set; }
+        [DisplayName("Full Helptext")]
         public string helptext_long { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

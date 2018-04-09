@@ -158,7 +158,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HelptextController.cs" />
     <Compile Include="Controllers\HelptexttagController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\MetatagController.cs" />
     <Compile Include="Controllers\Stage1Controller.cs" />
@@ -263,12 +262,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Info\DDLSearchStage4.cshtml" />
     <Content Include="Views\Helptext\List.cshtml" />
-    <Content Include="Views\Helptext\Create.cshtml" />
     <Content Include="Views\Helptext\Details.cshtml" />
     <Content Include="Views\Stage4\List.cshtml" />
     <Content Include="Views\Stage4\Create.cshtml" />
@@ -297,12 +292,16 @@
     <Content Include="Views\Info\FullList.cshtml" />
     <Content Include="Views\Info\Edit.cshtml" />
     <Content Include="Views\Info\CreateInfo.cshtml" />
-    <Content Include="Views\Info\CreateHelpText.cshtml" />
     <Content Include="Views\Stage1\CreateStage1.cshtml" />
     <Content Include="Views\Stage2\CreateStage2.cshtml" />
     <Content Include="Views\stage3\CreateStage3.cshtml" />
     <Content Include="Views\Stage4\CreateStage4.cshtml" />
     <Content Include="Views\Helptext\CreateHelptext.cshtml" />
+    <Content Include="Views\Helptext\_CreateHelptext.cshtml" />
+    <Content Include="Views\MetaTag\_CreateTag.cshtml" />
+    <Content Include="Views\Info\FullList_Admin.cshtml" />
+    <Content Include="Views\Info\_Stage4Search.cshtml" />
+    <Content Include="Views\Info\_FullTextSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

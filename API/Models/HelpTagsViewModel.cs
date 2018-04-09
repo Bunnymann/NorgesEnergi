@@ -13,5 +13,6 @@ namespace API.Models
         public string helptext_long { get; set; }
         public int tag_ID { get; set; }
         public string tag { get; set; }
+        public int helptexttext_ID { get; set; }
     }
 }

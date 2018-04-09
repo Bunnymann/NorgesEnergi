@@ -29,12 +29,10 @@ namespace WebApplication1.Controllers
             Norges_EnergiEntities stages = new Norges_EnergiEntities();
             return View(stages.stage4.ToList());
         }
-
-        public ActionResult Stage3DDLSearch(string search)
+        public ActionResult FullTextSearch()
         {
-            Norges_EnergiEntities stages = new Norges_EnergiEntities();
-            var stageList = stages.stage3.Where(x => x.stage3_name.Contains(search)).ToList();
-            return Json(stageList, JsonRequestBehavior.AllowGet);
+            Norges_EnergiEntities help = new Norges_EnergiEntities();
+            return View(help.helptext.ToList());
         }
 
         public ActionResult viewAll()
@@ -175,6 +173,31 @@ namespace WebApplication1.Controllers
 
         public ActionResult FullList()
         {
+            Norges_EnergiEntities stages = new Norges_EnergiEntities();
+            var obj = GetFullList();
+            List<InfoViewModel> result = new List<InfoViewModel>();
+            if (obj != null)
+            {
+                foreach (var row in obj)
+                {
+                    InfoViewModel model = new InfoViewModel();
+                    model.info_ID = row.info_ID;
+                    model.stage1_name = row.stage1_name;
+                    model.stage2_name = row.stage2_name;
+                    model.stage3_name = row.stage3_name;
+                    model.stage4_name = row.stage4_name;
+                    model.helptext_header = row.helptext_header;
+                    model.helptext_short = row.helptext_short;
+                    model.helptext_long = row.helptext_long;
+
+                    result.Add(model);
+                }
+            }
+            return View(result);
+        }
+        public ActionResult FullList_Admin()
+        {
+            Norges_EnergiEntities stages = new Norges_EnergiEntities();
             var obj = GetFullList();
             List<InfoViewModel> result = new List<InfoViewModel>();
             if (obj != null)
@@ -197,8 +220,6 @@ namespace WebApplication1.Controllers
             return View(result);
         }
 
-       
-
         public ActionResult CreateInfo()
         {
             PopulateStage1DropDownList();
@@ -212,6 +233,7 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateInfo([Bind(Include = "info_ID, stage1_ID, stage2_ID, stage3_ID, stage4_ID")] info fullinfo)
         {
+            var obj = DDLSearchStage3();
             try
             {
                 if (ModelState.IsValid)
@@ -264,5 +286,48 @@ namespace WebApplication1.Controllers
                         select s;
             ViewBag.stage4_ID = new SelectList(stage, "stage4_ID", "stage4_name", stage4);
         }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            info info = db.info.Find(id);
+            if (info == null)
+            {
+                return HttpNotFound();
+            }
+            //PopulateHelpDropDownList(stage.helptext_ID);
+            return View(info);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var infoToUpdate = db.info.Find(id);
+            if (TryUpdateModel(infoToUpdate, "",
+                new string[] { "info" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("FullList");
+                }
+                catch (RetryLimitExceededException  /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            //PopulateHelpDropDownList(stage4ToUpdate.helptext_ID);
+            return View(infoToUpdate);
+        }
+
     }
 }

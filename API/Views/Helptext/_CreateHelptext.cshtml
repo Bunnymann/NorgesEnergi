@@ -1,0 +1,49 @@
+﻿@model API.Models.helptext
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Helptext</h4>
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.helptext_header, new { @class = "control-label col-md 2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.helptext_header)
+                @Html.ValidationMessageFor(model => model.helptext_header)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.helptext_short, new { @class = "control-label col-md 2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.helptext_short)
+                @Html.ValidationMessageFor(model => model.helptext_short)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.helptext_long, new { @class = "control-label col-md 2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.helptext_long)
+                @Html.ValidationMessageFor(model => model.helptext_long)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="brn btn-default" />
+            </div>
+        </div>
+        </div>
+        }
+        @section Scripts{
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+

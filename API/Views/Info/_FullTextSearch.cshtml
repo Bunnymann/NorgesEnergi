@@ -1,0 +1,105 @@
+﻿@model IEnumerable<API.Models.InfoViewModel>
+@{
+    Layout = null;
+}
+
+<br />
+
+<h2>Search</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" id="Search" placeholder="Nation" class="form-control" />
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" id="Search" placeholder="System" class="form-control" />
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" id="Search" placeholder="Category" class="form-control" />
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" id="Search" placeholder="Label" class="form-control" />
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" id="Search" placeholder="Header" class="form-control" />
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" id="Search" placeholder="Summary" class="form-control" />
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" id="Search" placeholder="Full text" class="form-control" />
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr class="Search">
+            <td>@item.stage1_name</td>
+            <td>@item.stage2_name</td>
+            <td>@item.stage3_name</td>
+            <td>@item.stage4_name</td>
+            <td>@item.helptext_header</td>
+            <td>@item.helptext_short</td>
+            <td>@item.helptext_long</td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>

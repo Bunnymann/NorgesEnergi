@@ -1,17 +1,25 @@
 ﻿@model IEnumerable<API.Models.InfoViewModel>
 
 @{
-    ViewBag.Title = "Full List";
+    ViewBag.Title = "FullList_Admin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Helptexts</h2>
+<h2>Administrate List</h2>
 
-@{
-    Html.RenderPartial("~/Views/Info/_FullTextSearch.cshtml");
-}
+<div class="container">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input type="text" id="Search" placeholder="Search" class="form-control" />
+        </div>
+    </div>
+</div>
 
-<!--<table class="table">
+<p>
+    @Html.ActionLink("Create New", "CreateInfo")
+</p>
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.stage1_name)
@@ -67,10 +75,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.tag)
             </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit") |
+                @Html.ActionLink("Delete", "Delete", new { id = item.info_ID })
+            </td>
         </tr>
     }
 </table>
-    --> 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>

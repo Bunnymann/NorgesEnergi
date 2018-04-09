@@ -134,7 +134,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateStage4([Bind(Include = "stage4_ID, stage4_name, helptext_ID")] stage4 stage)
+        public ActionResult CreateStage4([Bind(Include = "stage4_ID, stage4_name, helptext_ID, helptext_header, helptext_short, helptext_long")] stage4 stage)
         {
             try
             {
@@ -160,7 +160,9 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            stage4 stage = db.stage4.Find(id);
+            stage4 stage = db.stage4
+                .Where(s => s.stage4_ID == id)
+                .Single();
             if (stage == null)
             {
                 return HttpNotFound();
@@ -177,12 +179,18 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var stage4ToUpdate = db.stage4.Find(id);
+            var stage4ToUpdate = db.stage4
+                .Where(s => s.stage4_ID == id)
+                .Single();
             if (TryUpdateModel(stage4ToUpdate, "",
-                new string[] { "helptext" }))
+                new string[] { "stage4_name" }))
             {
                 try
                 {
+                    if(String.IsNullOrWhiteSpace(stage4ToUpdate.stage4_name))
+                    {
+                        stage4ToUpdate.stage4_name = null;
+                    }
                     db.SaveChanges();
                     return RedirectToAction("FullList");
                 }

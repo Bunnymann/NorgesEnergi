@@ -4,59 +4,61 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create2</h2>
+<h2>Create new helptext</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <h4>Info</h4>
-        <hr />
-        @Html.ValidationSummary(true)
+<div class="form-horizontal">
+    <h4>Stages</h4>
+    @Html.ValidationSummary(true)
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="stage1_ID">Nation</label>
-            @Html.LabelFor(model => model.stage1_ID, new { @class = "control-label col-md 2" })
-            <div class="col-md-10">
-                @Html.DropDownList("stage1_ID", String.Empty)
-                @Html.ValidationMessageFor(model => model.stage1_ID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="stage2_ID">System</label>
-            @Html.LabelFor(model => model.stage2_ID, new { @class = "control-label col-md 2" })
-            <div class="col-md-10">
-                @Html.DropDownList("stage2_ID", String.Empty)
-                @Html.ValidationMessageFor(model => model.stage2_ID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="stage3_ID">Place in system</label>
-            @Html.LabelFor(model => model.stage3_ID, new { @class = "control-label col-md 2" })
-            <div class="col-md-10">
-                @Html.DropDownList("stage3_ID", String.Empty)
-                @Html.ValidationMessageFor(model => model.stage3_ID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="stage4_ID">Label</label>
-            @Html.LabelFor(model => model.stage4_ID, new { @class = "control-label col-md 2" })
-            <div class="col-md-10">
-                @Html.DropDownList("stage4_ID", String.Empty)
-                @Html.ValidationMessageFor(model => model.stage4_ID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="brn btn-default" />
-            </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="stage1_ID">Select Nation</label>
+        <div class="col-md-10">
+            @Html.DropDownList("stage1_ID", String.Empty)
+            @Html.ValidationMessageFor(model => model.stage1_ID)
         </div>
     </div>
-}
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="stage2_ID">Select System</label>
+        <div class="col-md-10">
+            @Html.DropDownList("stage2_ID", String.Empty)
+            @Html.ValidationMessageFor(model => model.stage2_ID)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="stage3_ID">Select place in System</label>
+        <div class="col-md-10">
+            @Html.DropDownList("stage3_ID", String.Empty)
+            @Html.ValidationMessageFor(model => model.stage3_ID)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="stage4_ID">Select Label</label>
+        <div class="col-md-10">
+            @Html.DropDownList("stage4_ID", String.Empty)
+            @Html.ValidationMessageFor(model => model.stage4_ID)
+        </div>
+    </div>
+    @{
+        Html.RenderPartial("~/Views/Helptext/_CreateHelptext.cshtml");
+    }
+
+    @{
+        Html.RenderPartial("~/Views/MetaTag/_CreateTag.cshtml");
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="brn btn-default" />
+        </div>
+    </div>
+</div>
+            }
 <div>
     @Html.ActionLink("Back to list", "FullList")
 </div>
