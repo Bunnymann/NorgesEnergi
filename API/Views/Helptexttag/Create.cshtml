@@ -8,6 +8,7 @@
         <h4>helptexttag</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       <p> </p>
         <div class="form-group">
             @Html.LabelFor(model => model.helptexttag_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -18,6 +19,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.helptext_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <p> </p>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.helptext_ID, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.helptext_ID, "", new { @class = "text-danger" })
@@ -26,6 +28,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.metatag_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+           <p> </p>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.metatag_ID, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.metatag_ID, "", new { @class = "text-danger" })
