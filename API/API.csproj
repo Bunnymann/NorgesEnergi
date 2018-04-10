@@ -300,8 +300,8 @@
     <Content Include="Views\Helptext\_CreateHelptext.cshtml" />
     <Content Include="Views\MetaTag\_CreateTag.cshtml" />
     <Content Include="Views\Info\FullList_Admin.cshtml" />
-    <Content Include="Views\Info\_Stage4Search.cshtml" />
     <Content Include="Views\Info\_FullTextSearch.cshtml" />
+    <Content Include="Views\Info\DeleteInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

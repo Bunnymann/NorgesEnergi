@@ -6,6 +6,8 @@ using API.Models;
 using System.Web.Mvc;
 using System.Configuration;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace WebApplication1.Controllers
 {
@@ -152,6 +154,59 @@ namespace WebApplication1.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
             }
             return View(help);
+        }
+
+        public ActionResult AddTags()
+        {
+            Norges_EnergiEntities db = new Norges_EnergiEntities();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddTags(HelpTagsViewModel model)
+        {
+            try
+            {
+                Norges_EnergiEntities db = new Norges_EnergiEntities();
+
+                helptext help = new helptext();
+                help.helptext_ID = model.helptext_ID;
+                help.helptext_header = model.helptext_header;
+                help.helptext_short = model.helptext_short;
+                help.helptext_long = model.helptext_long;
+
+                db.helptext.Add(help);
+                db.SaveChanges();
+                int lasthelp = help.helptext_ID;
+
+                metatag tag = new metatag();
+                tag.metatag_ID = model.tag_ID;
+                tag.tag = model.tag;
+
+                db.metatag.Add(tag);
+                db.SaveChanges();
+                int lasttag = tag.metatag_ID;
+
+                helptexttag htag = new helptexttag();
+                htag.helptext_ID = lasthelp;
+                htag.metatag_ID = lasttag;
+
+                db.helptexttag.Add(htag);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                                                validationError.PropertyName,
+                                                validationError.ErrorMessage);
+                    }
+                }
+            }
+            return View(model);
         }
 
     }
