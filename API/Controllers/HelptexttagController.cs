@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,27 +14,30 @@ namespace WebApplication1.Controllers
     public class HelptexttagController : Controller
     {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
+        Norges_EnergiEntities db = new Norges_EnergiEntities();
+        
 
             public ActionResult List()
             {
                 var obj = GetAll();
-                List<helptexttag> result = new List<helptexttag>();
+                List<HelpTagsViewModel> result = new List<HelpTagsViewModel>();
                 if (obj != null)
                 {
                     foreach (var row in obj)
                     {
-                        helptexttag model = new helptexttag();
-                        model.helptexttag_ID = row.helptexttag_ID;
+                        HelpTagsViewModel model = new HelpTagsViewModel();
                         model.helptext_ID = row.helptext_ID;
-                        model.metatag_ID = row.metatag_ID;
+                        model.helptext_header = row.helptext_header;
+                        model.helptext_short = row.helptext_short;
+                        model.tag = row.tag;
                         result.Add(model);
                     }
                 }
                 return View(result);
             }
-            public List<helptexttag> GetAll()
+            public List<HelpTagsViewModel> GetAll()
             {
-                var obj = conn.Query<helptexttag>("SELECT * FROM helptexttag").ToList();
+                var obj = conn.Query<HelpTagsViewModel>("SELECT helptext.helptext_header, helptext.helptext_short, metatag.tag FROM helptext INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID; ").OrderByDescending(h => h.helptext_header).ToList();
                 return obj;
             }
 
@@ -58,68 +62,50 @@ namespace WebApplication1.Controllers
                 return false;
             }
 
-            [HttpGet]
-            public ActionResult Details(int id)
-            {
-                var obj = conn.Query<helptexttag>("SELECT * FROM helptexttag WHERE helptexttag_ID = @helptag", new { helptag = id });
+        public ActionResult CreateMetahelp()
+        {
+            PopulateHelptextDropDownList();
+            PopulateTagDropDownList();
+            return View();
+        }
 
-                foreach (var row in obj)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateMetahelp([Bind(Include = "helptexttag_ID, helptext_ID, metatag_ID")] helptexttag metahelp)
+        {
+            try
+            {
+                if (ModelState.IsValid)
                 {
-                    helptexttag model = new helptexttag();
-                    model.helptexttag_ID = row.helptexttag_ID;
-                    model.helptext_ID = row.helptext_ID;
-                    model.metatag_ID = row.metatag_ID;
-                    return View(model);
+                    db.helptexttag.Add(metahelp);
+                    db.SaveChanges();
+                    return RedirectToAction("List");
                 }
-                return View();
             }
-
-            [HttpGet]
-            public ActionResult Edit(int id)
+            catch (RetryLimitExceededException /*dex */)
             {
-                var obj = conn.Query<helptexttag>("SELECT * FROM helptexttag WHERE helptexttag_ID = @helptag", new { helptag = id });
-
-                if (obj != null)
-                {
-                helptexttag model = new helptexttag();
-                model.helptexttag_ID = obj.FirstOrDefault().helptexttag_ID;
-                model.helptext_ID = obj.FirstOrDefault().helptext_ID;
-                model.metatag_ID = obj.FirstOrDefault().metatag_ID;
-                return View(model);
-                }
-                return View();
+                //Log the error (uncomment dex variable name and add a line here to write a log.)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
             }
+            PopulateHelptextDropDownList(metahelp.helptext_ID);
+            PopulateTagDropDownList(metahelp.metatag_ID);
+            return View(metahelp);
+        }
 
-            [HttpPost]
-            public ActionResult Edit(helptexttag model, int id)
-            {
-                var obj = conn.Execute("UPDATE helptexttag SET [helptext_ID] = @textID, [metatag_ID] = @tagID  WHERE helptexttag_ID = @helptag", new { helptag = id, tagID = model.metatag_ID, textID = model.helptext_ID });
+        private void PopulateHelptextDropDownList(object helptext = null)
+        {
+            var help = from h in db.helptext
+                        orderby h.helptext_header
+                        select h;
+            ViewBag.helptext_ID = new SelectList(help, "helptext_ID", "helptext_header", helptext);
+        }
 
-                return RedirectToAction("list");
-            }
-
-            [HttpGet]
-            public ActionResult Delete(int id)
-            {
-                var obj = conn.Query<helptexttag>("SELECT * FROM helptexttag WHERE helptexttag_ID = @helptag", new { helptag = id });
-
-                if (obj != null)
-                {
-                helptexttag model = new helptexttag();
-                    model.helptexttag_ID = obj.FirstOrDefault().helptexttag_ID;
-                model.helptext_ID = obj.FirstOrDefault().helptext_ID;
-                model.metatag_ID = obj.FirstOrDefault().metatag_ID;
-                    return View(model);
-                }
-                return View();
-            }
-
-            [HttpPost]
-            public ActionResult Delete(helptexttag model, int id)
-            {
-                var obj = conn.Execute("DELETE FROM helptexttag WHERE helptexttag_ID = @helptag", new { helptag = id });
-
-                return RedirectToAction("list");
-            }
+        private void PopulateTagDropDownList(object tag = null)
+        {
+            var metatag = from m in db.metatag
+                        orderby m.tag
+                        select m;
+            ViewBag.metatag_ID = new SelectList(metatag, "metatag_ID", "tag", tag);
         }
     }
+}

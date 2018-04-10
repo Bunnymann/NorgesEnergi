@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
         public List<InfoViewModel> GetFullList()
         {
             //METATAG.TAG IS NOT IN THIS SQLQUERY
-            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID;") /*INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;")*/.OrderByDescending(u => u.info_ID).ToList();
+            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID;") /*INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;")*/.OrderByDescending(u => u.stage4_name).ToList();
 
             return obj;
         }
@@ -81,6 +81,73 @@ namespace WebApplication1.Controllers
             return View(result);
         }
 
+        public ActionResult testCreate()
+        {
+            Norges_EnergiEntities db = new Norges_EnergiEntities();
+            PopulateStage1DropDownList();
+            PopulateStage2DropDownList();
+            PopulateStage3DropDownList();
+            PopulateStage4DropDownList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult testcreate(InfoViewModel model)
+        {
+            try
+            {
+                Norges_EnergiEntities db = new Norges_EnergiEntities();
+
+                info info = new info();
+                info.stage1_ID = model.stage1_ID;
+                info.stage2_ID = model.stage2_ID;
+                info.stage3_ID = model.stage3_ID;
+                info.stage4_ID = model.stage4_ID;
+                PopulateStage1DropDownList(info.stage1_ID);
+                PopulateStage2DropDownList(info.stage2_ID);
+                PopulateStage3DropDownList(info.stage3_ID);
+                PopulateStage4DropDownList(info.stage4_ID);
+
+
+                helptext help = new helptext();
+                help.helptext_ID = model.helptext_ID;
+                help.helptext_header = model.helptext_header;
+                help.helptext_short = model.helptext_short;
+                help.helptext_long = model.helptext_long;
+
+                stage4 s4 = new stage4();
+                s4.helptext_ID = help.helptext_ID;
+
+                metatag tag = new metatag();
+                tag.metatag_ID = model.metatag_ID;
+                tag.tag = model.tag;
+
+                helptexttag htag = new helptexttag();
+                htag.helptext_ID = help.helptext_ID;
+                htag.metatag_ID = tag.metatag_ID;
+
+                db.info.Add(info);
+                db.helptext.Add(help);
+                db.metatag.Add(tag);
+                db.helptexttag.Add(htag);
+                db.SaveChanges();
+                return RedirectToAction("FullList");
+            }
+            
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                                                validationError.PropertyName,
+                                                validationError.ErrorMessage);
+                    }
+                }
+            }
+            return View(model);
+        }
+
         public ActionResult CreateInfo()
         {
             PopulateStage1DropDownList();
@@ -94,7 +161,6 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateInfo([Bind(Include = "info_ID, stage1_ID, stage2_ID, stage3_ID, stage4_ID")] info fullinfo)
         {
-            var obj = DDLSearchStage3();
             try
             {
                 if (ModelState.IsValid)

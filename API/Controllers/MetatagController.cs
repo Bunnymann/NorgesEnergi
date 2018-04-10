@@ -47,7 +47,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create(metatag model)
         {
             var obj = InsertMetatag(model);
-            return RedirectToAction("list");
+            return RedirectToAction("List");
         }
         public bool InsertMetatag(metatag model)
         {

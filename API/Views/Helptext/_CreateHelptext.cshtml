@@ -1,51 +1,58 @@
 ﻿@model API.Models.helptext
 @{
+    ViewBag.Tilte = " _CreateHelptext";
     Layout = null;
 }
 
 @using (Html.BeginForm())
 {
-
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Helptext</h4>
-        @Html.ValidationSummary(true)
+<div class="form-horizontal">
+    <h4>Helptext</h4>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.helptext_header, new { @class = "control-label col-md 2" })
-            <p> </p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.helptext_header)
-                @Html.ValidationMessageFor(model => model.helptext_header)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.helptext_short, new { @class = "control-label col-md 2" })
-            <p> </p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.helptext_short)
-                @Html.ValidationMessageFor(model => model.helptext_short)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.helptext_long, new { @class = "control-label col-md 2" })
-            <p> </p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.helptext_long)
-                @Html.ValidationMessageFor(model => model.helptext_long)
-            </div>
-        </div>
-        <p> </p>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="brn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.helptext_header, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.helptext_header, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.helptext_header, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.helptext_short, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.helptext_short, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.helptext_short, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">test</div>
+        <div class="col-md-6 col-sm-12">test</div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.helptext_long, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.helptext_long, new { htmlAttributes = new { @class = "form-control", @rows = 10 } })
+            @Html.ValidationMessageFor(model => model.helptext_long, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="brn btn-default" />
+        </div>
+    </div>
+</div>
 }
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")

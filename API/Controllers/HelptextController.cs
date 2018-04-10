@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
         //Get all values from table helptext ordered by helptext header name
         public List<helptext> GetAll()
         {
-            var obj = conn.Query<helptext>("Select * FROM helptext").OrderByDescending(u => u.helptext_header).Take(10).ToList();
+            var obj = conn.Query<helptext>("Select * FROM helptext").OrderByDescending(u => u.helptext_header).ToList();
             return obj;
         }
 
@@ -51,7 +51,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create(helptext model)
         {
             var obj = InsertHelptext(model);
-            return RedirectToAction("list");
+            return RedirectToAction("List");
         }
         public bool InsertHelptext(helptext model)
         {
@@ -145,7 +145,7 @@ namespace WebApplication1.Controllers
                 {
                     db.helptext.Add(help);
                     db.SaveChanges();
-                    return RedirectToAction("FullList");
+                    return RedirectToAction("List");
                 }
             }
             catch (RetryLimitExceededException /* dex */)
@@ -174,25 +174,20 @@ namespace WebApplication1.Controllers
                 help.helptext_header = model.helptext_header;
                 help.helptext_short = model.helptext_short;
                 help.helptext_long = model.helptext_long;
-
-                db.helptext.Add(help);
-                db.SaveChanges();
-                int lasthelp = help.helptext_ID;
-
+                
                 metatag tag = new metatag();
                 tag.metatag_ID = model.tag_ID;
                 tag.tag = model.tag;
-
-                db.metatag.Add(tag);
-                db.SaveChanges();
-                int lasttag = tag.metatag_ID;
-
+                
                 helptexttag htag = new helptexttag();
-                htag.helptext_ID = lasthelp;
-                htag.metatag_ID = lasttag;
+                htag.helptext_ID = help.helptext_ID;
+                htag.metatag_ID = tag.metatag_ID;
 
+                db.helptext.Add(help);
+                db.metatag.Add(tag);
                 db.helptexttag.Add(htag);
                 db.SaveChanges();
+                return RedirectToAction("List");
             }
             catch (DbEntityValidationException dbEx)
             {
