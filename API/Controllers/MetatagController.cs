@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
         }
         public List<metatag> GetAll()
         {
-            var obj = conn.Query<metatag>("SELECT * FROM Metatag").OrderByDescending(u => u.metatag_ID).Take(10).ToList();
+            var obj = conn.Query<metatag>("SELECT * FROM Metatag").OrderByDescending(u => u.metatag_ID).ToList();
             return obj;
         }
 
