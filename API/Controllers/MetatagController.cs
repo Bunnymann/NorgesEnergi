@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Web.Mvc;
 using API.Models;
+using System.Data.Entity.Validation;
 
 namespace WebApplication1.Controllers
 {
@@ -15,6 +16,7 @@ namespace WebApplication1.Controllers
         /** To view the list, write /dappertest/list after localhost port
          */
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
+        Norges_EnergiEntities db = new Norges_EnergiEntities();
 
         public ActionResult List()
         {
@@ -118,6 +120,79 @@ namespace WebApplication1.Controllers
             var obj = conn.Execute("DELETE FROM Metatag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id });
 
             return RedirectToAction("list");
+        }
+            
+        public ActionResult MultipleTags(int id)
+        {
+            char[] delimiterChars = { ',', '.', ':', };
+            var obj = conn.Query<metatag>("select metatag.tag, helptext.helptext_header from metatag inner join helptexttag on metatag.metatag_ID = helptexttag.metatag_ID inner join helptext on helptexttag.helptext_ID = helptext.helptext_ID where helptext.helptext_ID = @ID;", new { ID = id });
+            List<String> tags = new List<String>();
+            
+            if (obj != null)
+            {
+                foreach(var meta in obj)
+                {
+                    metatag model = new metatag();
+                    model.tag = meta.tag.ToString();
+                    tags.Add(model.ToString());
+                }
+            }
+
+            String text = tags.ToString();
+
+            string[] words = text.Split(delimiterChars);
+            System.Console.WriteLine($"{words.Length} words in text:");
+
+            foreach (var word in words)
+            {
+                System.Console.WriteLine($"<{word}>");
+            }
+
+            return View();
+
+        }
+
+        [HttpGet]
+        public ActionResult AddTags()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddTags(InfoViewModel model)
+        {
+            char[] delimiterChars = { ',', '.', ':', };
+                helptext help = new helptext()
+                {
+                    helptext_header = model.helptext_header,
+                    helptext_short = model.helptext_short,
+                    helptext_long = model.helptext_long
+                };
+
+                metatag tag = new metatag()
+                {
+                    metatag_ID = model.metatag_ID,
+                    tag = model.tag
+                };
+
+                String text = tag.ToString();
+
+                string[] words = text.Split(delimiterChars);
+
+                helptexttag ht = new helptexttag();
+                foreach (var word in words)
+                {
+                    ht.helptext_ID = help.helptext_ID;
+                    ht.metatag_ID = tag.metatag_ID;
+                };
+
+                db.metatag.Add(tag);
+                db.helptext.Add(help);
+                db.helptexttag.Add(ht);
+            db.SaveChangesAsync();
+            
+
+            return RedirectToAction("List");
         }
 
     }

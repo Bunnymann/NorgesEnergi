@@ -26,8 +26,7 @@ public class InfoController : Controller
 
     public List<InfoViewModel> GetFullList()
     {
-        //METATAG.TAG IS NOT IN THIS SQLQUERY
-        var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID;") /*INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;")*/.OrderByDescending(u => u.stage1_name).ToList();
+        var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long, metatag.tag FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;").OrderByDescending(u => u.stage1_name).ToList();
 
         return obj;
     }
@@ -36,6 +35,7 @@ public class InfoController : Controller
     {
         var obj = GetFullList();
         List<InfoViewModel> result = new List<InfoViewModel>();
+            List<string> metatag = new List<string>();
         if (obj != null)
         {
             foreach (var row in obj)
@@ -49,8 +49,8 @@ public class InfoController : Controller
                 model.helptext_header = row.helptext_header;
                 model.helptext_short = row.helptext_short;
                 model.helptext_long = row.helptext_long;
-
-                result.Add(model);
+                    model.tag = row.tag;
+                    result.Add(model);
             }
         }
         return View(result);
@@ -73,6 +73,7 @@ public class InfoController : Controller
                 model.helptext_header = row.helptext_header;
                 model.helptext_short = row.helptext_short;
                 model.helptext_long = row.helptext_long;
+                    model.tag = row.tag;
 
                 result.Add(model);
             }
@@ -91,85 +92,65 @@ public class InfoController : Controller
     [HttpPost]
     public ActionResult testcreate(InfoViewModel model)
     {
+            char[] delimiterChars = { ',', '.', ':', };
+            metatag stag = new metatag();
 
+            
 
-        helptext help = new helptext
-        {
-            helptext_ID = model.helptext_ID,
-            helptext_header = model.helptext_header,
-            helptext_short = model.helptext_short,
-            helptext_long = model.helptext_long
-        };
+            string text = model.tag;
 
-            stage4 s4 = new stage4()
+            string[] words = text.Split(delimiterChars);
+
+            List<metatag> tagList = new List<metatag>();
+
+            helptext help = new helptext
+                {
+                    helptext_ID = model.helptext_ID,
+                    helptext_header = model.helptext_header,
+                    helptext_short = model.helptext_short,
+                    helptext_long = model.helptext_long
+                };
+
+                stage4 s4 = new stage4()
+                {
+                    stage4_ID = model.stage4_ID,
+                    stage4_name = model.stage4_name,
+                    helptext_ID = model.helptext_ID
+                };
+
+                info info = new info
+                {
+                    stage1_ID = model.stage1_ID,
+                    stage2_ID = model.stage2_ID,
+                    stage3_ID = model.stage3_ID,
+                    stage4_ID = s4.stage4_ID
+                };
+
+            foreach (var word in words)
             {
-                stage4_ID = model.stage4_ID,
-                stage4_name = model.stage4_name,
-                helptext_ID = model.helptext_ID
-            };
+                stag.tag = word;
+                tagList.Add(stag);
+            }
 
-            info info = new info
+            helptexttag ht = new helptexttag();
             {
-                stage1_ID = model.stage1_ID,
-                stage2_ID = model.stage2_ID,
-                stage3_ID = model.stage3_ID,
-                stage4_ID = s4.stage4_ID
-        };
+                ht.helptext_ID = help.helptext_ID;
+                foreach (var obj in tagList)
+                {
+                    ht.metatag_ID = obj.metatag_ID;
+                }
+            }
 
-            metatag tag = new metatag
-        {
-            metatag_ID = model.metatag_ID,
-            tag = model.tag
-        };
-
-        helptexttag htag = new helptexttag
-        {
-            helptext_ID = help.helptext_ID,
-            metatag_ID = tag.metatag_ID
-        };
 
             db.stage4.Add(s4);
-            db.info.Add(info);
-            db.helptext.Add(help);
-            db.metatag.Add(tag);
-            db.helptexttag.Add(htag);
-            db.SaveChanges();
-
-        return RedirectToAction("FullList");
-    }
-
-    public ActionResult CreateInfo()
-    {
-        PopulateStage1DropDownList();
-        PopulateStage2DropDownList();
-        PopulateStage3DropDownList();
-        PopulateStage4DropDownList();
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult CreateInfo([Bind(Include = "info_ID, stage1_ID, stage2_ID, stage3_ID, stage4_ID")] info fullinfo)
-    {
-        try
-        {
-            if (ModelState.IsValid)
-            {
-                db.info.Add(fullinfo);
+                db.info.Add(info);
+                db.helptext.Add(help);
+                db.metatag.Add(stag);
+                db.helptexttag.Add(ht);
                 db.SaveChanges();
-                return RedirectToAction("FullList");
-            }
-        }
-        catch (RetryLimitExceededException /*dex */)
-        {
-            //Log the error (uncomment dex variable name and add a line here to write a log.)
-            ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-        }
-        PopulateStage1DropDownList(fullinfo.stage1_ID);
-        PopulateStage2DropDownList(fullinfo.stage2_ID);
-        PopulateStage3DropDownList(fullinfo.stage3_ID);
-        PopulateStage4DropDownList(fullinfo.stage4_ID);
-        return View(fullinfo);
+                tagList.Clear();
+            
+        return RedirectToAction("FullList");
     }
 
     private void PopulateStage1DropDownList(object stage1 = null)
@@ -204,48 +185,6 @@ public class InfoController : Controller
         ViewBag.stage4_ID = new SelectList(stage, "stage4_ID", "stage4_name", stage4);
     }
 
-    public ActionResult Edit(int? id)
-    {
-        if (id == null)
-        {
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
-        info info = db.info.Find(id);
-        if (info == null)
-        {
-            return HttpNotFound();
-        }
-        //PopulateHelpDropDownList(stage.helptext_ID);
-        return View(info);
-    }
-
-    [HttpPost, ActionName("Edit")]
-    [ValidateAntiForgeryToken]
-    public ActionResult EditPost(int? id)
-    {
-        if (id == null)
-        {
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
-        var infoToUpdate = db.info.Find(id);
-        if (TryUpdateModel(infoToUpdate, "",
-            new string[] { "info" }))
-        {
-            try
-            {
-                db.SaveChanges();
-                return RedirectToAction("FullList");
-            }
-            catch (RetryLimitExceededException  /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-            }
-        }
-        //PopulateHelpDropDownList(stage4ToUpdate.helptext_ID);
-        return View(infoToUpdate);
-    }
-
     [HttpGet]
     public ActionResult DeleteInfo(int id)
     {
@@ -275,7 +214,45 @@ public class InfoController : Controller
 
         return RedirectToAction("FullList");
     }
-        
+     
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long, metatag.tag FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID WHERE info.info_ID = @info;", new { info = id});
+
+            if(obj != null)
+            {
+                InfoViewModel model = new InfoViewModel();
+                model.stage1_name = obj.FirstOrDefault().stage1_name;
+                model.stage2_name = obj.FirstOrDefault().stage2_name;
+                model.stage3_name = obj.FirstOrDefault().stage3_name;
+                model.stage4_name = obj.FirstOrDefault().stage4_name;
+                model.helptext_header = obj.FirstOrDefault().helptext_header;
+                model.helptext_short = obj.FirstOrDefault().helptext_short;
+                model.helptext_long = obj.FirstOrDefault().helptext_long;
+                model.tag = obj.FirstOrDefault().tag;
+                return View(model); 
+            }
+            return View();
+        }
+
+        /*
+        [HttpPost]
+        public ActionResult Edit(InfoViewModel model, int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            Info info = new Info()
+            {
+                stage
+            }
+            //var infoUpdate = conn.Execute("UPDATE info set [stage1_ID] = @s1, [stage2_ID] = @s2, [stage3_ID] = @s3, [stage4_ID] = @s4 WHERE info_ID = @info;", new { info = id, s1 = model.stage1_ID, s2 = model.stage2_ID, s3 = model.stage3_ID, s4 = model.stage4_ID });
+            var helptextUpdate = conn.Execute("Update helptext set [helptext_header] = @headertxt, [helptext_short] = @shorttxt, [helptext_long] = @longtxt WHERE helptext_ID = @helpID;", new { helpID = model.helptext_ID, headertxt = model.helptext_header, shorttxt = model.helptext_short, longtxt = model.helptext_long });
+            //var infoUpdate2 = conn.Execute("Update InfoViewModel set [stage1_name] = @name1, [stage2_name] = @name2, [stage3_name] = @name3, [stage4_name] = @name4, [helptext_header] = @headertxt, [helptext_short] = @shorttxt, [helptext_long] = @longtxt, [tag] = @metatag FROM InfoViewModel WHERE info_ID = @info", new { info = id, name1 = model.stage1_name, name2 = model.stage2_name, name3 = model.stage3_name, name4 = model.stage4_name, headertxt = model.helptext_header, shorttxt = model.helptext_short, longtxt = model.helptext_long, metatag = model.tag });
+            return RedirectToAction("FullList");
+        }*/
 
 }
 }
