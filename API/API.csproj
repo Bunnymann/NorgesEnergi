@@ -308,6 +308,7 @@
     <Content Include="Views\Info\testcreate.cshtml" />
     <Content Include="Views\MetaTag\MultipleTags.cshtml" />
     <Content Include="Views\MetaTag\AddTags.cshtml" />
+    <Content Include="Views\Info\GetTags.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
