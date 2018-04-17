@@ -144,7 +144,6 @@ C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.csprojResolveAsse
 C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.csproj.CoreCompileInputs.cache
 C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.dll
 C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.pdb
-C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.csprojResolveAssemblyReference.cache
 C:\Users\benja\Documents\NorgesEnergi\API\bin\ApplicationInsights.config
 C:\Users\benja\Documents\NorgesEnergi\API\bin\API.dll.config
 C:\Users\benja\Documents\NorgesEnergi\API\bin\API.dll
@@ -194,3 +193,4 @@ C:\Users\benja\Documents\NorgesEnergi\API\obj\Debug\API.csprojResolveAssemblyRef
 C:\Users\benja\Documents\NorgesEnergi\API\obj\Debug\API.csproj.CoreCompileInputs.cache
 C:\Users\benja\Documents\NorgesEnergi\API\obj\Debug\API.dll
 C:\Users\benja\Documents\NorgesEnergi\API\obj\Debug\API.pdb
+C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.csprojResolveAssemblyReference.cache

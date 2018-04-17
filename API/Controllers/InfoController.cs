@@ -89,13 +89,10 @@ public class InfoController : Controller
         PopulateStage4DropDownList();
         return View();
     }
-    [HttpPost]
-    public ActionResult testcreate(InfoViewModel model)
-    {
+        [HttpPost]
+        public ActionResult testcreate(InfoViewModel model)
+        {
             char[] delimiterChars = { ',', '.', ':', };
-            metatag stag = new metatag();
-
-            
 
             string text = model.tag;
 
@@ -104,54 +101,57 @@ public class InfoController : Controller
             List<metatag> tagList = new List<metatag>();
 
             helptext help = new helptext
-                {
-                    helptext_ID = model.helptext_ID,
-                    helptext_header = model.helptext_header,
-                    helptext_short = model.helptext_short,
-                    helptext_long = model.helptext_long
-                };
+            {
+                helptext_ID = model.helptext_ID,
+                helptext_header = model.helptext_header,
+                helptext_short = model.helptext_short,
+                helptext_long = model.helptext_long
+            };
 
-                stage4 s4 = new stage4()
-                {
-                    stage4_ID = model.stage4_ID,
-                    stage4_name = model.stage4_name,
-                    helptext_ID = model.helptext_ID
-                };
+            stage4 s4 = new stage4()
+            {
+                stage4_ID = model.stage4_ID,
+                stage4_name = model.stage4_name,
+                helptext_ID = model.helptext_ID
+            };
 
-                info info = new info
-                {
-                    stage1_ID = model.stage1_ID,
-                    stage2_ID = model.stage2_ID,
-                    stage3_ID = model.stage3_ID,
-                    stage4_ID = s4.stage4_ID
-                };
+            info info = new info
+            {
+                stage1_ID = model.stage1_ID,
+                stage2_ID = model.stage2_ID,
+                stage3_ID = model.stage3_ID,
+                stage4_ID = s4.stage4_ID
+            };
 
             foreach (var word in words)
             {
-                stag.tag = word;
-                tagList.Add(stag);
-            }
-
-            helptexttag ht = new helptexttag();
-            {
-                ht.helptext_ID = help.helptext_ID;
-                foreach (var obj in tagList)
+                metatag tag = new metatag();
                 {
-                    ht.metatag_ID = obj.metatag_ID;
+                    tag.tag = word;
+                    db.metatag.Add(tag);
+                    tagList.Add(tag);
+                    db.SaveChanges();
                 }
             }
 
+            foreach (var obj in tagList)
+            {
+                helptexttag ht = new helptexttag();
+                {
+                    ht.helptext_ID = help.helptext_ID;
+                    ht.metatag_ID = obj.metatag_ID;
+                    db.helptexttag.Add(ht);
+                }
+            }
 
             db.stage4.Add(s4);
-                db.info.Add(info);
-                db.helptext.Add(help);
-                db.metatag.Add(stag);
-                db.helptexttag.Add(ht);
-                db.SaveChanges();
-                tagList.Clear();
-            
-        return RedirectToAction("FullList");
-    }
+            db.info.Add(info);
+            db.helptext.Add(help);
+            db.SaveChanges();
+            tagList.Clear();
+
+            return RedirectToAction("FullList");
+        }
 
     private void PopulateStage1DropDownList(object stage1 = null)
     {

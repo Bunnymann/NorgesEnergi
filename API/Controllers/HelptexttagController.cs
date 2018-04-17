@@ -71,25 +71,43 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateMetahelp([Bind(Include = "helptexttag_ID, helptext_ID, metatag_ID")] helptexttag metahelp)
+        public ActionResult CreateMetahelp(InfoViewModel model)
         {
-            try
-            {
-                if (ModelState.IsValid)
+            char[] delimiterChars = { ',', '.', ':', };
+            
+
+            string text = model.tag;
+
+            string[] words = text.Split(delimiterChars);
+
+            List<metatag> tagList = new List<metatag>();
+
+            foreach (var word in words)
+            { 
+                metatag tag = new metatag();
                 {
-                    db.helptexttag.Add(metahelp);
+                    tag.tag = word;
+                    db.metatag.Add(tag);
+                    tagList.Add(tag);
                     db.SaveChanges();
-                    return RedirectToAction("List");
                 }
             }
-            catch (RetryLimitExceededException /*dex */)
+
+            foreach (var obj in tagList)
             {
-                //Log the error (uncomment dex variable name and add a line here to write a log.)
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                helptexttag ht = new helptexttag();
+                 {
+                    ht.helptext_ID = model.helptext_ID;
+                    ht.metatag_ID = obj.metatag_ID;
+                    db.helptexttag.Add(ht);
+                    db.SaveChanges();
+                }
             }
-            PopulateHelptextDropDownList(metahelp.helptext_ID);
-            PopulateTagDropDownList(metahelp.metatag_ID);
-            return View(metahelp);
+
+            tagList.Clear();
+
+            PopulateHelptextDropDownList(model.helptext_ID);
+            return RedirectToAction("List");
         }
 
         private void PopulateHelptextDropDownList(object helptext = null)
