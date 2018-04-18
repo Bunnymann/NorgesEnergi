@@ -83,11 +83,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var obj = conn.Query<helptext>("SELECT * FROM helptext WHERE helptext_ID = @textID", new { textID = id });
+            var obj = conn.Query<InfoViewModel>("SELECT * FROM helptext WHERE helptext_ID = @textID", new { textID = id });
 
             if (obj != null)
             {
-                helptext model = new helptext();
+                InfoViewModel model = new InfoViewModel();
                 model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 model.helptext_header = obj.FirstOrDefault().helptext_header;
                 model.helptext_short = obj.FirstOrDefault().helptext_short;
@@ -98,7 +98,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(helptext model, int id)
+        public ActionResult Edit(InfoViewModel model, int id)
         {
             var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @helpID", new { helpID = id, header = model.helptext_header, text_short = model.helptext_short, text_long = model.helptext_long });
 

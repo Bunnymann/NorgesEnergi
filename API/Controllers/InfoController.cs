@@ -222,7 +222,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long, metatag.tag FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID WHERE info.info_ID = @info;", new { info = id });
+            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID WHERE info.info_ID = @info;", new { info = id });
 
             if (obj != null)
             {
@@ -234,29 +234,22 @@ namespace WebApplication1.Controllers
                 model.helptext_header = obj.FirstOrDefault().helptext_header;
                 model.helptext_short = obj.FirstOrDefault().helptext_short;
                 model.helptext_long = obj.FirstOrDefault().helptext_long;
-                model.tag = obj.FirstOrDefault().tag;
+                model.tag = GetTags(obj.FirstOrDefault().info_ID);
                 return View(model);
             }
             return View();
         }
 
-        /*
+
         [HttpPost]
         public ActionResult Edit(InfoViewModel model, int id)
+        
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            Info info = new Info()
-            {
-                stage
-            }
-            //var infoUpdate = conn.Execute("UPDATE info set [stage1_ID] = @s1, [stage2_ID] = @s2, [stage3_ID] = @s3, [stage4_ID] = @s4 WHERE info_ID = @info;", new { info = id, s1 = model.stage1_ID, s2 = model.stage2_ID, s3 = model.stage3_ID, s4 = model.stage4_ID });
-            var helptextUpdate = conn.Execute("Update helptext set [helptext_header] = @headertxt, [helptext_short] = @shorttxt, [helptext_long] = @longtxt WHERE helptext_ID = @helpID;", new { helpID = model.helptext_ID, headertxt = model.helptext_header, shorttxt = model.helptext_short, longtxt = model.helptext_long });
-            //var infoUpdate2 = conn.Execute("Update InfoViewModel set [stage1_name] = @name1, [stage2_name] = @name2, [stage3_name] = @name3, [stage4_name] = @name4, [helptext_header] = @headertxt, [helptext_short] = @shorttxt, [helptext_long] = @longtxt, [tag] = @metatag FROM InfoViewModel WHERE info_ID = @info", new { info = id, name1 = model.stage1_name, name2 = model.stage2_name, name3 = model.stage3_name, name4 = model.stage4_name, headertxt = model.helptext_header, shorttxt = model.helptext_short, longtxt = model.helptext_long, metatag = model.tag });
+            var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @help_ID", new { help_ID = id, header = model.helptext_header, text_short = model.helptext_short, text_long = model.helptext_long });
+
             return RedirectToAction("FullList");
-        }*/
+        }
+
         [HttpGet]
         public string GetTags(int id)
         {
@@ -274,8 +267,39 @@ namespace WebApplication1.Controllers
             string text = string.Join(", ", tags);
             return text;
         }
-        
 
+        [HttpGet]
+        public int GetStage1(string name)
+        {
+            var stage = conn.Query<stage1>("SELECT stage1_ID FROM stage1 WHERE stage1_name = @stage", new { stage = name }).FirstOrDefault().stage1_ID;
+           
+            return stage;
 
-}
+        }
+
+        [HttpGet]
+        public int GetStage2(string name)
+        {
+            var stage = conn.Query<stage2>("SELECT stage2_ID FROM stage2 WHERE stage2_name = @stage", new { stage = name }).FirstOrDefault().stage2_ID;
+
+            return stage;
+        }
+
+        [HttpGet]
+        public int GetStage3(string name)
+        {
+            var stage = conn.Query<stage3>("SELECT stage3_ID FROM stage2 WHERE stage3_name = @stage", new { stage = name }).FirstOrDefault().stage3_ID;
+
+            return stage;
+        }
+
+        [HttpGet]
+        public int GetStage4(string name)
+        {
+            var stage = conn.Query<stage4>("SELECT stage4_ID FROM stage2 WHERE stage4_name = @stage", new { stage = name }).FirstOrDefault().stage4_ID;
+
+            return stage;
+        }
+
+    }
 }
