@@ -9,7 +9,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 
-namespace WebApplication1.Controllers
+namespace NorgesEnergi.Controllers
 {
     public class HelptextController : Controller
     {
