@@ -14,6 +14,7 @@
     <div class="form-horizontal">
         <h4>InfoViewModel</h4>
         <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
             @Html.LabelFor(model => model.stage1_name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -88,5 +89,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "FullList")
+    @Html.ActionLink("Back to List", "Index")
 </div>

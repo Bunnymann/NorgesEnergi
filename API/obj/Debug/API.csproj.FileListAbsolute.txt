@@ -195,3 +195,4 @@ C:\Users\benja\Documents\NorgesEnergi\API\obj\Debug\API.dll
 C:\Users\benja\Documents\NorgesEnergi\API\obj\Debug\API.pdb
 C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.csprojResolveAssemblyReference.cache
 C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.csproj.CopyComplete
+C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.csproj.CopyComplete
