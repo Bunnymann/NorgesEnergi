@@ -302,5 +302,36 @@ namespace NorgesEnergi.Controllers
             return stage;
         }
 
+        [HttpGet]
+        public ActionResult GetSearchResult(int id)
+        {
+            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID WHERE helptext.helptext_ID = @helpID;", new { helpID = id });
+
+            if (obj != null)
+            {
+                InfoViewModel model = new InfoViewModel();
+                model.stage3_name = obj.FirstOrDefault().stage3_name;
+                model.stage4_name = obj.FirstOrDefault().stage4_name;
+                model.helptext_header = obj.FirstOrDefault().helptext_header;
+                model.helptext_short = obj.FirstOrDefault().helptext_short;
+                model.helptext_long = obj.FirstOrDefault().helptext_long;
+                model.tag = GetTags(obj.FirstOrDefault().info_ID);
+                return View(model);
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult SearchHelp(string search)
+        {
+            /*
+             * Search for tags, return the helptext_ID with most hits from param string search
+             * Show the 3 helptext with the following most hits
+             * Use the helptext_ID returned value to run the method GetSearchResult 
+             */
+            return View();
+        }
+
+
     }
 }
