@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using API.Models;
 using System.Data.Entity.Validation;
 
-namespace WebApplication1.Controllers
+namespace NorgesEnergi.Controllers
 {
     public class MetaTagController : Controller
     {

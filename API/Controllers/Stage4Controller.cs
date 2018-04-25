@@ -10,7 +10,7 @@ using API.Models;
 using System.Data.Entity.Infrastructure;
 using System.Net;
 
-namespace WebApplication1.Controllers
+namespace NorgesEnergi.Controllers
 {
     public class Stage4Controller : Controller
     {

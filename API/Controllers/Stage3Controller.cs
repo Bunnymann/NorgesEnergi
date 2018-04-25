@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using API.Models;
 using System.Data.Entity.Infrastructure;
 
-namespace WebApplication1.Controllers
+namespace NorgesEnergi.Controllers
 {
     public class stage3Controller : Controller
     {
