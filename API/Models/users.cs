@@ -12,13 +12,12 @@ namespace API.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class helptexttag
+    public partial class users
     {
-        public int helptexttag_ID { get; set; }
-        public int helptext_ID { get; set; }
-        public Nullable<int> metatag_ID { get; set; }
+        public string loginname { get; set; }
+        public string loginpassword { get; set; }
+        public Nullable<int> stage1_ID { get; set; }
     
-        public virtual helptext helptext { get; set; }
-        public virtual metatag metatag { get; set; }
+        public virtual stage1 stage1 { get; set; }
     }
 }

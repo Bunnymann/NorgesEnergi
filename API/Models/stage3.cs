@@ -22,9 +22,7 @@ namespace API.Models
     
         public int stage3_ID { get; set; }
         public string stage3_name { get; set; }
-        public Nullable<int> helptext_ID { get; set; }
     
-        public virtual helptext helptext { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<info> info { get; set; }
     }

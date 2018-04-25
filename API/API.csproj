@@ -164,50 +164,54 @@
     <Compile Include="Controllers\Stage2Controller.cs" />
     <Compile Include="Controllers\Stage3Controller.cs" />
     <Compile Include="Controllers\Stage4Controller.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\HelpTagsViewModel.cs" />
     <Compile Include="Models\helptext.cs">
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\helptexttag.cs">
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\info.cs">
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InfoViewModel.cs" />
     <Compile Include="Models\metatag.cs">
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NorgesEnergi_Model.Context.cs">
+    <Compile Include="Models\NorgesEnergiDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NorgesEnergi_Model.Context.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NorgesEnergi_Model.cs">
+    <Compile Include="Models\NorgesEnergiDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NorgesEnergi_Model.Designer.cs">
+    <Compile Include="Models\NorgesEnergiDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NorgesEnergi_Model.edmx</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\stage1.cs">
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stage2.cs">
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stage3.cs">
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stage4.cs">
-      <DependentUpon>NorgesEnergi_Model.tt</DependentUpon>
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\users.cs">
+      <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -218,27 +222,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\NorgesEnergi_Model.Context.tt">
+    <Content Include="Models\NorgesEnergiDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NorgesEnergi_Model.edmx</DependentUpon>
-      <LastGenOutput>NorgesEnergi_Model.Context.cs</LastGenOutput>
+      <DependentUpon>NorgesEnergiDataModel.edmx</DependentUpon>
+      <LastGenOutput>NorgesEnergiDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\NorgesEnergi_Model.tt">
+    <Content Include="Models\NorgesEnergiDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NorgesEnergi_Model.edmx</DependentUpon>
-      <LastGenOutput>NorgesEnergi_Model.cs</LastGenOutput>
+      <DependentUpon>NorgesEnergiDataModel.edmx</DependentUpon>
+      <LastGenOutput>NorgesEnergiDataModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\NorgesEnergi_Model.edmx">
+    <EntityDeploy Include="Models\NorgesEnergiDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NorgesEnergi_Model.Designer.cs</LastGenOutput>
+      <LastGenOutput>NorgesEnergiDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\NorgesEnergi_Model.edmx.diagram">
-      <DependentUpon>NorgesEnergi_Model.edmx</DependentUpon>
+    <Content Include="Models\NorgesEnergiDataModel.edmx.diagram">
+      <DependentUpon>NorgesEnergiDataModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -312,6 +316,8 @@
     <Content Include="Views\Info\TestEdit.cshtml" />
     <Content Include="Views\Info\GetStage1.cshtml" />
     <Content Include="Views\Helptext\_EditHelp.cshtml" />
+    <Content Include="Views\Users\CreateUser.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

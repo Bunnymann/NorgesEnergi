@@ -10,8 +10,8 @@
             <PropertyRef Name="helptext_ID" />
           </Key>
           <Property Name="helptext_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="helptext_header" Type="varchar" MaxLength="90" Nullable="false" />
-          <Property Name="helptext_short" Type="text" />
+          <Property Name="helptext_header" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="helptext_short" Type="text" Nullable="false" />
           <Property Name="helptext_long" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="helptexttag">
@@ -20,7 +20,7 @@
           </Key>
           <Property Name="helptexttag_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="helptext_ID" Type="int" Nullable="false" />
-          <Property Name="metatag_ID" Type="int" Nullable="false" />
+          <Property Name="metatag_ID" Type="int" />
         </EntityType>
         <EntityType Name="info">
           <Key>
@@ -28,16 +28,16 @@
           </Key>
           <Property Name="info_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stage1_ID" Type="int" Nullable="false" />
-          <Property Name="stage2_ID" Type="int" />
-          <Property Name="stage3_ID" Type="int" />
-          <Property Name="stage4_ID" Type="int" />
+          <Property Name="stage2_ID" Type="int" Nullable="false" />
+          <Property Name="stage3_ID" Type="int" Nullable="false" />
+          <Property Name="stage4_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="metatag">
           <Key>
             <PropertyRef Name="metatag_ID" />
           </Key>
           <Property Name="metatag_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="tag" Type="varchar" MaxLength="50" />
+          <Property Name="tag" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="stage1">
           <Key>
@@ -45,7 +45,6 @@
           </Key>
           <Property Name="stage1_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stage1_name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="helptext_ID" Type="int" />
         </EntityType>
         <EntityType Name="stage2">
           <Key>
@@ -53,7 +52,6 @@
           </Key>
           <Property Name="stage2_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stage2_name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="helptext_ID" Type="int" />
         </EntityType>
         <EntityType Name="stage3">
           <Key>
@@ -61,7 +59,6 @@
           </Key>
           <Property Name="stage3_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stage3_name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="helptext_ID" Type="int" />
         </EntityType>
         <EntityType Name="stage4">
           <Key>
@@ -71,7 +68,15 @@
           <Property Name="stage4_name" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="helptext_ID" Type="int" />
         </EntityType>
-        <Association Name="htt_helptext_FK">
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="loginname" />
+          </Key>
+          <Property Name="loginname" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="loginpassword" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="stage1_ID" Type="int" />
+        </EntityType>
+        <Association Name="helptexttag_helptext_FK">
           <End Role="helptext" Type="Self.helptext" Multiplicity="1" />
           <End Role="helptexttag" Type="Self.helptexttag" Multiplicity="*" />
           <ReferentialConstraint>
@@ -83,8 +88,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="htt_metatag_FK">
-          <End Role="metatag" Type="Self.metatag" Multiplicity="1" />
+        <Association Name="helptexttag_metatag_FK">
+          <End Role="metatag" Type="Self.metatag" Multiplicity="0..1" />
           <End Role="helptexttag" Type="Self.helptexttag" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="metatag">
@@ -95,55 +100,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="s1_helptext_FK">
-          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
-          <End Role="stage1" Type="Self.stage1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="helptext">
-              <PropertyRef Name="helptext_ID" />
-            </Principal>
-            <Dependent Role="stage1">
-              <PropertyRef Name="helptext_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="s2_helptext_FK">
-          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
-          <End Role="stage2" Type="Self.stage2" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="helptext">
-              <PropertyRef Name="helptext_ID" />
-            </Principal>
-            <Dependent Role="stage2">
-              <PropertyRef Name="helptext_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="s3_helptext_FK">
-          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
-          <End Role="stage3" Type="Self.stage3" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="helptext">
-              <PropertyRef Name="helptext_ID" />
-            </Principal>
-            <Dependent Role="stage3">
-              <PropertyRef Name="helptext_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="s4_helptext_FK">
-          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
-          <End Role="stage4" Type="Self.stage4" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="helptext">
-              <PropertyRef Name="helptext_ID" />
-            </Principal>
-            <Dependent Role="stage4">
-              <PropertyRef Name="helptext_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="stage1_FK">
+        <Association Name="info_stage1_FK">
           <End Role="stage1" Type="Self.stage1" Multiplicity="1" />
           <End Role="info" Type="Self.info" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,8 +112,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="stage2_FK">
-          <End Role="stage2" Type="Self.stage2" Multiplicity="0..1" />
+        <Association Name="info_stage2_FK">
+          <End Role="stage2" Type="Self.stage2" Multiplicity="1" />
           <End Role="info" Type="Self.info" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="stage2">
@@ -167,8 +124,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="stage3_FK">
-          <End Role="stage3" Type="Self.stage3" Multiplicity="0..1" />
+        <Association Name="info_stage3_FK">
+          <End Role="stage3" Type="Self.stage3" Multiplicity="1" />
           <End Role="info" Type="Self.info" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="stage3">
@@ -179,8 +136,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="stage4_FK">
-          <End Role="stage4" Type="Self.stage4" Multiplicity="0..1" />
+        <Association Name="info_stage4_FK">
+          <End Role="stage4" Type="Self.stage4" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="info" Type="Self.info" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="stage4">
@@ -188,6 +147,32 @@
             </Principal>
             <Dependent Role="info">
               <PropertyRef Name="stage4_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="stage4_helpID_FK">
+          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="stage4" Type="Self.stage4" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="helptext">
+              <PropertyRef Name="helptext_ID" />
+            </Principal>
+            <Dependent Role="stage4">
+              <PropertyRef Name="helptext_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_stage_FK">
+          <End Role="stage1" Type="Self.stage1" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stage1">
+              <PropertyRef Name="stage1_ID" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="stage1_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -200,45 +185,38 @@
           <EntitySet Name="stage2" EntityType="Self.stage2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stage3" EntityType="Self.stage3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stage4" EntityType="Self.stage4" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="htt_helptext_FK" Association="Self.htt_helptext_FK">
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="helptexttag_helptext_FK" Association="Self.helptexttag_helptext_FK">
             <End Role="helptext" EntitySet="helptext" />
             <End Role="helptexttag" EntitySet="helptexttag" />
           </AssociationSet>
-          <AssociationSet Name="htt_metatag_FK" Association="Self.htt_metatag_FK">
+          <AssociationSet Name="helptexttag_metatag_FK" Association="Self.helptexttag_metatag_FK">
             <End Role="metatag" EntitySet="metatag" />
             <End Role="helptexttag" EntitySet="helptexttag" />
           </AssociationSet>
-          <AssociationSet Name="s1_helptext_FK" Association="Self.s1_helptext_FK">
-            <End Role="helptext" EntitySet="helptext" />
-            <End Role="stage1" EntitySet="stage1" />
-          </AssociationSet>
-          <AssociationSet Name="s2_helptext_FK" Association="Self.s2_helptext_FK">
-            <End Role="helptext" EntitySet="helptext" />
-            <End Role="stage2" EntitySet="stage2" />
-          </AssociationSet>
-          <AssociationSet Name="s3_helptext_FK" Association="Self.s3_helptext_FK">
-            <End Role="helptext" EntitySet="helptext" />
-            <End Role="stage3" EntitySet="stage3" />
-          </AssociationSet>
-          <AssociationSet Name="s4_helptext_FK" Association="Self.s4_helptext_FK">
-            <End Role="helptext" EntitySet="helptext" />
-            <End Role="stage4" EntitySet="stage4" />
-          </AssociationSet>
-          <AssociationSet Name="stage1_FK" Association="Self.stage1_FK">
+          <AssociationSet Name="info_stage1_FK" Association="Self.info_stage1_FK">
             <End Role="stage1" EntitySet="stage1" />
             <End Role="info" EntitySet="info" />
           </AssociationSet>
-          <AssociationSet Name="stage2_FK" Association="Self.stage2_FK">
+          <AssociationSet Name="info_stage2_FK" Association="Self.info_stage2_FK">
             <End Role="stage2" EntitySet="stage2" />
             <End Role="info" EntitySet="info" />
           </AssociationSet>
-          <AssociationSet Name="stage3_FK" Association="Self.stage3_FK">
+          <AssociationSet Name="info_stage3_FK" Association="Self.info_stage3_FK">
             <End Role="stage3" EntitySet="stage3" />
             <End Role="info" EntitySet="info" />
           </AssociationSet>
-          <AssociationSet Name="stage4_FK" Association="Self.stage4_FK">
+          <AssociationSet Name="info_stage4_FK" Association="Self.info_stage4_FK">
             <End Role="stage4" EntitySet="stage4" />
             <End Role="info" EntitySet="info" />
+          </AssociationSet>
+          <AssociationSet Name="stage4_helpID_FK" Association="Self.stage4_helpID_FK">
+            <End Role="helptext" EntitySet="helptext" />
+            <End Role="stage4" EntitySet="stage4" />
+          </AssociationSet>
+          <AssociationSet Name="user_stage_FK" Association="Self.user_stage_FK">
+            <End Role="stage1" EntitySet="stage1" />
+            <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -251,14 +229,11 @@
             <PropertyRef Name="helptext_ID" />
           </Key>
           <Property Name="helptext_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="helptext_header" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="helptext_short" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="helptext_header" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="helptext_short" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="helptext_long" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="helptexttag" Relationship="Self.htt_helptext_FK" FromRole="helptext" ToRole="helptexttag" />
-          <NavigationProperty Name="stage1" Relationship="Self.s1_helptext_FK" FromRole="helptext" ToRole="stage1" />
-          <NavigationProperty Name="stage2" Relationship="Self.s2_helptext_FK" FromRole="helptext" ToRole="stage2" />
-          <NavigationProperty Name="stage3" Relationship="Self.s3_helptext_FK" FromRole="helptext" ToRole="stage3" />
-          <NavigationProperty Name="stage4" Relationship="Self.s4_helptext_FK" FromRole="helptext" ToRole="stage4" />
+          <NavigationProperty Name="helptexttag" Relationship="Self.helptexttag_helptext_FK" FromRole="helptext" ToRole="helptexttag" />
+          <NavigationProperty Name="stage4" Relationship="Self.stage4_helpID_FK" FromRole="helptext" ToRole="stage4" />
         </EntityType>
         <EntityType Name="helptexttag">
           <Key>
@@ -266,9 +241,9 @@
           </Key>
           <Property Name="helptexttag_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="helptext_ID" Type="Int32" Nullable="false" />
-          <Property Name="metatag_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="helptext" Relationship="Self.htt_helptext_FK" FromRole="helptexttag" ToRole="helptext" />
-          <NavigationProperty Name="metatag" Relationship="Self.htt_metatag_FK" FromRole="helptexttag" ToRole="metatag" />
+          <Property Name="metatag_ID" Type="Int32" />
+          <NavigationProperty Name="helptext" Relationship="Self.helptexttag_helptext_FK" FromRole="helptexttag" ToRole="helptext" />
+          <NavigationProperty Name="metatag" Relationship="Self.helptexttag_metatag_FK" FromRole="helptexttag" ToRole="metatag" />
         </EntityType>
         <EntityType Name="info">
           <Key>
@@ -276,21 +251,21 @@
           </Key>
           <Property Name="info_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stage1_ID" Type="Int32" Nullable="false" />
-          <Property Name="stage2_ID" Type="Int32" />
-          <Property Name="stage3_ID" Type="Int32" />
-          <Property Name="stage4_ID" Type="Int32" />
-          <NavigationProperty Name="stage1" Relationship="Self.stage1_FK" FromRole="info" ToRole="stage1" />
-          <NavigationProperty Name="stage2" Relationship="Self.stage2_FK" FromRole="info" ToRole="stage2" />
-          <NavigationProperty Name="stage3" Relationship="Self.stage3_FK" FromRole="info" ToRole="stage3" />
-          <NavigationProperty Name="stage4" Relationship="Self.stage4_FK" FromRole="info" ToRole="stage4" />
+          <Property Name="stage2_ID" Type="Int32" Nullable="false" />
+          <Property Name="stage3_ID" Type="Int32" Nullable="false" />
+          <Property Name="stage4_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="stage1" Relationship="Self.info_stage1_FK" FromRole="info" ToRole="stage1" />
+          <NavigationProperty Name="stage2" Relationship="Self.info_stage2_FK" FromRole="info" ToRole="stage2" />
+          <NavigationProperty Name="stage3" Relationship="Self.info_stage3_FK" FromRole="info" ToRole="stage3" />
+          <NavigationProperty Name="stage4" Relationship="Self.info_stage4_FK" FromRole="info" ToRole="stage4" />
         </EntityType>
         <EntityType Name="metatag">
           <Key>
             <PropertyRef Name="metatag_ID" />
           </Key>
           <Property Name="metatag_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="helptexttag" Relationship="Self.htt_metatag_FK" FromRole="metatag" ToRole="helptexttag" />
+          <Property Name="tag" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="helptexttag" Relationship="Self.helptexttag_metatag_FK" FromRole="metatag" ToRole="helptexttag" />
         </EntityType>
         <EntityType Name="stage1">
           <Key>
@@ -298,9 +273,8 @@
           </Key>
           <Property Name="stage1_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stage1_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="helptext_ID" Type="Int32" />
-          <NavigationProperty Name="helptext" Relationship="Self.s1_helptext_FK" FromRole="stage1" ToRole="helptext" />
-          <NavigationProperty Name="info" Relationship="Self.stage1_FK" FromRole="stage1" ToRole="info" />
+          <NavigationProperty Name="info" Relationship="Self.info_stage1_FK" FromRole="stage1" ToRole="info" />
+          <NavigationProperty Name="users" Relationship="Self.user_stage_FK" FromRole="stage1" ToRole="users" />
         </EntityType>
         <EntityType Name="stage2">
           <Key>
@@ -308,9 +282,7 @@
           </Key>
           <Property Name="stage2_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stage2_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="helptext_ID" Type="Int32" />
-          <NavigationProperty Name="helptext" Relationship="Self.s2_helptext_FK" FromRole="stage2" ToRole="helptext" />
-          <NavigationProperty Name="info" Relationship="Self.stage2_FK" FromRole="stage2" ToRole="info" />
+          <NavigationProperty Name="info" Relationship="Self.info_stage2_FK" FromRole="stage2" ToRole="info" />
         </EntityType>
         <EntityType Name="stage3">
           <Key>
@@ -318,9 +290,7 @@
           </Key>
           <Property Name="stage3_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stage3_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="helptext_ID" Type="Int32" />
-          <NavigationProperty Name="helptext" Relationship="Self.s3_helptext_FK" FromRole="stage3" ToRole="helptext" />
-          <NavigationProperty Name="info" Relationship="Self.stage3_FK" FromRole="stage3" ToRole="info" />
+          <NavigationProperty Name="info" Relationship="Self.info_stage3_FK" FromRole="stage3" ToRole="info" />
         </EntityType>
         <EntityType Name="stage4">
           <Key>
@@ -329,10 +299,19 @@
           <Property Name="stage4_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stage4_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="helptext_ID" Type="Int32" />
-          <NavigationProperty Name="helptext" Relationship="Self.s4_helptext_FK" FromRole="stage4" ToRole="helptext" />
-          <NavigationProperty Name="info" Relationship="Self.stage4_FK" FromRole="stage4" ToRole="info" />
+          <NavigationProperty Name="helptext" Relationship="Self.stage4_helpID_FK" FromRole="stage4" ToRole="helptext" />
+          <NavigationProperty Name="info" Relationship="Self.info_stage4_FK" FromRole="stage4" ToRole="info" />
         </EntityType>
-        <Association Name="htt_helptext_FK">
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="loginname" />
+          </Key>
+          <Property Name="loginname" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="loginpassword" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stage1_ID" Type="Int32" />
+          <NavigationProperty Name="stage1" Relationship="Self.user_stage_FK" FromRole="users" ToRole="stage1" />
+        </EntityType>
+        <Association Name="helptexttag_helptext_FK">
           <End Role="helptext" Type="Self.helptext" Multiplicity="1" />
           <End Role="helptexttag" Type="Self.helptexttag" Multiplicity="*" />
           <ReferentialConstraint>
@@ -344,44 +323,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="s1_helptext_FK">
-          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
-          <End Role="stage1" Type="Self.stage1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="helptext">
-              <PropertyRef Name="helptext_ID" />
-            </Principal>
-            <Dependent Role="stage1">
-              <PropertyRef Name="helptext_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="s2_helptext_FK">
-          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
-          <End Role="stage2" Type="Self.stage2" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="helptext">
-              <PropertyRef Name="helptext_ID" />
-            </Principal>
-            <Dependent Role="stage2">
-              <PropertyRef Name="helptext_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="s3_helptext_FK">
-          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
-          <End Role="stage3" Type="Self.stage3" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="helptext">
-              <PropertyRef Name="helptext_ID" />
-            </Principal>
-            <Dependent Role="stage3">
-              <PropertyRef Name="helptext_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="s4_helptext_FK">
-          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
+        <Association Name="stage4_helpID_FK">
+          <End Role="helptext" Type="Self.helptext" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="stage4" Type="Self.stage4" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="helptext">
@@ -392,8 +337,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="htt_metatag_FK">
-          <End Role="metatag" Type="Self.metatag" Multiplicity="1" />
+        <Association Name="helptexttag_metatag_FK">
+          <End Role="metatag" Type="Self.metatag" Multiplicity="0..1" />
           <End Role="helptexttag" Type="Self.helptexttag" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="metatag">
@@ -404,7 +349,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="stage1_FK">
+        <Association Name="info_stage1_FK">
           <End Role="stage1" Type="Self.stage1" Multiplicity="1" />
           <End Role="info" Type="Self.info" Multiplicity="*" />
           <ReferentialConstraint>
@@ -416,8 +361,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="stage2_FK">
-          <End Role="stage2" Type="Self.stage2" Multiplicity="0..1" />
+        <Association Name="info_stage2_FK">
+          <End Role="stage2" Type="Self.stage2" Multiplicity="1" />
           <End Role="info" Type="Self.info" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="stage2">
@@ -428,8 +373,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="stage3_FK">
-          <End Role="stage3" Type="Self.stage3" Multiplicity="0..1" />
+        <Association Name="info_stage3_FK">
+          <End Role="stage3" Type="Self.stage3" Multiplicity="1" />
           <End Role="info" Type="Self.info" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="stage3">
@@ -440,8 +385,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="stage4_FK">
-          <End Role="stage4" Type="Self.stage4" Multiplicity="0..1" />
+        <Association Name="info_stage4_FK">
+          <End Role="stage4" Type="Self.stage4" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="info" Type="Self.info" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="stage4">
@@ -449,6 +396,18 @@
             </Principal>
             <Dependent Role="info">
               <PropertyRef Name="stage4_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_stage_FK">
+          <End Role="stage1" Type="Self.stage1" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stage1">
+              <PropertyRef Name="stage1_ID" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="stage1_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -461,45 +420,38 @@
           <EntitySet Name="stage2" EntityType="Self.stage2" />
           <EntitySet Name="stage3" EntityType="Self.stage3" />
           <EntitySet Name="stage4" EntityType="Self.stage4" />
-          <AssociationSet Name="htt_helptext_FK" Association="Self.htt_helptext_FK">
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="helptexttag_helptext_FK" Association="Self.helptexttag_helptext_FK">
             <End Role="helptext" EntitySet="helptext" />
             <End Role="helptexttag" EntitySet="helptexttag" />
           </AssociationSet>
-          <AssociationSet Name="s1_helptext_FK" Association="Self.s1_helptext_FK">
-            <End Role="helptext" EntitySet="helptext" />
-            <End Role="stage1" EntitySet="stage1" />
-          </AssociationSet>
-          <AssociationSet Name="s2_helptext_FK" Association="Self.s2_helptext_FK">
-            <End Role="helptext" EntitySet="helptext" />
-            <End Role="stage2" EntitySet="stage2" />
-          </AssociationSet>
-          <AssociationSet Name="s3_helptext_FK" Association="Self.s3_helptext_FK">
-            <End Role="helptext" EntitySet="helptext" />
-            <End Role="stage3" EntitySet="stage3" />
-          </AssociationSet>
-          <AssociationSet Name="s4_helptext_FK" Association="Self.s4_helptext_FK">
+          <AssociationSet Name="stage4_helpID_FK" Association="Self.stage4_helpID_FK">
             <End Role="helptext" EntitySet="helptext" />
             <End Role="stage4" EntitySet="stage4" />
           </AssociationSet>
-          <AssociationSet Name="htt_metatag_FK" Association="Self.htt_metatag_FK">
+          <AssociationSet Name="helptexttag_metatag_FK" Association="Self.helptexttag_metatag_FK">
             <End Role="metatag" EntitySet="metatag" />
             <End Role="helptexttag" EntitySet="helptexttag" />
           </AssociationSet>
-          <AssociationSet Name="stage1_FK" Association="Self.stage1_FK">
+          <AssociationSet Name="info_stage1_FK" Association="Self.info_stage1_FK">
             <End Role="stage1" EntitySet="stage1" />
             <End Role="info" EntitySet="info" />
           </AssociationSet>
-          <AssociationSet Name="stage2_FK" Association="Self.stage2_FK">
+          <AssociationSet Name="info_stage2_FK" Association="Self.info_stage2_FK">
             <End Role="stage2" EntitySet="stage2" />
             <End Role="info" EntitySet="info" />
           </AssociationSet>
-          <AssociationSet Name="stage3_FK" Association="Self.stage3_FK">
+          <AssociationSet Name="info_stage3_FK" Association="Self.info_stage3_FK">
             <End Role="stage3" EntitySet="stage3" />
             <End Role="info" EntitySet="info" />
           </AssociationSet>
-          <AssociationSet Name="stage4_FK" Association="Self.stage4_FK">
+          <AssociationSet Name="info_stage4_FK" Association="Self.info_stage4_FK">
             <End Role="stage4" EntitySet="stage4" />
             <End Role="info" EntitySet="info" />
+          </AssociationSet>
+          <AssociationSet Name="user_stage_FK" Association="Self.user_stage_FK">
+            <End Role="stage1" EntitySet="stage1" />
+            <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -551,7 +503,6 @@
               <MappingFragment StoreEntitySet="stage1">
                 <ScalarProperty Name="stage1_ID" ColumnName="stage1_ID" />
                 <ScalarProperty Name="stage1_name" ColumnName="stage1_name" />
-                <ScalarProperty Name="helptext_ID" ColumnName="helptext_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -560,7 +511,6 @@
               <MappingFragment StoreEntitySet="stage2">
                 <ScalarProperty Name="stage2_ID" ColumnName="stage2_ID" />
                 <ScalarProperty Name="stage2_name" ColumnName="stage2_name" />
-                <ScalarProperty Name="helptext_ID" ColumnName="helptext_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -569,7 +519,6 @@
               <MappingFragment StoreEntitySet="stage3">
                 <ScalarProperty Name="stage3_ID" ColumnName="stage3_ID" />
                 <ScalarProperty Name="stage3_name" ColumnName="stage3_name" />
-                <ScalarProperty Name="helptext_ID" ColumnName="helptext_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -579,6 +528,15 @@
                 <ScalarProperty Name="stage4_ID" ColumnName="stage4_ID" />
                 <ScalarProperty Name="stage4_name" ColumnName="stage4_name" />
                 <ScalarProperty Name="helptext_ID" ColumnName="helptext_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="Norges_EnergiModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="loginname" ColumnName="loginname" />
+                <ScalarProperty Name="loginpassword" ColumnName="loginpassword" />
+                <ScalarProperty Name="stage1_ID" ColumnName="stage1_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

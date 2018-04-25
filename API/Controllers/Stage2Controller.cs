@@ -28,7 +28,6 @@ namespace WebApplication .Controllers
                     stage2 model = new stage2();
                     model.stage2_ID = row.stage2_ID;
                     model.stage2_name = row.stage2_name;
-                    model.helptext_ID = row.helptext_ID;
                     result.Add(model);
                 }
             }
@@ -53,7 +52,7 @@ namespace WebApplication .Controllers
         }
         public bool InsertStage2(stage2 model)
         {
-            int rowsAffected = conn.Execute("INSERT INTO Stage2([stage2_name], [helptext_ID]) VALUES (@name, @helptextID) ", new { name = model.stage2_name, helptextID = model.helptext_ID });
+            int rowsAffected = conn.Execute("INSERT INTO Stage2([stage2_name]) VALUES (@name) ", new { name = model.stage2_name });
             if (rowsAffected > 0)
             {
                 return true;
@@ -71,7 +70,6 @@ namespace WebApplication .Controllers
                 stage2 model = new stage2();
                 model.stage2_ID = obj.FirstOrDefault().stage2_ID;
                 model.stage2_name = obj.FirstOrDefault().stage2_name;
-                model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 return View(model);
             }
             return View();
@@ -87,7 +85,6 @@ namespace WebApplication .Controllers
                 stage2 model = new stage2();
                 model.stage2_ID = obj.FirstOrDefault().stage2_ID;
                 model.stage2_name = obj.FirstOrDefault().stage2_name;
-                model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 return View(model);
             }
             return View();
@@ -111,7 +108,6 @@ namespace WebApplication .Controllers
                 stage2 model = new stage2();
                 model.stage2_ID = obj.FirstOrDefault().stage2_ID;
                 model.stage2_name = obj.FirstOrDefault().stage2_name;
-                model.helptext_ID = obj.FirstOrDefault().helptext_ID;
                 return View(model);
             }
             return View();
@@ -123,42 +119,6 @@ namespace WebApplication .Controllers
             var obj = conn.Execute("DELETE from Stage2 WHERE stage2_ID = @stage2_ID", new { stage2_ID = id });
 
             return RedirectToAction("list");
-        }
-
-        public ActionResult CreateStage2()
-        {
-            PopulateHelpDropDownList();
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateStage2([Bind(Include = "stage2_ID, stage2_name, helptext_ID")] stage2 stage)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.stage2.Add(stage);
-                    db.SaveChanges();
-                    return RedirectToAction("FullList");
-                }
-            }
-            catch (RetryLimitExceededException /*dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.)
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-            }
-            PopulateHelpDropDownList(stage.helptext_ID);
-            return View(stage);
-        }
-
-        private void PopulateHelpDropDownList(object selecthelp = null)
-        {
-            var helptext = from h in db.helptext
-                           orderby h.helptext_header
-                           select h;
-            ViewBag.helptext_ID = new SelectList(helptext, "helptext_ID", "helptext_header", selecthelp);
         }
 
     }

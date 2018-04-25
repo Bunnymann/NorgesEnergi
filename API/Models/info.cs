@@ -16,9 +16,9 @@ namespace API.Models
     {
         public int info_ID { get; set; }
         public int stage1_ID { get; set; }
-        public Nullable<int> stage2_ID { get; set; }
-        public Nullable<int> stage3_ID { get; set; }
-        public Nullable<int> stage4_ID { get; set; }
+        public int stage2_ID { get; set; }
+        public int stage3_ID { get; set; }
+        public int stage4_ID { get; set; }
     
         public virtual stage1 stage1 { get; set; }
         public virtual stage2 stage2 { get; set; }

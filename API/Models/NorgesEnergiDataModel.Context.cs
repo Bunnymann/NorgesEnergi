@@ -33,5 +33,6 @@ namespace API.Models
         public virtual DbSet<stage2> stage2 { get; set; }
         public virtual DbSet<stage3> stage3 { get; set; }
         public virtual DbSet<stage4> stage4 { get; set; }
+        public virtual DbSet<users> users { get; set; }
     }
 }
