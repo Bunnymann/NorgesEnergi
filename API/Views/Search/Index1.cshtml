@@ -1,24 +1,18 @@
 ﻿@model IEnumerable<API.Models.InfoViewModel>
 
 @{
-    ViewBag.Title = "List Admin";
+    ViewBag.Title = "Index1";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Administrate List</h2>
+<h2>Search texts</h2>
 
-<div class="container">
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            <input type="text" id="Search" placeholder="Search" class="form-control" />
-        </div>
-    </div>
-</div>
-
-<p>
-    @Html.ActionLink("Create New", "testcreate")
-</p>
+@using (Html.BeginForm("Index1", "Search", FormMethod.Get))
+{
+    @Html.TextBox("tags") <input type="submit"
+                                 name="submit"
+                                 value="Search" />
+}
 <table class="table">
     <tr>
         <th>
@@ -76,30 +70,11 @@
                 @Html.DisplayFor(modelItem => item.tag)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.helptext_ID }) |
-                @Html.ActionLink("Delete", "DeleteInfo", new { id = item.info_ID })
+                <h5>
+                    @Html.ActionLink("SELECT", "Details", new { id = item.helptext_ID })
+                </h5>
             </td>
         </tr>
     }
-</table>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        function Contains(text_one, text_two) {
-            if (text_one.indexOf(text_two) != -1)
-                return true;
-        }
-        $("#Search").keyup(function () {
-            var searchText = $("#Search").val().toLowerCase();
-            $(".Search").each(function () {
-                if (!Contains($(this).text().toLowerCase(), searchText)) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-        });
-    });
-</script>
+</table>

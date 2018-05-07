@@ -198,3 +198,9 @@ C:\Users\Owner\Documents\GitHub\NorgesEnergi\API\obj\Debug\API.csproj.CopyComple
 C:\Users\mariu\Documents\NorgesEnergi\API\obj\Debug\API.csproj.CopyComplete
 G:\NorgesEnergi\API\obj\Debug\API.dll
 G:\NorgesEnergi\API\obj\Debug\API.pdb
+C:\Users\mariu\Documents\NorgesEnergi\API\bin\System.Net.Http.Formatting.dll
+C:\Users\mariu\Documents\NorgesEnergi\API\bin\System.Web.Http.dll
+C:\Users\mariu\Documents\NorgesEnergi\API\bin\System.Web.Http.WebHost.dll
+C:\Users\mariu\Documents\NorgesEnergi\API\bin\System.Net.Http.Formatting.xml
+C:\Users\mariu\Documents\NorgesEnergi\API\bin\System.Web.Http.xml
+C:\Users\mariu\Documents\NorgesEnergi\API\bin\System.Web.Http.WebHost.xml

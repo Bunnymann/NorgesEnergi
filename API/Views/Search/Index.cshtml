@@ -1,0 +1,45 @@
+﻿@model IEnumerable<API.Models.helptext>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index", "Search", FormMethod.Get))
+{
+    @Html.TextBox("tags") <input type = "submit"
+    name = "submit"
+    value = "Search" />
+}
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.helptext_header)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.helptext_short)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.helptext_long)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.helptext_header)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.helptext_short)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.helptext_long)
+                </td>
+            </tr>
+        }
+
+    </table>
