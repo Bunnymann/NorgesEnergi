@@ -1,45 +1,80 @@
-﻿@model IEnumerable<API.Models.helptext>
+﻿@model IEnumerable<API.Models.InfoViewModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Search texts</h2>
 
 @using (Html.BeginForm("Index", "Search", FormMethod.Get))
 {
-    @Html.TextBox("tags") <input type = "submit"
-    name = "submit"
-    value = "Search" />
+    @Html.TextBox("tags") <input type="submit"
+                                 name="submit"
+                                 value="Search" />
 }
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.stage1_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage2_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage3_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stage4_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.helptext_header)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.helptext_short)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.helptext_long)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tag)
+        </th>
+        <th></th>
+    </tr>
 
-    <table class="table">
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.helptext_header)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.helptext_short)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.helptext_long)
-            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.stage1_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stage2_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stage3_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stage4_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.helptext_header)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.helptext_short)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.helptext_long)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tag)
+            </td>
+            <td>
+                <h5>
+                    @Html.ActionLink("SELECT", "Details", new { id = item.helptext_ID })
+                </h5>
+            </td>
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.helptext_header)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.helptext_short)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.helptext_long)
-                </td>
-            </tr>
-        }
-
-    </table>
+</table>

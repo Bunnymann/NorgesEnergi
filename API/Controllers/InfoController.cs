@@ -247,7 +247,6 @@ namespace NorgesEnergi.Controllers
         
         {
             var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @help_ID", new { help_ID = id, header = model.helptext_header, text_short = model.helptext_short, text_long = model.helptext_long });
-
             return RedirectToAction("FullList");
         }
 

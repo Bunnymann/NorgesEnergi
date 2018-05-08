@@ -330,9 +330,10 @@
     <Content Include="Views\Helptext\_EditHelp.cshtml" />
     <Content Include="Views\Users\CreateUser.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\Index1.cshtml" />
     <Content Include="Views\Search\Details.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Search\_GetSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<API.Models.InfoViewModel>
 
 @{
-    ViewBag.Title = "Index1";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Search texts</h2>
 
-@using (Html.BeginForm("Index1", "Search", FormMethod.Get))
+@using (Html.BeginForm("Index", "Search", FormMethod.Get))
 {
     @Html.TextBox("tags") <input type="submit"
                                  name="submit"

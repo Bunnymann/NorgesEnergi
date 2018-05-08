@@ -19,35 +19,72 @@ namespace API.Controllers
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
 
-        [HttpGet]
-        public ActionResult Index1(string tags)
+        
+        [HttpPost]
+        public string GetSearch(string tags)
         {
+            List<string> taglist = new List<string>();
+            List<string> criteria = new List<string>();
 
-            char[] delimiterChars = new char[] { ',', '.', ':', };
-            
-            string test = ("SELECT info.info_ID, helptext.helptext_header FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;");
-            
-            List<string> criteria = new List<string>
+            string sqlstring = ("SELECT info.info_ID, count(metatag.tag) as metatags FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID ");
+            criteria.Add(sqlstring);
+
+            /*
+             * Search parameters must as for now be written in the code.
+             * The code works and result are correct according to database data
+             * The split function get error System.NullReferenceException
+             */
+            string search = "nor, fin, test, privat, swe";
+
+            string[] words = search.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var tag in words)
             {
-                test
-            };
-            
-            string text = tags;
-
-            string[] words;
-
-            words = "nor, test, faktura".Split(delimiterChars);
-
-            foreach (var word in words)
-            {
-                criteria.Add("metatag.tag like = '%" + word + "%' and");
+                taglist.Add(tag);
             }
 
-            string searchtext = criteria.ToString();
-            //return View(db.helptext.Where(h => h.helptext_header.Contains(tags) || tags == null).ToList());
+            int occ = taglist.Count();
+            int count = 0;
 
-            //var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, helptext.helptext_header FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID where metatag.tag like @tag;", new { tag = tags }).ToList();
-            var obj = conn.Query<InfoViewModel>(test).ToList();
+
+            if (occ == 1)
+            {
+                foreach (var tag in taglist)
+                {
+                    criteria.Add("where metatag.tag like '%" + tag + "%';");
+                }
+            }
+            else
+            {
+                while (count < occ)
+                {
+                    foreach (var tag in taglist)
+                    {
+                        if (count == 0)
+                        {
+                            criteria.Add("where metatag.tag like '%" + tag + "%' or ");
+                        }
+                        else if (count > 0 && count < (occ - 1))
+                        {
+                            criteria.Add("metatag.tag like '%" + tag + "%' or ");
+                        }
+                        else if (count == (occ - 1))
+                        {
+                            criteria.Add("metatag.tag like '%" + tag + "%' group by info.info_ID order by metatags desc;");
+                        }
+
+                        count++;
+                    }
+                }
+            }
+            string text = string.Join("", criteria);
+            return text;
+        }
+
+        [HttpGet]
+        public ActionResult Index(string tags)
+        {
+            var obj = conn.Query<InfoViewModel>(GetSearch(tags)).Take(4).ToList();
             
             List<InfoViewModel> result = new List<InfoViewModel>();
             if (obj != null)
@@ -60,8 +97,8 @@ namespace API.Controllers
                         stage2_name = GetStage2(row.info_ID),
                         stage3_name = GetStage3(row.info_ID),
                         stage4_name = GetStage4(row.info_ID),
-                        helptext_ID = GetHelptextID(row.helptext_header),
-                        helptext_header = row.helptext_header,
+                        helptext_ID = GetHelptextID(row.info_ID),
+                        helptext_header = GetHelptextHeader(row.info_ID),
                         helptext_short = GetShortText(row.info_ID),
                         helptext_long = GetLongText(row.info_ID),
                         tag = GetTags(row.info_ID),
@@ -71,35 +108,11 @@ namespace API.Controllers
             }
             return View(result);
         }
-        /**
-        [HttpGet]
-        public string GetSearch(string tags)
-        {
-            string test = ("SELECT info.info_ID, helptext.helptext_header FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;");
-            List<string> criteria = new List<string>();
-            criteria.Add(test);
-
-            char[] delimiterChars = { ',', '.', ':', };
-
-            string text = tags;
-
-            string[] words = text.Split(delimiterChars);
-
-            int value = words.Length;
-
-            foreach (var tag in text)
-            {
-                criteria.Add("where metatag.tag like = '%" + tag + "%' and");
-            }
-
-            return criteria.ToString();
-        }
-    */
 
         [HttpGet]
         public string GetStage1(int id)
         {
-            var obj = conn.Query<stage1>("select stage1_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage1 on info.stage1_ID = stage1.stage1_ID where info.info_ID = @header;", new { header = id }).FirstOrDefault().stage1_name;
+            var obj = conn.Query<stage1>("select stage1_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage1 on info.stage1_ID = stage1.stage1_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage1_name;
 
             return obj;
         }
@@ -107,7 +120,7 @@ namespace API.Controllers
         [HttpGet]
         public string GetStage2(int id)
         {
-            var obj = conn.Query<stage2>("select stage2_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID where info.info_ID like @header;", new { header = id }).FirstOrDefault().stage2_name;
+            var obj = conn.Query<stage2>("select stage2_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage2_name;
 
             return obj;
         }
@@ -115,7 +128,7 @@ namespace API.Controllers
         [HttpGet]
         public string GetStage3(int id)
         {
-            var obj = conn.Query<stage3>("select stage3_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID where info.info_ID like @header;", new { header = id }).FirstOrDefault().stage3_name;
+            var obj = conn.Query<stage3>("select stage3_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage3_name;
 
             return obj;
         }
@@ -123,14 +136,14 @@ namespace API.Controllers
         [HttpGet]
         public string GetStage4(int id)
         {
-            var obj = conn.Query<stage4>("select stage4_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID like @header;", new { header = id }).FirstOrDefault().stage4_name;
+            var obj = conn.Query<stage4>("select stage4_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage4_name;
 
             return obj;
         }
         [HttpGet]
         public string GetLongText(int id)
         {
-            var obj = conn.Query<helptext>("SELECT helptext.helptext_long FROM helptext INNER JOIN stage4 ON helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @header", new { header = id }).FirstOrDefault().helptext_long;
+            var obj = conn.Query<helptext>("SELECT helptext.helptext_long FROM helptext INNER JOIN stage4 ON helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_long;
 
             return obj;
         }
@@ -138,7 +151,7 @@ namespace API.Controllers
         [HttpGet]
         public string GetShortText(int id)
         {
-            var obj = conn.Query<helptext>("SELECT helptext.helptext_short FROM helptext INNER JOIN stage4 ON helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @header", new { header = id }).FirstOrDefault().helptext_short;
+            var obj = conn.Query<helptext>("SELECT helptext.helptext_short FROM helptext INNER JOIN stage4 ON helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_short;
 
             return obj;
         }
@@ -161,9 +174,17 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public int GetHelptextID(string name)
+        public string GetHelptextHeader(int id)
         {
-            var obj = conn.Query<helptext>("SELECT helptext_ID from helptext where helptext_header = @header", new { header = name }).FirstOrDefault().helptext_ID;
+            var obj = conn.Query<helptext>("SELECT helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.info_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_header;
+
+            return obj;
+        }
+
+        [HttpGet]
+        public int GetHelptextID(int id)
+        {
+            int obj = conn.Query<helptext>("SELECT helptext.helptext_ID from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_ID;
 
             return obj;
         }
