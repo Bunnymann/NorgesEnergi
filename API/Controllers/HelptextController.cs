@@ -88,10 +88,10 @@ namespace NorgesEnergi.Controllers
             if (obj != null)
             {
                 InfoViewModel model = new InfoViewModel();
-                model.helptext_ID = obj.FirstOrDefault().helptext_ID;
-                model.helptext_header = obj.FirstOrDefault().helptext_header;
-                model.helptext_short = obj.FirstOrDefault().helptext_short;
-                model.helptext_long = obj.FirstOrDefault().helptext_long;
+                model.Helptext_ID = obj.FirstOrDefault().Helptext_ID;
+                model.Helptext_header = obj.FirstOrDefault().Helptext_header;
+                model.Helptext_short = obj.FirstOrDefault().Helptext_short;
+                model.Helptext_long = obj.FirstOrDefault().Helptext_long;
                 return View(model);
             }
             return View();
@@ -100,7 +100,7 @@ namespace NorgesEnergi.Controllers
         [HttpPost]
         public ActionResult Edit(InfoViewModel model, int id)
         {
-            var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @helpID", new { helpID = id, header = model.helptext_header, text_short = model.helptext_short, text_long = model.helptext_long });
+            var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @helpID", new { helpID = id, header = model.Helptext_header, text_short = model.Helptext_short, text_long = model.Helptext_long });
 
             return RedirectToAction("list");
         }

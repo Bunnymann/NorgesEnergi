@@ -76,7 +76,7 @@ namespace NorgesEnergi.Controllers
             char[] delimiterChars = { ',', '.', ':', };
             
 
-            string text = model.tag;
+            string text = model.Tag;
 
             string[] words = text.Split(delimiterChars);
 
@@ -97,7 +97,7 @@ namespace NorgesEnergi.Controllers
             {
                 helptexttag ht = new helptexttag();
                  {
-                    ht.helptext_ID = model.helptext_ID;
+                    ht.helptext_ID = model.Helptext_ID;
                     ht.metatag_ID = obj.metatag_ID;
                     db.helptexttag.Add(ht);
                     db.SaveChanges();
@@ -106,7 +106,7 @@ namespace NorgesEnergi.Controllers
 
             tagList.Clear();
 
-            PopulateHelptextDropDownList(model.helptext_ID);
+            PopulateHelptextDropDownList(model.Helptext_ID);
             return RedirectToAction("List");
         }
 

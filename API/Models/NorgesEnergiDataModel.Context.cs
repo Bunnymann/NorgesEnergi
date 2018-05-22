@@ -34,5 +34,7 @@ namespace API.Models
         public virtual DbSet<stage3> stage3 { get; set; }
         public virtual DbSet<stage4> stage4 { get; set; }
         public virtual DbSet<users> users { get; set; }
+
+        public System.Data.Entity.DbSet<API.Models.InfoViewModel> InfoViewModels { get; set; }
     }
 }

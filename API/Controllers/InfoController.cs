@@ -28,7 +28,7 @@ namespace NorgesEnergi.Controllers
         {
             //sql query does NOT ask for metatag.tag
             //method getTags select tags
-            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_ID, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID;" /*INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;"*/).OrderByDescending(u => u.stage1_name).ToList();
+            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_ID, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID;" /*INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;"*/).OrderByDescending(u => u.Stage1_name).ToList();
 
             return obj;
         }
@@ -43,15 +43,15 @@ namespace NorgesEnergi.Controllers
                 foreach (var row in obj)
                 {
                     InfoViewModel model = new InfoViewModel();
-                    model.info_ID = row.info_ID;
-                    model.stage1_name = row.stage1_name;
-                    model.stage2_name = row.stage2_name;
-                    model.stage3_name = row.stage3_name;
-                    model.stage4_name = row.stage4_name;
-                    model.helptext_header = row.helptext_header;
-                    model.helptext_short = row.helptext_short;
-                    model.helptext_long = row.helptext_long;
-                    model.tag = GetTags(row.info_ID);
+                    model.Info_ID = row.Info_ID;
+                    model.Stage1_name = row.Stage1_name;
+                    model.Stage2_name = row.Stage2_name;
+                    model.Stage3_name = row.Stage3_name;
+                    model.Stage4_name = row.Stage4_name;
+                    model.Helptext_header = row.Helptext_header;
+                    model.Helptext_short = row.Helptext_short;
+                    model.Helptext_long = row.Helptext_long;
+                    model.Tag = GetTags(row.Info_ID);
                     result.Add(model);
                 }
             }
@@ -68,16 +68,16 @@ namespace NorgesEnergi.Controllers
                 foreach (var row in obj)
                 {
                     InfoViewModel model = new InfoViewModel();
-                    model.info_ID = row.info_ID;
-                    model.stage1_name = row.stage1_name;
-                    model.stage2_name = row.stage2_name;
-                    model.stage3_name = row.stage3_name;
-                    model.stage4_name = row.stage4_name;
-                    model.helptext_ID = row.helptext_ID;
-                    model.helptext_header = row.helptext_header;
-                    model.helptext_short = row.helptext_short;
-                    model.helptext_long = row.helptext_long;
-                    model.tag = GetTags(row.info_ID);
+                    model.Info_ID = row.Info_ID;
+                    model.Stage1_name = row.Stage1_name;
+                    model.Stage2_name = row.Stage2_name;
+                    model.Stage3_name = row.Stage3_name;
+                    model.Stage4_name = row.Stage4_name;
+                    model.Helptext_ID = row.Helptext_ID;
+                    model.Helptext_header = row.Helptext_header;
+                    model.Helptext_short = row.Helptext_short;
+                    model.Helptext_long = row.Helptext_long;
+                    model.Tag = GetTags(row.Info_ID);
 
                     result.Add(model);
                 }
@@ -85,7 +85,7 @@ namespace NorgesEnergi.Controllers
             return View(result);
         }
 
-        public ActionResult testCreate()
+        public ActionResult CreateHelptext()
         {
             PopulateStage1DropDownList();
             PopulateStage2DropDownList();
@@ -94,36 +94,38 @@ namespace NorgesEnergi.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult testcreate(InfoViewModel model)
+        public ActionResult CreateHelptext(InfoViewModel model)
         {
             char[] delimiterChars = { ',', '.', ':', };
 
-            string text = model.tag;
+            string text = model.Tag;
 
+            //If no text is put in the tags textbox, error occurs
+            //Needs code to handle error
             string[] words = text.Split(delimiterChars);
 
             List<metatag> tagList = new List<metatag>();
 
             helptext help = new helptext
             {
-                helptext_ID = model.helptext_ID,
-                helptext_header = model.helptext_header,
-                helptext_short = model.helptext_short,
-                helptext_long = model.helptext_long
+                helptext_ID = model.Helptext_ID,
+                helptext_header = model.Helptext_header,
+                helptext_short = model.Helptext_short,
+                helptext_long = model.Helptext_long
             };
 
             stage4 s4 = new stage4()
             {
-                stage4_ID = model.stage4_ID,
-                stage4_name = model.stage4_name,
-                helptext_ID = model.helptext_ID
+                stage4_ID = model.Stage4_ID,
+                stage4_name = model.Stage4_name,
+                helptext_ID = model.Helptext_ID
             };
 
             info info = new info
             {
-                stage1_ID = model.stage1_ID,
-                stage2_ID = model.stage2_ID,
-                stage3_ID = model.stage3_ID,
+                stage1_ID = model.Stage1_ID,
+                stage2_ID = model.Stage2_ID,
+                stage3_ID = model.Stage3_ID,
                 stage4_ID = s4.stage4_ID
             };
 
@@ -162,7 +164,7 @@ namespace NorgesEnergi.Controllers
             var stage = from s in db.stage1
                         orderby s.stage1_name
                         select s;
-            ViewBag.stage1_ID = new SelectList(stage, "stage1_ID", "stage1_name", stage1);
+            ViewBag.stage1_ID = new SelectList(stage, "Stage1_ID", "Stage1_name", stage1);
         }
 
         private void PopulateStage2DropDownList(object stage2 = null)
@@ -170,7 +172,7 @@ namespace NorgesEnergi.Controllers
             var stage = from s in db.stage2
                         orderby s.stage2_name
                         select s;
-            ViewBag.stage2_ID = new SelectList(stage, "stage2_ID", "stage2_name", stage2);
+            ViewBag.stage2_ID = new SelectList(stage, "Stage2_ID", "Stage2_name", stage2);
         }
 
         private void PopulateStage3DropDownList(object stage3 = null)
@@ -178,7 +180,7 @@ namespace NorgesEnergi.Controllers
             var stage = from s in db.stage3
                         orderby s.stage3_name
                         select s;
-            ViewBag.stage3_ID = new SelectList(stage, "stage3_ID", "stage3_name", stage3);
+            ViewBag.stage3_ID = new SelectList(stage, "Stage3_ID", "Stage3_name", stage3);
         }
 
         private void PopulateStage4DropDownList(object stage4 = null)
@@ -186,7 +188,7 @@ namespace NorgesEnergi.Controllers
             var stage = from s in db.stage4
                         orderby s.stage4_name
                         select s;
-            ViewBag.stage4_ID = new SelectList(stage, "stage4_ID", "stage4_name", stage4);
+            ViewBag.stage4_ID = new SelectList(stage, "Stage4_ID", "Stage4_name", stage4);
         }
 
         [HttpGet]
@@ -197,16 +199,16 @@ namespace NorgesEnergi.Controllers
             if (obj != null)
             {
                 InfoViewModel model = new InfoViewModel();
-                model.info_ID = obj.FirstOrDefault().info_ID;
-                model.stage1_name = obj.FirstOrDefault().stage1_name;
-                model.stage2_name = obj.FirstOrDefault().stage2_name;
-                model.stage3_name = obj.FirstOrDefault().stage3_name;
-                model.stage4_name = obj.FirstOrDefault().stage4_name;
-                model.helptext_ID = obj.FirstOrDefault().helptext_ID;
-                model.helptext_header = obj.FirstOrDefault().helptext_header;
-                model.helptext_short = obj.FirstOrDefault().helptext_short;
-                model.helptext_long = obj.FirstOrDefault().helptext_long;
-                model.tag = GetTags(model.info_ID);
+                model.Info_ID = obj.FirstOrDefault().Info_ID;
+                model.Stage1_name = obj.FirstOrDefault().Stage1_name;
+                model.Stage2_name = obj.FirstOrDefault().Stage2_name;
+                model.Stage3_name = obj.FirstOrDefault().Stage3_name;
+                model.Stage4_name = obj.FirstOrDefault().Stage4_name;
+                model.Helptext_ID = obj.FirstOrDefault().Helptext_ID;
+                model.Helptext_header = obj.FirstOrDefault().Helptext_header;
+                model.Helptext_short = obj.FirstOrDefault().Helptext_short;
+                model.Helptext_long = obj.FirstOrDefault().Helptext_long;
+                model.Tag = GetTags(model.Info_ID);
                 return View(model);
             }
             return View();
@@ -228,14 +230,14 @@ namespace NorgesEnergi.Controllers
             if (obj != null)
             {
                 InfoViewModel model = new InfoViewModel();
-                model.stage1_name = obj.FirstOrDefault().stage1_name;
-                model.stage2_name = obj.FirstOrDefault().stage2_name;
-                model.stage3_name = obj.FirstOrDefault().stage3_name;
-                model.stage4_name = obj.FirstOrDefault().stage4_name;
-                model.helptext_header = obj.FirstOrDefault().helptext_header;
-                model.helptext_short = obj.FirstOrDefault().helptext_short;
-                model.helptext_long = obj.FirstOrDefault().helptext_long;
-                model.tag = GetTags(obj.FirstOrDefault().info_ID);
+                model.Stage1_name = obj.FirstOrDefault().Stage1_name;
+                model.Stage2_name = obj.FirstOrDefault().Stage2_name;
+                model.Stage3_name = obj.FirstOrDefault().Stage3_name;
+                model.Stage4_name = obj.FirstOrDefault().Stage4_name;
+                model.Helptext_header = obj.FirstOrDefault().Helptext_header;
+                model.Helptext_short = obj.FirstOrDefault().Helptext_short;
+                model.Helptext_long = obj.FirstOrDefault().Helptext_long;
+                model.Tag = GetTags(obj.FirstOrDefault().Info_ID);
                 return View(model);
             }
             return View();
@@ -246,7 +248,7 @@ namespace NorgesEnergi.Controllers
         public ActionResult Edit(InfoViewModel model, int id)
         
         {
-            var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @help_ID", new { help_ID = id, header = model.helptext_header, text_short = model.helptext_short, text_long = model.helptext_long });
+            var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @help_ID", new { help_ID = id, header = model.Helptext_header, text_short = model.Helptext_short, text_long = model.Helptext_long });
             return RedirectToAction("FullList");
         }
 
@@ -300,37 +302,5 @@ namespace NorgesEnergi.Controllers
 
             return stage;
         }
-
-        [HttpGet]
-        public ActionResult GetSearchResult(int id)
-        {
-            var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage3.stage3_name, stage4.stage4_name, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID WHERE helptext.helptext_ID = @helpID;", new { helpID = id });
-
-            if (obj != null)
-            {
-                InfoViewModel model = new InfoViewModel();
-                model.stage3_name = obj.FirstOrDefault().stage3_name;
-                model.stage4_name = obj.FirstOrDefault().stage4_name;
-                model.helptext_header = obj.FirstOrDefault().helptext_header;
-                model.helptext_short = obj.FirstOrDefault().helptext_short;
-                model.helptext_long = obj.FirstOrDefault().helptext_long;
-                model.tag = GetTags(obj.FirstOrDefault().info_ID);
-                return View(model);
-            }
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult SearchHelp(string search)
-        {
-            /*
-             * Search for tags, return the helptext_ID with most hits from param string search
-             * Show the 3 helptext with the following most hits
-             * Use the helptext_ID returned value to run the method GetSearchResult 
-             */
-            return View();
-        }
-
-
     }
 }

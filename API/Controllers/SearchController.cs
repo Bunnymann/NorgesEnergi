@@ -34,7 +34,7 @@ namespace API.Controllers
              * The code works and result are correct according to database data
              * The split function get error System.NullReferenceException
              */
-            string search = "nor, fin, test, privat, swe";
+            string search = "nor, am, privat, us";
 
             string[] words = search.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -91,19 +91,19 @@ namespace API.Controllers
             {
                 foreach (var row in obj)
                 {
-                    InfoViewModel model2 = new InfoViewModel
+                    InfoViewModel model = new InfoViewModel
                     {
-                        stage1_name = GetStage1(row.info_ID),
-                        stage2_name = GetStage2(row.info_ID),
-                        stage3_name = GetStage3(row.info_ID),
-                        stage4_name = GetStage4(row.info_ID),
-                        helptext_ID = GetHelptextID(row.info_ID),
-                        helptext_header = GetHelptextHeader(row.info_ID),
-                        helptext_short = GetShortText(row.info_ID),
-                        helptext_long = GetLongText(row.info_ID),
-                        tag = GetTags(row.info_ID),
+                        Stage1_name = GetStage1(row.Info_ID),
+                        Stage2_name = GetStage2(row.Info_ID),
+                        Stage3_name = GetStage3(row.Info_ID),
+                        Stage4_name = GetStage4(row.Info_ID),
+                        Helptext_ID = GetHelptextID(row.Info_ID),
+                        Helptext_header = GetHelptextHeader(GetHelptextID(row.Info_ID)),
+                        Helptext_short = GetShortText(GetHelptextID(row.Info_ID)),
+                        Helptext_long = GetLongText(GetHelptextID(row.Info_ID)),
+                        Tag = GetTags(row.Info_ID),
                     };
-                    result.Add(model2);
+                    result.Add(model);
                 }
             }
             return View(result);
@@ -112,7 +112,7 @@ namespace API.Controllers
         [HttpGet]
         public string GetStage1(int id)
         {
-            var obj = conn.Query<stage1>("select stage1_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage1 on info.stage1_ID = stage1.stage1_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage1_name;
+            var obj = conn.Query<stage1>("select stage1_name from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage1 on info.stage1_ID = stage1.stage1_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage1_name;
 
             return obj;
         }
@@ -120,7 +120,7 @@ namespace API.Controllers
         [HttpGet]
         public string GetStage2(int id)
         {
-            var obj = conn.Query<stage2>("select stage2_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage2_name;
+            var obj = conn.Query<stage2>("select stage2_name from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage2_name;
 
             return obj;
         }
@@ -128,7 +128,7 @@ namespace API.Controllers
         [HttpGet]
         public string GetStage3(int id)
         {
-            var obj = conn.Query<stage3>("select stage3_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage3_name;
+            var obj = conn.Query<stage3>("select stage3_name from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage3_name;
 
             return obj;
         }
@@ -136,14 +136,14 @@ namespace API.Controllers
         [HttpGet]
         public string GetStage4(int id)
         {
-            var obj = conn.Query<stage4>("select stage4_name, helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage4_name;
+            var obj = conn.Query<stage4>("select stage4_name from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage4_name;
 
             return obj;
         }
         [HttpGet]
         public string GetLongText(int id)
         {
-            var obj = conn.Query<helptext>("SELECT helptext.helptext_long FROM helptext INNER JOIN stage4 ON helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_long;
+            var obj = conn.Query<helptext>("SELECT helptext.helptext_long FROM helptext where helptext_ID = @helpID;", new { helpID = id }).FirstOrDefault().helptext_long;
 
             return obj;
         }
@@ -151,7 +151,23 @@ namespace API.Controllers
         [HttpGet]
         public string GetShortText(int id)
         {
-            var obj = conn.Query<helptext>("SELECT helptext.helptext_short FROM helptext INNER JOIN stage4 ON helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_short;
+            var obj = conn.Query<helptext>("SELECT helptext.helptext_short FROM helptext WHERE helptext_ID = @helpID;", new { helpID = id }).FirstOrDefault().helptext_short;
+
+            return obj;
+        }
+
+        [HttpGet]
+        public string GetHelptextHeader(int id)
+        {
+            var obj = conn.Query<helptext>("SELECT helptext_header from helptext where helptext_ID = @helpID", new { helpid = id }).FirstOrDefault().helptext_header;
+
+            return obj;
+        }
+
+        [HttpGet]
+        public int GetHelptextID(int id)
+        {
+            int obj = conn.Query<helptext>("SELECT helptext.helptext_ID from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_ID;
 
             return obj;
         }
@@ -171,22 +187,6 @@ namespace API.Controllers
             }
             string text = string.Join(", ", tags);
             return text;
-        }
-
-        [HttpGet]
-        public string GetHelptextHeader(int id)
-        {
-            var obj = conn.Query<helptext>("SELECT helptext_header from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.info_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_header;
-
-            return obj;
-        }
-
-        [HttpGet]
-        public int GetHelptextID(int id)
-        {
-            int obj = conn.Query<helptext>("SELECT helptext.helptext_ID from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_ID;
-
-            return obj;
         }
 
         [HttpGet]

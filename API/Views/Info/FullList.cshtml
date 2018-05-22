@@ -7,35 +7,38 @@
 
 <h2>Helptexts</h2>
 
-@{
-    Html.RenderPartial("~/Views/Info/_FullTextSearch.cshtml");
-}
-<!--
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" id="Search" placeholder="Nation" class="form-control" />
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.stage1_name)
+            @Html.DisplayNameFor(model => model.Stage1_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage2_name)
+            @Html.DisplayNameFor(model => model.Stage2_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage3_name)
+            @Html.DisplayNameFor(model => model.Stage3_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage4_name)
+            @Html.DisplayNameFor(model => model.Stage4_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.helptext_header)
+            @Html.DisplayNameFor(model => model.Helptext_header)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.helptext_short)
+            @Html.DisplayNameFor(model => model.Helptext_short)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.helptext_long)
+            @Html.DisplayNameFor(model => model.Helptext_long)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tag)
+            @Html.DisplayNameFor(model => model.Tag)
         </th>
         <th></th>
     </tr>
@@ -44,33 +47,32 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.stage1_name)
+                @Html.DisplayFor(modelItem => item.Stage1_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage2_name)
+                @Html.DisplayFor(modelItem => item.Stage2_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage3_name)
+                @Html.DisplayFor(modelItem => item.Stage3_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage4_name)
+                @Html.DisplayFor(modelItem => item.Stage4_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_header)
+                @Html.DisplayFor(modelItem => item.Helptext_header)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_short)
+                @Html.DisplayFor(modelItem => item.Helptext_short)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_long)
+                @Html.DisplayFor(modelItem => item.Helptext_long)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.tag)
+                @Html.DisplayFor(modelItem => item.Tag)
             </td>
         </tr>
     }
 </table>
-  -->
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>

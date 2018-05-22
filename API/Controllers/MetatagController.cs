@@ -164,15 +164,15 @@ namespace NorgesEnergi.Controllers
             char[] delimiterChars = { ',', '.', ':', };
                 helptext help = new helptext()
                 {
-                    helptext_header = model.helptext_header,
-                    helptext_short = model.helptext_short,
-                    helptext_long = model.helptext_long
+                    helptext_header = model.Helptext_header,
+                    helptext_short = model.Helptext_short,
+                    helptext_long = model.Helptext_long
                 };
 
                 metatag tag = new metatag()
                 {
-                    metatag_ID = model.metatag_ID,
-                    tag = model.tag
+                    metatag_ID = model.Metatag_ID,
+                    tag = model.Tag
                 };
 
                 String text = tag.ToString();

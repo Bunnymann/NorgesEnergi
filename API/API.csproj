@@ -170,7 +170,7 @@
     <Compile Include="Controllers\HelptexttagController.cs" />
     <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\MetatagController.cs" />
-    <Compile Include="Controllers\APISearchController.cs" />
+    <Compile Include="Controllers\SearchAPIController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\Stage1Controller.cs" />
     <Compile Include="Controllers\Stage2Controller.cs" />
@@ -181,6 +181,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\APIContext.cs" />
     <Compile Include="Models\HelpTagsViewModel.cs" />
     <Compile Include="Models\helptext.cs">
       <DependentUpon>NorgesEnergiDataModel.tt</DependentUpon>
@@ -257,6 +258,7 @@
       <DependentUpon>NorgesEnergiDataModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -264,6 +266,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.4.2.debug.js" />
+    <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -274,11 +278,12 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Info\DDLSearchStage4.cshtml" />
     <Content Include="Views\Helptext\List.cshtml" />
     <Content Include="Views\Helptext\Details.cshtml" />
     <Content Include="Views\Stage4\List.cshtml" />
@@ -306,7 +311,6 @@
     <Content Include="Views\Stage1\List.cshtml" />
     <Content Include="Views\Info\FullList.cshtml" />
     <Content Include="Views\Info\Edit.cshtml" />
-    <Content Include="Views\Info\CreateInfo.cshtml" />
     <Content Include="Views\Stage1\CreateStage1.cshtml" />
     <Content Include="Views\Stage2\CreateStage2.cshtml" />
     <Content Include="Views\stage3\CreateStage3.cshtml" />
@@ -315,25 +319,20 @@
     <Content Include="Views\Helptext\_CreateHelptext.cshtml" />
     <Content Include="Views\MetaTag\_CreateTag.cshtml" />
     <Content Include="Views\Info\FullList_Admin.cshtml" />
-    <Content Include="Views\Info\_FullTextSearch.cshtml" />
     <Content Include="Views\Info\DeleteInfo.cshtml" />
     <Content Include="Views\Helptexttag\List.cshtml" />
     <Content Include="Views\Helptexttag\CreateMetahelp.cshtml" />
     <Content Include="Views\MetaTag\List.cshtml" />
     <Content Include="Views\Helptext\AddTags.cshtml" />
-    <Content Include="Views\Info\testcreate.cshtml" />
+    <Content Include="Views\Info\CreateHelptext.cshtml" />
     <Content Include="Views\MetaTag\MultipleTags.cshtml" />
     <Content Include="Views\MetaTag\AddTags.cshtml" />
-    <Content Include="Views\Info\GetTags.cshtml" />
-    <Content Include="Views\Info\TestEdit.cshtml" />
-    <Content Include="Views\Info\GetStage1.cshtml" />
     <Content Include="Views\Helptext\_EditHelp.cshtml" />
     <Content Include="Views\Users\CreateUser.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Search\Index1.cshtml" />
     <Content Include="Views\Search\Details.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Search\_GetSearch.cshtml" />
+    <Content Include="Views\API\GetInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

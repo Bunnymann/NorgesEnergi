@@ -13,32 +13,28 @@
                                  name="submit"
                                  value="Search" />
 }
+<hr />
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.stage1_name)
+            @Html.DisplayNameFor(model => model.Stage3_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage2_name)
+            @Html.DisplayNameFor(model => model.Stage4_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage3_name)
+            @Html.DisplayNameFor(model => model.Helptext_header)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage4_name)
+            @Html.DisplayNameFor(model => model.Helptext_short)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.helptext_header)
+            @Html.DisplayNameFor(model => model.Helptext_long)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.helptext_short)
+            @Html.DisplayNameFor(model => model.Tag)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.helptext_long)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tag)
-        </th>
+        <th></th>
         <th></th>
     </tr>
 
@@ -46,33 +42,30 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.stage1_name)
+                @Html.DisplayFor(modelItem => item.Stage3_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage2_name)
+                @Html.DisplayFor(modelItem => item.Stage4_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage3_name)
+                @Html.DisplayFor(modelItem => item.Helptext_header)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage4_name)
+                @Html.DisplayFor(modelItem => item.Helptext_short)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_header)
+                @Html.DisplayFor(modelItem => item.Helptext_long)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_short)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.helptext_long)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tag)
+                @Html.DisplayFor(modelItem => item.Tag)
             </td>
             <td>
                 <h5>
-                    @Html.ActionLink("SELECT", "Details", new { id = item.helptext_ID })
+                    @Html.ActionLink("SELECT", "Details", new { id = item.Helptext_ID })
                 </h5>
+            </td>
+            <td>
+
             </td>
         </tr>
     }

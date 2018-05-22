@@ -17,33 +17,27 @@
 </div>
 
 <p>
-    @Html.ActionLink("Create New", "testcreate")
+    @Html.ActionLink("Create New", "CreateHelptext")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.stage1_name)
+            @Html.DisplayNameFor(model => model.Stage3_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage2_name)
+            @Html.DisplayNameFor(model => model.Stage4_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage3_name)
+            @Html.DisplayNameFor(model => model.Helptext_header)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.stage4_name)
+            @Html.DisplayNameFor(model => model.Helptext_short)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.helptext_header)
+            @Html.DisplayNameFor(model => model.Helptext_long)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.helptext_short)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.helptext_long)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tag)
+            @Html.DisplayNameFor(model => model.Tag)
         </th>
         <th></th>
     </tr>
@@ -52,54 +46,27 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.stage1_name)
+                @Html.DisplayFor(modelItem => item.Stage3_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage2_name)
+                @Html.DisplayFor(modelItem => item.Stage4_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage3_name)
+                @Html.DisplayFor(modelItem => item.Helptext_header)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.stage4_name)
+                @Html.DisplayFor(modelItem => item.Helptext_short)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_header)
+                @Html.DisplayFor(modelItem => item.Helptext_long)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_short)
+                @Html.DisplayFor(modelItem => item.Tag)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.helptext_long)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tag)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.helptext_ID }) |
-                @Html.ActionLink("Delete", "DeleteInfo", new { id = item.info_ID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Helptext_ID }) |
+                @Html.ActionLink("Delete", "DeleteInfo", new { id = item.Info_ID })
             </td>
         </tr>
     }
 </table>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        function Contains(text_one, text_two) {
-            if (text_one.indexOf(text_two) != -1)
-                return true;
-        }
-        $("#Search").keyup(function () {
-            var searchText = $("#Search").val().toLowerCase();
-            $(".Search").each(function () {
-                if (!Contains($(this).text().toLowerCase(), searchText)) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-        });
-    });
-</script>
