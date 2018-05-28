@@ -19,7 +19,16 @@ namespace API.Controllers
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
 
-        
+        /**
+         * Function for searching trough helptext in the database
+         * User input is the metatags being searched
+         * Split function will split the searchwords based on commas and dot, more split options can be added.
+         * Each word will be added to a list and used to build a SQL-query in a string
+         * The query selects info_ID and counts number of metatag hits on info_ID row
+         * 
+         * @param string tags - the user input 
+         * @return text - the complete SQL-query to be used in method Index
+         */
         [HttpPost]
         public string GetSearch(string tags)
         {
@@ -36,7 +45,7 @@ namespace API.Controllers
              */
             string search = "nor, am, privat, us";
 
-            string[] words = search.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] words = search.Split(new[] { ',', '.' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var tag in words)
             {
@@ -81,6 +90,16 @@ namespace API.Controllers
             return text;
         }
 
+        /**
+         * Uses the GetSeach method to run a SQL-query for searching for helptexts
+         * User input is the metatags being searched
+         * If the GetSearch method returns any records, each recrod is build as a InfoViewModel
+         * Each variable in InfoViewModel is built using the Info_ID value found in GetSearch method
+         * Variable obj takes the 4 records with the most hits on user searchwords
+         * 
+         * @param string tags - the user input
+         * @return View(result) - returns a list-view for the recrods build
+         */
         [HttpGet]
         public ActionResult Index(string tags)
         {
@@ -109,6 +128,14 @@ namespace API.Controllers
             return View(result);
         }
 
+        /*
+         * Selects stage1_name from database based on info_ID value
+         * Execution in database using Dapper
+         * Using inner joins in SQL-query to find correct values
+         * 
+         * @param int id - the info_ID value for a stage1_name value
+         * @return obj - the stage1_name returned as string
+         */
         [HttpGet]
         public string GetStage1(int id)
         {
@@ -117,6 +144,14 @@ namespace API.Controllers
             return obj;
         }
 
+        /*
+        * Selects stage2_name from database based on info_ID value
+        * Execution in database using Dapper
+        * Using inner joins in SQL-query to find correct values
+        * 
+        * @param int id - the info_ID value for a stage2_name value
+        * @return obj - the stage2_name returned as string
+        */
         [HttpGet]
         public string GetStage2(int id)
         {
@@ -125,6 +160,14 @@ namespace API.Controllers
             return obj;
         }
 
+        /*
+        * Selects stage3_name from database based on info_ID value
+        * Execution in database using Dapper
+        * Using inner joins in SQL-query to find correct values
+        * 
+        * @param int id - the info_ID value for a stage3_name value
+        * @return obj - the stage3_name returned as string
+        */
         [HttpGet]
         public string GetStage3(int id)
         {
@@ -133,6 +176,14 @@ namespace API.Controllers
             return obj;
         }
 
+        /*
+        * Selects stage4_name from database based on info_ID value
+        * Execution in database using Dapper
+        * Using inner joins in SQL-query to find correct values
+        * 
+        * @param int id - the info_ID value for a stage4_name value
+        * @return obj - the stage4_name returned as string
+        */
         [HttpGet]
         public string GetStage4(int id)
         {
@@ -140,6 +191,14 @@ namespace API.Controllers
 
             return obj;
         }
+
+        /*
+        * Selects helptext_long from database based on helptext_ID value
+        * Execution in database using Dapper
+        * 
+        * @param int id - the helptext_ID value for a helptext_long value
+        * @return obj - the helptext_long returned as string
+        */
         [HttpGet]
         public string GetLongText(int id)
         {
@@ -148,6 +207,13 @@ namespace API.Controllers
             return obj;
         }
 
+        /*
+        * Selects helptext_short from database based on helptext_ID value
+        * Execution in database using Dapper
+        * 
+        * @param int id - the helptext_ID value for a helptext_short value
+        * @return obj - the helptext_short returned as string
+        */
         [HttpGet]
         public string GetShortText(int id)
         {
@@ -156,6 +222,13 @@ namespace API.Controllers
             return obj;
         }
 
+        /*
+        * Selects helptext_header from database based on helptext_ID value
+        * Execution in database using Dapper
+        * 
+        * @param int id - the helptext_ID value for a helptext_header value
+        * @return obj - the helptext_header returned as string
+        */
         [HttpGet]
         public string GetHelptextHeader(int id)
         {
@@ -164,6 +237,13 @@ namespace API.Controllers
             return obj;
         }
 
+        /*
+        * Selects helptext_ID from database based on info_ID value
+        * Execution in database using Dapper
+        * 
+        * @param int id - the info_ID value for a helptext_ID value
+        * @return obj - the helptext_ID returned as int
+        */
         [HttpGet]
         public int GetHelptextID(int id)
         {
@@ -172,6 +252,15 @@ namespace API.Controllers
             return obj;
         }
 
+        /*
+        * Selects metatags from database based on info_ID value
+        * Execution in database using Dapper
+        * Using inner joins in SQL-query to find correct values
+        * If method finds multiple values, each metatag is put in a list and later the list is made as a string
+        * 
+        * @param int id - the info_ID value for a helptext_ID value
+        * @return text - the list of all found metatags join as a string
+        */
         public string GetTags(int id)
         {
             List<string> tags = new List<string>();
@@ -189,6 +278,13 @@ namespace API.Controllers
             return text;
         }
 
+        /**
+        * Reads values from database in helptext table based on ID
+        * Execution in database using Dapper
+        *
+        * @param int id - builds the model based on id value
+        * @return view - return the view to show user the models values
+        */
         [HttpGet]
         public ActionResult Details(int id)
         {

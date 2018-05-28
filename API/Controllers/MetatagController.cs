@@ -11,13 +11,22 @@ using System.Data.Entity.Validation;
 
 namespace NorgesEnergi.Controllers
 {
+    /**
+    *The main metatags controller
+    *Contains all methods regarding this database table
+    */
+
     public class MetaTagController : Controller
     {
-        /** To view the list, write /dappertest/list after localhost port
-         */
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
 
+        /**
+        * Uses GetAll method to find all rows of metatags in database
+        * if the GetAll methods find any records, each record is build and stored in list
+        * 
+        * @return View(result) - returns the list of all records in a view
+        */
         public ActionResult List()
         {
             var obj = GetAll();
@@ -34,33 +43,51 @@ namespace NorgesEnergi.Controllers
             }
             return View(result);
         }
+
+        /**
+        * Get all values from table metatag ordered by metatag_ID
+        * Values are inserted to list
+        * 
+        * @return obj - returns the variable which stores the values in a list
+        */
         public List<metatag> GetAll()
         {
             var obj = conn.Query<metatag>("SELECT * FROM Metatag").OrderByDescending(u => u.metatag_ID).ToList();
             return obj;
         }
 
+        /**
+        * Dependency method for create method
+        * @return view - returns the view for creating new metatag data
+        */
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
+
+        /**
+        * Creates a new row in the database in metatag table
+        * Execution in database using Dapper
+        * 
+        * @param metatag model - the model that is being created. Values are filled in using a view 
+        * related to this method. 
+        * @return redirectToAction(“List”); - returns the user to given action
+        */
         [HttpPost]
         public ActionResult Create(metatag model)
         {
-            var obj = InsertMetatag(model);
             return RedirectToAction("List");
         }
-        public bool InsertMetatag(metatag model)
-        {
-            int rowsAffected = conn.Execute("INSERT INTO Metatag([tag]) VALUES (@metatag)", new { metatag = model.tag });
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
 
+
+        /**
+        * Reads values from database in metatag table based on ID
+        * Execution in database using Dapper
+        *
+        * @param int id - builds the model based on id value
+        * @return view - return the view to show user the models values
+        */
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -76,6 +103,14 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Builds a metatag model based on ID value 
+        * Execution in database using Dapper
+        * Builds a metatag model to show values to user in view 
+        * 
+        * @param int id - model with the given ID value, if exists, is build 
+        * @return View - returns the view with the values of the model with the given ID value
+        */
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -91,6 +126,14 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Edits a row in the database in metatag table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param metatag model - the model that is being updated
+        * @param int id - model with the given ID value, if exists, is being updated
+        * @return redirectToAction(“list”) - returns the user to given action
+        */
         [HttpPost]
         public ActionResult Edit(metatag model, int id)
         {
@@ -99,6 +142,14 @@ namespace NorgesEnergi.Controllers
             return RedirectToAction("list");
         }
 
+        /**
+        * Builds a metatag model based on ID value 
+        * Execution in database using Dapper
+        * Builds a metatag model to show values to user in view
+        * 
+        * @param int id - model with the given ID value, if exists, is build
+        * @return view - returns the view with the values of the model with the given ID value  
+        */
         [HttpGet]
         public ActionResult Delete(int id)
         {
@@ -114,85 +165,20 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Deletes a row in the database in metatag table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param classname model - the model that is being deleted
+        * @param int id - model with the given ID value, if exists, is being deleted 
+        * @return redirectToAction(“list”) - returns the user to given action
+        */
         [HttpPost]
         public ActionResult Delete(metatag model, int id)
         {
             var obj = conn.Execute("DELETE FROM Metatag WHERE metatag_ID = @metatag_ID", new { metatag_ID = id });
 
             return RedirectToAction("list");
-        }
-            
-        public ActionResult MultipleTags(int id)
-        {
-            char[] delimiterChars = { ',', '.', ':', };
-            var obj = conn.Query<metatag>("select metatag.tag, helptext.helptext_header from metatag inner join helptexttag on metatag.metatag_ID = helptexttag.metatag_ID inner join helptext on helptexttag.helptext_ID = helptext.helptext_ID where helptext.helptext_ID = @ID;", new { ID = id });
-            List<String> tags = new List<String>();
-            
-            if (obj != null)
-            {
-                foreach(var meta in obj)
-                {
-                    metatag model = new metatag();
-                    model.tag = meta.tag.ToString();
-                    tags.Add(model.ToString());
-                }
-            }
-
-            String text = tags.ToString();
-
-            string[] words = text.Split(delimiterChars);
-            System.Console.WriteLine($"{words.Length} words in text:");
-
-            foreach (var word in words)
-            {
-                System.Console.WriteLine($"<{word}>");
-            }
-
-            return View();
-
-        }
-
-        [HttpGet]
-        public ActionResult AddTags()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddTags(InfoViewModel model)
-        {
-            char[] delimiterChars = { ',', '.', ':', };
-                helptext help = new helptext()
-                {
-                    helptext_header = model.Helptext_header,
-                    helptext_short = model.Helptext_short,
-                    helptext_long = model.Helptext_long
-                };
-
-                metatag tag = new metatag()
-                {
-                    metatag_ID = model.Metatag_ID,
-                    tag = model.Tag
-                };
-
-                String text = tag.ToString();
-
-                string[] words = text.Split(delimiterChars);
-
-                helptexttag ht = new helptexttag();
-                foreach (var word in words)
-                {
-                    ht.helptext_ID = help.helptext_ID;
-                    ht.metatag_ID = tag.metatag_ID;
-                };
-
-                db.metatag.Add(tag);
-                db.helptext.Add(help);
-                db.helptexttag.Add(ht);
-            db.SaveChangesAsync();
-            
-
-            return RedirectToAction("List");
         }
 
     }

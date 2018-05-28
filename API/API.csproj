@@ -317,7 +317,6 @@
     <Content Include="Views\Stage4\CreateStage4.cshtml" />
     <Content Include="Views\Helptext\CreateHelptext.cshtml" />
     <Content Include="Views\Helptext\_CreateHelptext.cshtml" />
-    <Content Include="Views\MetaTag\_CreateTag.cshtml" />
     <Content Include="Views\Info\FullList_Admin.cshtml" />
     <Content Include="Views\Info\DeleteInfo.cshtml" />
     <Content Include="Views\Helptexttag\List.cshtml" />
@@ -325,14 +324,15 @@
     <Content Include="Views\MetaTag\List.cshtml" />
     <Content Include="Views\Helptext\AddTags.cshtml" />
     <Content Include="Views\Info\CreateHelptext.cshtml" />
-    <Content Include="Views\MetaTag\MultipleTags.cshtml" />
-    <Content Include="Views\MetaTag\AddTags.cshtml" />
     <Content Include="Views\Helptext\_EditHelp.cshtml" />
     <Content Include="Views\Users\CreateUser.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Search\Details.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\API\GetInfo.cshtml" />
+    <Content Include="Views\MetaTag\Delete.cshtml" />
+    <Content Include="Views\MetaTag\Edit.cshtml" />
+    <Content Include="Views\MetaTag\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
