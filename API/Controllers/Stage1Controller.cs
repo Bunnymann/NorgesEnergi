@@ -13,8 +13,7 @@ namespace NorgesEnergi.Controllers
 {
     public class Stage1Controller : Controller
     {
-        /** To view the list, write /dappertest/list after localhost port
-         */
+        
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
        
