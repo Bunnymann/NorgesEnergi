@@ -9,14 +9,23 @@ using System.Web.Mvc;
 using API.Models;
 using System.Data.Entity.Infrastructure;
 
+/**
+*The main Stage2 controller
+*Contains all methods regarding this database table
+*/
 namespace WebApplication .Controllers
 {
     public class Stage2Controller : Controller
     {
-        /** To view the list, write /dappertest/list after localhost port
-         */
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
+
+        /**
+        * Uses GetAll method to find all rows of Stage2 in database
+        * if the GetAll methods find any records, each record is build and stored in list
+        * 
+        * @return View(“name”) - returns the list of all records in a view
+        */
         public ActionResult List()
         {
             var obj = GetAll();
@@ -33,6 +42,13 @@ namespace WebApplication .Controllers
             }
             return View(result);
         }
+
+        /**
+        * Get all values from table Stage2 ordered by tablecolumn
+        * Values are inserted to list
+        * 
+        * @return variable name - returns the variable which stores the values in a list
+        */
         public List<stage2> GetAll()
         {
             var obj = conn.Query<stage2>("SELECT * FROM Stage2").OrderByDescending(u => u.stage2_ID).Take(10).ToList();
@@ -44,22 +60,24 @@ namespace WebApplication .Controllers
         {
             return View();
         }
+
+        /**
+        * Dependency method for create method
+        * @return view - returns the view for creating new Stage2 data
+        */
         [HttpPost]
         public ActionResult Create(stage2 model)
         {
-            var obj = InsertStage2(model);
             return RedirectToAction("list");
         }
-        public bool InsertStage2(stage2 model)
-        {
-            int rowsAffected = conn.Execute("INSERT INTO Stage2([stage2_name]) VALUES (@name) ", new { name = model.stage2_name });
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
 
+        /**
+        * Reads values from database in Stage2 table based on ID
+        * Execution in database using Dapper
+        *
+        * @param int id - builds the model based on id value
+        * @return view - return the view to show user the models values
+        */
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -75,6 +93,14 @@ namespace WebApplication .Controllers
             return View();
         }
 
+        /**
+        * Builds a Stage2 model based on ID value 
+        * Execution in database using Dapper
+        * Builds a Stage2 model to show values to user in view 
+        * 
+        * @param int id - model with the given ID value, if exists, is build 
+        * @return View - returns the view with the values of the model with the given ID value
+        */
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -90,6 +116,14 @@ namespace WebApplication .Controllers
             return View();
         }
 
+        /**
+        * Edits a row in the database in Stage2 table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param Stage2 model - the model that is being updated
+        * @param int id - model with the given ID value, if exists, is being updated
+        * @return redirectToAction(“action”) - returns the user to given action
+        */
         [HttpPost]
         public ActionResult Edit(stage2 model, int id)
         {
@@ -98,6 +132,14 @@ namespace WebApplication .Controllers
             return RedirectToAction("list");
         }
 
+        /**
+        * Builds a Stage2 model based on ID value 
+        * Execution in database using Dapper
+        * Builds a Stage2 model to show values to user in view
+        * 
+        * @param int id - model with the given ID value, if exists, is build
+        * @return view - returns the view with the values of the model with the given ID value  
+        */
         [HttpGet]
         public ActionResult Delete(int id)
         {
@@ -113,6 +155,14 @@ namespace WebApplication .Controllers
             return View();
         }
 
+        /**
+        * Deletes a row in the database in Stage2 table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param Stage2 model - the model that is being deleted
+        * @param int id - model with the given ID value, if exists, is being deleted 
+        * @return redirectToAction(“action”) - returns the user to given action
+        */
         [HttpPost]
         public ActionResult Delete(stage2 model, int id)
         {
