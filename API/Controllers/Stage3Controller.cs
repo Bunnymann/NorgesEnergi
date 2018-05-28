@@ -9,14 +9,23 @@ using System.Web.Mvc;
 using API.Models;
 using System.Data.Entity.Infrastructure;
 
+/**
+*The main Stage3 controller
+*Contains all methods regarding this database table
+*/
 namespace NorgesEnergi.Controllers
 {
     public class stage3Controller : Controller
     {
-        /** To view the list, write /dappertest/list after localhost port
-         */ 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
+
+        /**
+        * Uses GetAll method to find all rows of Stage3 in database
+        * if the GetAll methods find any records, each record is build and stored in list
+        * 
+        * @return View(result) - returns the list of all records in a view
+        */
         public ActionResult List()
         {
             var obj = GetAll();
@@ -33,33 +42,50 @@ namespace NorgesEnergi.Controllers
             }
             return View(result);
         }
+
+        /**
+        * Get all values from table Stage3 ordered by tablecolumn
+        * Values are inserted to list
+        * 
+        * @return variable name - returns the variable which stores the values in a list
+        */
         public List<stage3> GetAll()
         {
             var obj = conn.Query<stage3>("SELECT * FROM stage3").OrderByDescending(u => u.stage3_ID).Take(10).ToList();
             return obj;
         }
 
+        /**
+        * Dependency method for create method
+        * @return view - returns the view for creating new Stage3 data
+        */
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
+
+        /**
+        * Creates a new row in the database in Stage3 table
+        *	
+        * 
+        * @param Stage3 model - the model that is being created. Values are filled in using a view 
+        * related to this method. 
+        * @return redirectToAction(“list”); - returns the user to given action
+        */
         [HttpPost]
         public ActionResult Create(stage3 model)
         {
-            var obj = InsertStage3(model);
             return RedirectToAction("list");
         }
-        public bool InsertStage3(stage3 model)
-        {
-            int rowsAffected = conn.Execute("INSERT INTO Stage3([stage3_name]) VALUES (@name)", new { name = model.stage3_name });
-            if( rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
 
+        /**
+        * Reads values from database in Stage3 table based on ID
+        * Execution in database using Dapper
+        *
+        * @param int id - builds the model based on id value
+        * @return view - return the view to show user the models values
+        */
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -75,6 +101,14 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Builds a Stage3 model based on ID value 
+        * Execution in database using Dapper
+        * Builds a Stage3 model to show values to user in view 
+        * 
+        * @param int id - model with the given ID value, if exists, is build 
+        * @return View - returns the view with the values of the model with the given ID value
+        */
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -89,7 +123,15 @@ namespace NorgesEnergi.Controllers
             }
             return View();
         }
-        
+
+        /**
+        * Edits a row in the database in Stage3 table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param Stage3 model - the model that is being updated
+        * @param int id - model with the given ID value, if exists, is being updated
+        * @return redirectToAction(“list”) - returns the user to given action
+        */
         [HttpPost]
         public ActionResult Edit(stage3 model, int id)
         {
@@ -98,6 +140,14 @@ namespace NorgesEnergi.Controllers
             return RedirectToAction("list");
         }
 
+        /**
+        * Builds a Stage3 model based on ID value 
+        * Execution in database using Dapper
+        * Builds a Stage3 model to show values to user in view
+        * 
+        * @param int id - model with the given ID value, if exists, is build
+        * @return view - returns the view with the values of the model with the given ID value  
+        */
         [HttpGet]
         public ActionResult Delete(int id)
         {
@@ -113,6 +163,14 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Deletes a row in the database in Stage3 table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param Stage3 model - the model that is being deleted
+        * @param int id - model with the given ID value, if exists, is being deleted 
+        * @return redirectToAction(“list”) - returns the user to given action
+        */
         [HttpPost]
         public ActionResult Delete(stage3 model, int id)
         {
