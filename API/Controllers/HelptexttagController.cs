@@ -24,7 +24,7 @@ namespace NorgesEnergi.Controllers
         * Uses GetAll method to find all rows of Helptexttag in database
         * if the GetAll methods find any records, each record is build and stored in list
         * 
-        * @return View(“name”) - returns the list of all records in a view
+        * @return View(“result”) - returns the list of all records in a view
         */
         public ActionResult List()
         {
@@ -46,7 +46,7 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Get all values from table Helptexttag ordered by tablecolumn
+        * Get all values from table Helptexttag ordered by helptext header
         * Values are inserted to list
         * 
         * @return variable name - returns the variable which stores the values in a list
@@ -73,7 +73,7 @@ namespace NorgesEnergi.Controllers
         * 
         * @param Helptexttag model - the model that is being created. Values are filled in using a view 
         * related to this method. 
-        * @return redirectToAction(“action”); - returns the user to given action
+        * @return redirectToAction(“list”); - returns the user to given action
         */
         [HttpPost]
         public ActionResult Create(helptexttag model)
@@ -96,9 +96,9 @@ namespace NorgesEnergi.Controllers
         * Creates a new row in the database in Helptexttag table
         *	
         * 
-        * @param Helptexttag model - the model that is being created. Values are filled in using a view 
+        * @param InfoViewModel model - the model that is being created. Values are filled in using a view 
         * related to this method. 
-        * @return redirectToAction(“action”); - returns the user to given action
+        * @return redirectToAction(“List”); - returns the user to given action
         */
         [HttpPost]
         [ValidateAntiForgeryToken]
