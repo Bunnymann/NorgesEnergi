@@ -9,59 +9,82 @@ using System.Web.Mvc;
 using API.Models;
 using Dapper;
 
+/**
+*The main Helptexttag controller
+*Contains all methods regarding this database table
+*/
 namespace NorgesEnergi.Controllers
 {
     public class HelptexttagController : Controller
     {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
-        
 
-            public ActionResult List()
+        /**
+        * Uses GetAll method to find all rows of Helptexttag in database
+        * if the GetAll methods find any records, each record is build and stored in list
+        * 
+        * @return View(“name”) - returns the list of all records in a view
+        */
+        public ActionResult List()
+        {
+            var obj = GetAll();
+            List<HelpTagsViewModel> result = new List<HelpTagsViewModel>();
+            if (obj != null)
             {
-                var obj = GetAll();
-                List<HelpTagsViewModel> result = new List<HelpTagsViewModel>();
-                if (obj != null)
+                foreach (var row in obj)
                 {
-                    foreach (var row in obj)
-                    {
-                        HelpTagsViewModel model = new HelpTagsViewModel();
-                        model.helptext_ID = row.helptext_ID;
-                        model.helptext_header = row.helptext_header;
-                        model.helptext_short = row.helptext_short;
-                        model.tag = row.tag;
-                        result.Add(model);
-                    }
+                    HelpTagsViewModel model = new HelpTagsViewModel();
+                    model.helptext_ID = row.helptext_ID;
+                    model.helptext_header = row.helptext_header;
+                    model.helptext_short = row.helptext_short;
+                    model.tag = row.tag;
+                    result.Add(model);
                 }
-                return View(result);
             }
-            public List<HelpTagsViewModel> GetAll()
-            {
-                var obj = conn.Query<HelpTagsViewModel>("SELECT helptext.helptext_header, helptext.helptext_short, metatag.tag FROM helptext INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID; ").OrderByDescending(h => h.helptext_header).ToList();
-                return obj;
-            }
+            return View(result);
+        }
 
-            [HttpGet]
-            public ActionResult Create()
-            {
-                return View();
-            }
-            [HttpPost]
-            public ActionResult Create(helptexttag model)
-            {
-                var obj = InsertHelptexttag(model);
-                return RedirectToAction("list");
-            }
-            public bool InsertHelptexttag(helptexttag model)
-            {
-                int rowsAffected = conn.Execute("INSERT INTO helptexttag([helptext_ID], [metatag_ID]) VALUES (@textID, @tagID)", new { textID = model.helptext_ID, @tagID = model.metatag_ID });
-                if (rowsAffected > 0)
-                {
-                    return true;
-                }
-                return false;
-            }
+        /**
+        * Get all values from table Helptexttag ordered by tablecolumn
+        * Values are inserted to list
+        * 
+        * @return variable name - returns the variable which stores the values in a list
+        */
+        public List<HelpTagsViewModel> GetAll()
+        {
+            var obj = conn.Query<HelpTagsViewModel>("SELECT helptext.helptext_header, helptext.helptext_short, metatag.tag FROM helptext INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID; ").OrderByDescending(h => h.helptext_header).ToList();
+            return obj;
+        }
 
+        /**
+        * Dependency method for create method
+        * @return view - returns the view for creating new Helptexttag data
+        */
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        /**
+        * Creates a new row in the database in Helptexttag table
+        * Execution in database using Dapper
+        * 
+        * @param Helptexttag model - the model that is being created. Values are filled in using a view 
+        * related to this method. 
+        * @return redirectToAction(“action”); - returns the user to given action
+        */
+        [HttpPost]
+        public ActionResult Create(helptexttag model)
+        {
+            return RedirectToAction("list");
+        }
+
+        /**
+        * Dependency method for create method
+        * @return view - returns the view for creating new Helptexttag data
+        */
         public ActionResult CreateMetahelp()
         {
             PopulateHelptextDropDownList();
@@ -69,12 +92,20 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Creates a new row in the database in Helptexttag table
+        *	
+        * 
+        * @param Helptexttag model - the model that is being created. Values are filled in using a view 
+        * related to this method. 
+        * @return redirectToAction(“action”); - returns the user to given action
+        */
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateMetahelp(InfoViewModel model)
         {
             char[] delimiterChars = { ',', '.', ':', };
-            
+
 
             string text = model.Tag;
 
@@ -83,7 +114,7 @@ namespace NorgesEnergi.Controllers
             List<metatag> tagList = new List<metatag>();
 
             foreach (var word in words)
-            { 
+            {
                 metatag tag = new metatag();
                 {
                     tag.tag = word;
@@ -96,7 +127,7 @@ namespace NorgesEnergi.Controllers
             foreach (var obj in tagList)
             {
                 helptexttag ht = new helptexttag();
-                 {
+                {
                     ht.helptext_ID = model.Helptext_ID;
                     ht.metatag_ID = obj.metatag_ID;
                     db.helptexttag.Add(ht);
@@ -109,7 +140,6 @@ namespace NorgesEnergi.Controllers
             PopulateHelptextDropDownList(model.Helptext_ID);
             return RedirectToAction("List");
         }
-
         /**
          * Method for populating a dropdownlist of helptext_headers to be used in other methods and views
          */
