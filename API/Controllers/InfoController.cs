@@ -15,39 +15,28 @@ namespace NorgesEnergi.Controllers
 {
     public class InfoController : Controller
     {
-        // Setting up the connectionstring and call it : "conn" 
-        // We will use the string at all plases we want to connect to the Database.
-
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
-
-        public ActionResult DDLSearchStage3()
-        {
-            Norges_EnergiEntities stages = new Norges_EnergiEntities();
-            return View(stages.stage3.ToList());
-        }
-
-        public List<InfoViewModel> GetFullList()
-        {
+        
         /**
-        * Get all values from table info ordered by Stage1 name.
+        * Get all values from model InfoViewModel ordered by Stage1 name.
         * Values are inserted to list
         * 
-        * @return variable name - returns the variable which stores the values in a list
+        * @return obj - returns the variable which stores the values in a list
         */
-
+        public List<InfoViewModel> GetFullList()
+        {
             var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_ID, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID;" /*INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;"*/).OrderByDescending(u => u.Stage1_name).ToList();
 
             return obj;
         }
 
         /**
-        * Uses GetAll method to find all rows of everything in the database ( everything from info, helptext and matatag)
+        * Uses GetAll method to find all rows of everything in the database using the InfoViewModel
         * if the GetFullList methods find any records, each record is build and stored in list
         * 
-        * @return View(“result”) - returns the list of all records in a view
+        * @return View(result) - returns the list of all records in a view
         */
-
         public ActionResult FullList()
         {
             var obj = GetFullList();
@@ -74,12 +63,11 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Uses GetAll method to find all rows of everything in the database ( everything from info, helptext and matatag)
+        * Uses GetAll method to find all rows of everything in the database using the InfoViewModel
         * if the FullList_Admin methods find any records, each record is build and stored in list
         * 
-        * @return View(“result”) - returns the list of all records in a view
+        * @return View(result) - returns the list of all records in a view
         */
-
         public ActionResult FullList_Admin()
         {
             Norges_EnergiEntities stages = new Norges_EnergiEntities();
@@ -107,6 +95,11 @@ namespace NorgesEnergi.Controllers
             return View(result);
         }
 
+        /**
+        * Dependency method for create method
+        * @return view - returns the view for creating new classname data
+        */
+        [HttpGet]
         public ActionResult CreateHelptext()
         {
             PopulateStage1DropDownList();
@@ -117,14 +110,13 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Creates a new row in the database for all tables. (info, helptext and matatag)
+        * Creates a new row in the database for all tables using the InfoViewModel
         * Execution in database using Dapper
         * 
         * @param InfoViewModel model - the model that is being created. Values are filled in using a view 
         * related to this method. 
         * @return redirectToAction(“FullList”); - returns the user to given action
         */
-
         [HttpPost]
         public ActionResult CreateHelptext(InfoViewModel model)
         {
@@ -194,7 +186,6 @@ namespace NorgesEnergi.Controllers
         /**
          * Populating the dropdown list with all objects from stage1. 
          */
-
         private void PopulateStage1DropDownList(object stage1 = null)
         {
             var stage = from s in db.stage1
@@ -206,7 +197,6 @@ namespace NorgesEnergi.Controllers
         /**
          * Populating the dropdown list with all objects from stage2. 
          */
-    
         private void PopulateStage2DropDownList(object stage2 = null)
         {
             var stage = from s in db.stage2
@@ -218,7 +208,6 @@ namespace NorgesEnergi.Controllers
         /**
          * Populating the dropdown list with all objects from stage3. 
          */
-
         private void PopulateStage3DropDownList(object stage3 = null)
         {
             var stage = from s in db.stage3
@@ -230,7 +219,6 @@ namespace NorgesEnergi.Controllers
         /**
          * Populating the dropdown list with all objects from stage4. 
          */
-
         private void PopulateStage4DropDownList(object stage4 = null)
         {
             var stage = from s in db.stage4
@@ -247,7 +235,6 @@ namespace NorgesEnergi.Controllers
         * @param int id - model with the given ID value, if exists, is build
         * @return view - returns the view with the values of the model with the given ID value  
         */
-
         [HttpGet]
         public ActionResult DeleteInfo(int id)
         {
@@ -279,7 +266,6 @@ namespace NorgesEnergi.Controllers
         * @param int id - model with the given ID value, if exists, is being deleted 
         * @return redirectToAction(“FullList”) - returns the user to given action
         */
-
         [HttpPost]
         public ActionResult DeleteInfo(info model, int id)
         {
@@ -296,7 +282,6 @@ namespace NorgesEnergi.Controllers
         * @param int id - model with the given ID value, if exists, is build 
         * @return View - returns the view with the values of the model with the given ID value
         */
-
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -326,7 +311,6 @@ namespace NorgesEnergi.Controllers
         * @param int id - model with the given ID value, if exists, is being updated
         * @return redirectToAction(“FullList”) - returns the user to given action
         */
-
         [HttpPost]
         public ActionResult Edit(InfoViewModel model, int id)
         
@@ -335,6 +319,15 @@ namespace NorgesEnergi.Controllers
             return RedirectToAction("FullList");
         }
 
+        /*
+        * Selects metatags from database based on info_ID value
+        * Execution in database using Dapper
+        * Using inner joins in SQL-query to find correct values
+        * If method finds multiple values, each metatag is put in a list and later the list is made as a string
+        * 
+        * @param int id - the info_ID value for a helptext_ID value
+        * @return text - the list of all found metatags join as a string
+        */
         [HttpGet]
         public string GetTags(int id)
         {
@@ -351,39 +344,6 @@ namespace NorgesEnergi.Controllers
             }
             string text = string.Join(", ", tags);
             return text;
-        }
-
-        [HttpGet]
-        public int GetStage1(string name)
-        {
-            var stage = conn.Query<stage1>("SELECT stage1_ID FROM stage1 WHERE stage1_name = @stage", new { stage = name }).FirstOrDefault().stage1_ID;
-           
-            return stage;
-
-        }
-
-        [HttpGet]
-        public int GetStage2(string name)
-        {
-            var stage = conn.Query<stage2>("SELECT stage2_ID FROM stage2 WHERE stage2_name = @stage", new { stage = name }).FirstOrDefault().stage2_ID;
-
-            return stage;
-        }
-
-        [HttpGet]
-        public int GetStage3(string name)
-        {
-            var stage = conn.Query<stage3>("SELECT stage3_ID FROM stage2 WHERE stage3_name = @stage", new { stage = name }).FirstOrDefault().stage3_ID;
-
-            return stage;
-        }
-
-        [HttpGet]
-        public int GetStage4(string name)
-        {
-            var stage = conn.Query<stage4>("SELECT stage4_ID FROM stage2 WHERE stage4_name = @stage", new { stage = name }).FirstOrDefault().stage4_ID;
-
-            return stage;
         }
     }
 }
