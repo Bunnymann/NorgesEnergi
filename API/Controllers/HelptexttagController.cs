@@ -110,6 +110,9 @@ namespace NorgesEnergi.Controllers
             return RedirectToAction("List");
         }
 
+        /**
+         * Method for populating a dropdownlist of helptext_headers to be used in other methods and views
+         */
         private void PopulateHelptextDropDownList(object helptext = null)
         {
             var help = from h in db.helptext
@@ -118,6 +121,9 @@ namespace NorgesEnergi.Controllers
             ViewBag.helptext_ID = new SelectList(help, "helptext_ID", "helptext_header", helptext);
         }
 
+        /**
+        * Method for populating a dropdownlist of metatags to be used in other methods and views
+        */
         private void PopulateTagDropDownList(object tag = null)
         {
             var metatag = from m in db.metatag
