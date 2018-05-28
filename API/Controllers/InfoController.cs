@@ -15,6 +15,9 @@ namespace NorgesEnergi.Controllers
 {
     public class InfoController : Controller
     {
+        // Setting up the connectionstring and call it : "conn" 
+        // We will use the string at all plases we want to connect to the Database.
+
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
 
@@ -26,12 +29,24 @@ namespace NorgesEnergi.Controllers
 
         public List<InfoViewModel> GetFullList()
         {
-            //sql query does NOT ask for metatag.tag
-            //method getTags select tags
+        /**
+        * Get all values from table info ordered by Stage1 name.
+        * Values are inserted to list
+        * 
+        * @return variable name - returns the variable which stores the values in a list
+        */
+
             var obj = conn.Query<InfoViewModel>("SELECT info.info_ID, stage1.stage1_name, stage2.stage2_name, stage3.stage3_name, stage4.stage4_name, helptext.helptext_ID, helptext.helptext_header, helptext.helptext_short, helptext.helptext_long FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID;" /*INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID;"*/).OrderByDescending(u => u.Stage1_name).ToList();
 
             return obj;
         }
+
+        /**
+        * Uses GetAll method to find all rows of everything in the database ( everything from info, helptext and matatag)
+        * if the GetFullList methods find any records, each record is build and stored in list
+        * 
+        * @return View(“result”) - returns the list of all records in a view
+        */
 
         public ActionResult FullList()
         {
@@ -57,7 +72,14 @@ namespace NorgesEnergi.Controllers
             }
             return View(result);
         }
-        
+
+        /**
+        * Uses GetAll method to find all rows of everything in the database ( everything from info, helptext and matatag)
+        * if the FullList_Admin methods find any records, each record is build and stored in list
+        * 
+        * @return View(“result”) - returns the list of all records in a view
+        */
+
         public ActionResult FullList_Admin()
         {
             Norges_EnergiEntities stages = new Norges_EnergiEntities();
@@ -93,6 +115,16 @@ namespace NorgesEnergi.Controllers
             PopulateStage4DropDownList();
             return View();
         }
+
+        /**
+        * Creates a new row in the database for all tables. (info, helptext and matatag)
+        * Execution in database using Dapper
+        * 
+        * @param InfoViewModel model - the model that is being created. Values are filled in using a view 
+        * related to this method. 
+        * @return redirectToAction(“FullList”); - returns the user to given action
+        */
+
         [HttpPost]
         public ActionResult CreateHelptext(InfoViewModel model)
         {
@@ -159,6 +191,10 @@ namespace NorgesEnergi.Controllers
             return RedirectToAction("FullList");
         }
 
+        /**
+         * Populating the dropdown list with all objects from stage1. 
+         */
+
         private void PopulateStage1DropDownList(object stage1 = null)
         {
             var stage = from s in db.stage1
@@ -167,6 +203,10 @@ namespace NorgesEnergi.Controllers
             ViewBag.stage1_ID = new SelectList(stage, "Stage1_ID", "Stage1_name", stage1);
         }
 
+        /**
+         * Populating the dropdown list with all objects from stage2. 
+         */
+    
         private void PopulateStage2DropDownList(object stage2 = null)
         {
             var stage = from s in db.stage2
@@ -174,6 +214,10 @@ namespace NorgesEnergi.Controllers
                         select s;
             ViewBag.stage2_ID = new SelectList(stage, "Stage2_ID", "Stage2_name", stage2);
         }
+
+        /**
+         * Populating the dropdown list with all objects from stage3. 
+         */
 
         private void PopulateStage3DropDownList(object stage3 = null)
         {
@@ -183,6 +227,10 @@ namespace NorgesEnergi.Controllers
             ViewBag.stage3_ID = new SelectList(stage, "Stage3_ID", "Stage3_name", stage3);
         }
 
+        /**
+         * Populating the dropdown list with all objects from stage4. 
+         */
+
         private void PopulateStage4DropDownList(object stage4 = null)
         {
             var stage = from s in db.stage4
@@ -190,6 +238,15 @@ namespace NorgesEnergi.Controllers
                         select s;
             ViewBag.stage4_ID = new SelectList(stage, "Stage4_ID", "Stage4_name", stage4);
         }
+
+        /**
+        * Builds a DeleteInfo model based on ID value 
+        * Execution in database using Dapper
+        * Builds a classname model to show values to user in view
+        * 
+        * @param int id - model with the given ID value, if exists, is build
+        * @return view - returns the view with the values of the model with the given ID value  
+        */
 
         [HttpGet]
         public ActionResult DeleteInfo(int id)
@@ -214,6 +271,15 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Deletes a row in the database in classname table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param Info model - the model that is being deleted
+        * @param int id - model with the given ID value, if exists, is being deleted 
+        * @return redirectToAction(“FullList”) - returns the user to given action
+        */
+
         [HttpPost]
         public ActionResult DeleteInfo(info model, int id)
         {
@@ -221,6 +287,15 @@ namespace NorgesEnergi.Controllers
 
             return RedirectToAction("FullList");
         }
+
+        /**
+        * Builds a Edit model based on ID value 
+        * Execution in database using Dapper
+        * Builds a classname model to show values to user in view 
+        * 
+        * @param int id - model with the given ID value, if exists, is build 
+        * @return View - returns the view with the values of the model with the given ID value
+        */
 
         [HttpGet]
         public ActionResult Edit(int id)
@@ -243,6 +318,14 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Edits a row in the database in helptext table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param InfoViewModel model - the model that is being updated
+        * @param int id - model with the given ID value, if exists, is being updated
+        * @return redirectToAction(“FullList”) - returns the user to given action
+        */
 
         [HttpPost]
         public ActionResult Edit(InfoViewModel model, int id)

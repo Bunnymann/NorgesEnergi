@@ -9,13 +9,29 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 
+
+/**
+*The Helptext controller
+*Contains all methods regarding this database table
+*/
+
 namespace NorgesEnergi.Controllers
 {
     public class HelptextController : Controller
     {
+            // Setting up the connectionstring and call it : "conn" 
+            // We will use the string at all plases we want to connect to the Database.
+
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
         Norges_EnergiEntities db = new Norges_EnergiEntities();
-        //Get list from function "GetALL" under
+
+        /**
+        * Uses GetAll method to find all rows of helptext in database
+        * if the GetAll methods find any records, each record is build and stored in list
+        * 
+        * @return View(“result”) - returns the list of all records in a view
+        */
+
         public ActionResult List()
         {
             var obj = GetAll();
@@ -35,7 +51,13 @@ namespace NorgesEnergi.Controllers
             return View(result);
         }
 
-        //Get all values from table helptext ordered by helptext header name
+        /**
+        * Get all values from table helptext ordered by helptext header    
+        * Values are inserted to list
+        * 
+        * @return variable name - returns the variable which stores the values in a list
+        */
+
         public List<helptext> GetAll()
         {
             var obj = conn.Query<helptext>("Select * FROM helptext").OrderByDescending(u => u.helptext_header).ToList();
@@ -47,12 +69,25 @@ namespace NorgesEnergi.Controllers
         {
             return View();
         }
+
+       
+        /**
+        * Creates a new row in the database in classname table
+        * Execution in database using Dapper
+        * 
+        * @param Helptext model - the model that is being created. Values are filled in using a view 
+        * related to this method. 
+        * @return redirectToAction(“List”); - returns the user to given action
+        */
+
         [HttpPost]
         public ActionResult Create(helptext model)
         {
             var obj = InsertHelptext(model);
             return RedirectToAction("List");
         }
+
+        
         public bool InsertHelptext(helptext model)
         {
             int rowsAffected = conn.Execute("INSERT INTO helptext([helptext_header], [helptext_short], [helptext_long]) VALUES (@header, @text_short, @text_long)", new { header = model.helptext_header, text_short = model.helptext_short, text_long = model.helptext_long });
@@ -62,6 +97,13 @@ namespace NorgesEnergi.Controllers
             }
             return false;
         }
+
+        /**
+        * Reads values from database in classname table based on ID
+        *
+        * @param int id - builds the model based on id value
+        * @return view - return the view to show user the models values
+        */
 
         [HttpGet]
         public ActionResult Details(int id)
@@ -80,6 +122,15 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Builds a classname model based on ID value 
+        * Execution in database using Dapper
+        * Builds a classname model to show values to user in view 
+        * 
+        * @param int ID - model with the given ID value, if exists, is build 
+        * @return View - returns the view with the values of the model with the given ID value
+        */
+
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -97,6 +148,15 @@ namespace NorgesEnergi.Controllers
             return View();
         }
 
+        /**
+        * Edits a row in the database in classname table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param InfoViewModel model - the model that is being updated
+        * @param int ID - model with the given ID value, if exists, is being updated
+        * @return redirectToAction(“list”) - returns the user to given action
+        */
+
         [HttpPost]
         public ActionResult Edit(InfoViewModel model, int id)
         {
@@ -104,6 +164,16 @@ namespace NorgesEnergi.Controllers
 
             return RedirectToAction("list");
         }
+
+
+        /**
+        * Builds a classname model based on ID value 
+        * Execution in database using Dapper
+        * Builds a classname model to show values to user in view
+        * 
+        * @param int id - model with the given ID value, if exists, is build
+        * @return view - returns the view with the values of the model with the given ID value 
+        */
 
         [HttpGet]
         public ActionResult Delete(int id)
@@ -121,6 +191,16 @@ namespace NorgesEnergi.Controllers
             }
             return View();
         }
+
+        /**
+        * Deletes a row in the database in classname table based on ID
+        * Execution in database using Dapper
+        * 
+        * @param helptext model - the model that is being deleted
+        * @param int id - model with the given ID value, if exists, is being deleted 
+        * @return redirectToAction("list"); - returns the user to given action
+        */
+
 
         [HttpPost]
         public ActionResult Delete(helptext model, int id)
