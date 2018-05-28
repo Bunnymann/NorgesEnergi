@@ -311,7 +311,6 @@
     <Content Include="Views\Stage1\List.cshtml" />
     <Content Include="Views\Info\FullList.cshtml" />
     <Content Include="Views\Info\Edit.cshtml" />
-    <Content Include="Views\Stage1\CreateStage1.cshtml" />
     <Content Include="Views\Stage2\CreateStage2.cshtml" />
     <Content Include="Views\stage3\CreateStage3.cshtml" />
     <Content Include="Views\Stage4\CreateStage4.cshtml" />
