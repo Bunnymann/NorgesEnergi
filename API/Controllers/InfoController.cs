@@ -185,7 +185,7 @@ namespace NorgesEnergi.Controllers
             db.SaveChanges();
             tagList.Clear();
 
-            return RedirectToAction("FullList");
+            return RedirectToAction("FullList_Admin");
         }
 
         /**
@@ -276,7 +276,7 @@ namespace NorgesEnergi.Controllers
         {
             var obj = conn.Execute("DELETE FROM info WHERE info_ID = @infoID", new { infoID = id });
 
-            return RedirectToAction("FullList");
+            return RedirectToAction("FullList_Admin");
         }
 
         /**
@@ -321,7 +321,7 @@ namespace NorgesEnergi.Controllers
         
         {
             var obj = conn.Execute("UPDATE helptext SET [helptext_header] = @header, [helptext_short] = @text_short, [helptext_long] = @text_long WHERE helptext_ID = @help_ID", new { help_ID = id, header = model.Helptext_header, text_short = model.Helptext_short, text_long = model.Helptext_long });
-            return RedirectToAction("FullList");
+            return RedirectToAction("FullList_Admin");
         }
 
         /*

@@ -21,7 +21,7 @@ namespace API.Models
         public string Stage2_name { get; set; }
         //Foreign key
         public int Stage3_ID { get; set; }
-        [DisplayName("Place i system")]
+        [DisplayName("Place in system")]
         public string Stage3_name { get; set; }
         //Foreign key
         public int Stage4_ID { get; set; }

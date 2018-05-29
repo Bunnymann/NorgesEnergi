@@ -29,73 +29,11 @@ namespace API.Controllers
          * @param string tags - the user input 
          * @return text - the complete SQL-query to be used in method Index
          */
-        [HttpPost]
+        [HttpGet]
         public string GetSearch(string tags)
         {
-            List<string> taglist = new List<string>();
-            List<string> criteria = new List<string>();
-
-            string sqlstring = ("SELECT info.info_ID, count(metatag.tag) as metatags FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID ");
-            criteria.Add(sqlstring);
-
-            /*
-             * Search parameters must as for now be written in the code.
-             * The code works and result are correct according to database data
-             * The split function get error System.NullReferenceException
-             */
-            string search = "nor, am, privat, us";
-
-            string[] words = search.Split(new[] { ',', '.' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var tag in words)
-            {
-                taglist.Add(tag);
-            }
-
-            int occ = taglist.Count();
-            int count = 0;
-
-
-            if (occ == 1)
-            {
-                foreach (var tag in taglist)
-                {
-                    //criteria.Add("where metatag.tag like '%" + tag + "%';");
-                    string query = string.Format("where metatag.tag like '%{0}%';", new { tag });
-                    criteria.Add(query);
-                }
-            }
-            else
-            {
-                while (count < occ)
-                {
-                    foreach (var tag in taglist)
-                    {
-                        if (count == 0)
-                        {
-                            //criteria.Add("where metatag.tag like '%" + tag + "%' or ");
-                            string query = string.Format("where metatag.tag like '%{0}%' or ", new { tag });
-                            criteria.Add(query);
-                        }
-                        else if (count > 0 && count < (occ - 1))
-                        {
-                            //criteria.Add("metatag.tag like '%" + tag + "%' or ")
-                            string query = string.Format("metatag.tag like '%{0}%' or ", new { tag });
-                            criteria.Add(query);
-                        }
-                        else if (count == (occ - 1))
-                        {
-                            //criteria.Add("metatag.tag like '%" + tag + "%' group by info.info_ID order by metatags desc;");
-                            string query = string.Format("metatag.tag like '%{0}%' group by info.info_ID order by metatags desc;", new { tag });
-                            criteria.Add(query);
-                        }
-
-                        count++;
-                    }
-                }
-            }
-            string text = string.Join("", criteria);
-            return text;
+                var obj = new librarytest.search().getSearch(tags);
+                return obj;
         }
 
         /**
