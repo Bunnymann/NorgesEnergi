@@ -60,7 +60,9 @@ namespace API.Controllers
             {
                 foreach (var tag in taglist)
                 {
-                    criteria.Add("where metatag.tag like '%" + tag + "%';");
+                    //criteria.Add("where metatag.tag like '%" + tag + "%';");
+                    string query = string.Format("where metatag.tag like '%{0}%';", new { tag });
+                    criteria.Add(query);
                 }
             }
             else
@@ -71,15 +73,21 @@ namespace API.Controllers
                     {
                         if (count == 0)
                         {
-                            criteria.Add("where metatag.tag like '%" + tag + "%' or ");
+                            //criteria.Add("where metatag.tag like '%" + tag + "%' or ");
+                            string query = string.Format("where metatag.tag like '%{0}%' or ", new { tag });
+                            criteria.Add(query);
                         }
                         else if (count > 0 && count < (occ - 1))
                         {
-                            criteria.Add("metatag.tag like '%" + tag + "%' or ");
+                            //criteria.Add("metatag.tag like '%" + tag + "%' or ")
+                            string query = string.Format("metatag.tag like '%{0}%' or ", new { tag });
+                            criteria.Add(query);
                         }
                         else if (count == (occ - 1))
                         {
-                            criteria.Add("metatag.tag like '%" + tag + "%' group by info.info_ID order by metatags desc;");
+                            //criteria.Add("metatag.tag like '%" + tag + "%' group by info.info_ID order by metatags desc;");
+                            string query = string.Format("metatag.tag like '%{0}%' group by info.info_ID order by metatags desc;", new { tag });
+                            criteria.Add(query);
                         }
 
                         count++;
