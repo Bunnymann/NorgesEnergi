@@ -9,14 +9,13 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 
-
-/**
-*The Helptext controller
-*Contains all methods regarding this database table
-*/
-
 namespace NorgesEnergi.Controllers
 {
+    /**
+    *The Helptext controller
+    *Contains all methods regarding this database table
+    */
+
     public class HelptextController : Controller
     {
             // Setting up the connectionstring and call it : "conn" 
@@ -31,7 +30,6 @@ namespace NorgesEnergi.Controllers
         * 
         * @return View(“result”) - returns the list of all records in a view
         */
-
         public ActionResult List()
         {
             var obj = GetAll();
@@ -57,7 +55,6 @@ namespace NorgesEnergi.Controllers
         * 
         * @return variable name - returns the variable which stores the values in a list
         */
-
         public List<helptext> GetAll()
         {
             var obj = conn.Query<helptext>("Select * FROM helptext").OrderByDescending(u => u.helptext_header).ToList();
@@ -79,7 +76,6 @@ namespace NorgesEnergi.Controllers
         * related to this method. 
         * @return redirectToAction(“List”); - returns the user to given action
         */
-
         [HttpPost]
         public ActionResult Create(helptext model)
         {
@@ -104,7 +100,6 @@ namespace NorgesEnergi.Controllers
         * @param int id - builds the model based on id value
         * @return view - return the view to show user the models values
         */
-
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -130,7 +125,6 @@ namespace NorgesEnergi.Controllers
         * @param int ID - model with the given ID value, if exists, is build 
         * @return View - returns the view with the values of the model with the given ID value
         */
-
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -156,7 +150,6 @@ namespace NorgesEnergi.Controllers
         * @param int ID - model with the given ID value, if exists, is being updated
         * @return redirectToAction(“list”) - returns the user to given action
         */
-
         [HttpPost]
         public ActionResult Edit(InfoViewModel model, int id)
         {
@@ -164,7 +157,6 @@ namespace NorgesEnergi.Controllers
 
             return RedirectToAction("list");
         }
-
 
         /**
         * Builds a classname model based on ID value 
@@ -174,7 +166,6 @@ namespace NorgesEnergi.Controllers
         * @param int id - model with the given ID value, if exists, is build
         * @return view - returns the view with the values of the model with the given ID value 
         */
-
         [HttpGet]
         public ActionResult Delete(int id)
         {
@@ -200,8 +191,6 @@ namespace NorgesEnergi.Controllers
         * @param int id - model with the given ID value, if exists, is being deleted 
         * @return redirectToAction("list"); - returns the user to given action
         */
-
-
         [HttpPost]
         public ActionResult Delete(helptext model, int id)
         {

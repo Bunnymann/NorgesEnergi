@@ -12,7 +12,12 @@ using System.Data.Entity.Infrastructure;
 using System.Net;
 
 namespace NorgesEnergi.Controllers
-{
+{   
+    /**
+    *The main Info controller
+    *Contains all methods regarding this database table
+    */
+
     public class InfoController : Controller
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());

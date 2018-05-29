@@ -9,12 +9,13 @@ using System.Web.Mvc;
 using API.Models;
 using System.Data.Entity.Infrastructure;
 
-/**
-*The main Stage2 controller
-*Contains all methods regarding this database table
-*/
 namespace WebApplication .Controllers
 {
+    /**
+    *The main Stage2 controller
+    *Contains all methods regarding this database table
+    */
+
     public class Stage2Controller : Controller
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());

@@ -60,7 +60,7 @@ namespace NorgesEnergi.Controllers
 
         /**
         * Dependency method for create method
-        * @return view - returns the view for creating new stage4 data
+        * @return view - returns the view for creating new Stage4 data
         */
         [HttpGet]
         public ActionResult Create()
@@ -69,10 +69,10 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Creates a new row in the database in stage4 table
+        * Creates a new row in the database in Stage4 table
         * Execution in database using Dapper
         * 
-        * @param stage4 model - the model that is being created. Values are filled in using a view 
+        * @param Stage4 model - the model that is being created. Values are filled in using a view 
         * related to this method. 
         * @return redirectToAction(“list”); - returns the user to given action
         */
@@ -84,9 +84,9 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-         * Method to give the stage4 an helptext_ID foreign key value
+         * Method to give the Stage4 an helptext_ID foreign key value
          * 
-         * @param stage4 model - the model that is being used
+         * @param Stage4 model - the model that is being used
          * @return if the values created is validated, insert is true. If values are not real, false is returned
          */
         public bool InsertStage4(stage4 model)
@@ -100,7 +100,7 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Reads values from database in stage4 table based on ID
+        * Reads values from database in Stage4 table based on ID
         * Execution in database using Dapper
         *
         * @param int id - builds the model based on id value
@@ -123,9 +123,9 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Builds a stage4 model based on ID value 
+        * Builds a Stage4 model based on ID value 
         * Execution in database using Dapper
-        * Builds a stage4 model to show values to user in view 
+        * Builds a Stage4 model to show values to user in view 
         * 
         * @param int id - model with the given ID value, if exists, is build 
         * @return View - returns the view with the values of the model with the given ID value
@@ -147,11 +147,11 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Edits a row in the database in stage4 table based on ID
+        * Edits a row in the database in Stage4 table based on ID
         * Execution in database using Dapper
         * Can edit the name of the stage and the helptext_ID foregin key
         * 
-        * @param classname model - the model that is being updated
+        * @param Stage4 model - the model that is being updated
         * @param int id - model with the given ID value, if exists, is being updated
         * @return redirectToAction(“list - returns the user to given action
         */
@@ -164,9 +164,9 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Builds a stage4 model based on ID value 
+        * Builds a Stage4 model based on ID value 
         * Execution in database using Dapper
-        * Builds a stage4 model to show values to user in view
+        * Builds a Stage4 model to show values to user in view
         * 
         * @param int id - model with the given ID value, if exists, is build
         * @return view - returns the view with the values of the model with the given ID value  
@@ -188,10 +188,10 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Deletes a row in the database in stage4 table based on ID
+        * Deletes a row in the database in Stage4 table based on ID
         * Execution in database using Dapper
         * 
-        * @param stage4 model - the model that is being deleted
+        * @param Stage4 model - the model that is being deleted
         * @param int id - model with the given ID value, if exists, is being deleted 
         * @return redirectToAction(list) - returns the user to given action
         */
@@ -205,7 +205,7 @@ namespace NorgesEnergi.Controllers
 
         /**
         * Dependency method for create method
-        * @return view - returns the view for creating new classname data
+        * @return view - returns the view for creating new Stage4 data
         */
         [HttpGet]
         public ActionResult CreateStage4()
@@ -216,11 +216,11 @@ namespace NorgesEnergi.Controllers
 
 
         /**
-        * Creates a new row in the database in satge4 table
+        * Creates a new row in the database in Stage4 table
         * Uses the PopulateHelpDropDownList-method to select a stage4 from a dropdownlist
         * A row in the helptext table is also created and put as a foreign key in the stage4 row
         * 
-        * @param stage4 stage - the model that is being created. Values are filled in using a view 
+        * @param Stage4 stage - the model that is being created. Values are filled in using a view 
         * related to this method. 
         * @return redirectToAction(fulllist); - returns the user to given action
         */

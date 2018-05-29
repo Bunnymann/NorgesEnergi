@@ -23,7 +23,6 @@ namespace NorgesEnergi.Controllers
        * 
        * @return View(result) - returns the list of all records in a view
        */
-
         public ActionResult List()
         {
             var obj = GetAll();
@@ -57,7 +56,6 @@ namespace NorgesEnergi.Controllers
         * Dependency method for create method
         * @return view - returns the view for creating new stage1 data
         */
-
         [HttpGet]
         public ActionResult Create()
         {
@@ -72,7 +70,6 @@ namespace NorgesEnergi.Controllers
         * related to this method. 
         * @return redirectToAction(“list”); - returns the user to given action
         */
-
         [HttpPost]
         public ActionResult Create(stage1 model)
         {
@@ -102,9 +99,9 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-       * Builds a stage1 model based on ID value 
+       * Builds a Stage1 model based on ID value 
        * Execution in database using Dapper
-       * Builds a stage1 model to show values to user in view 
+       * Builds a Stage1 model to show values to user in view 
        * 
        * @param int id - model with the given ID value, if exists, is build 
        * @return View - returns the view with the values of the model with the given ID value
@@ -125,10 +122,10 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Edits a row in the database in stage1 table based on ID
+        * Edits a row in the database in Stage1 table based on ID
         * Execution in database using Dapper
         * 
-        * @param classname model - the model that is being updated
+        * @param Stage1 model - the model that is being updated
         * @param int id - model with the given ID value, if exists, is being updated
         * @return redirectToAction(“list - returns the user to given action
         */
@@ -141,9 +138,9 @@ namespace NorgesEnergi.Controllers
         }
 
         /**
-        * Builds a stage1 model based on ID value 
+        * Builds a Stage1 model based on ID value 
         * Execution in database using Dapper
-        * Builds a stage4 model to show values to user in view
+        * Builds a Stage1 model to show values to user in view
         * 
         * @param int id - model with the given ID value, if exists, is build
         * @return view - returns the view with the values of the model with the given ID value  
@@ -168,7 +165,7 @@ namespace NorgesEnergi.Controllers
         * Deletes a row in the database in stage1 table based on ID
         * Execution in database using Dapper
         * 
-        * @param stage1 model - the model that is being deleted
+        * @param Stage1 model - the model that is being deleted
         * @param int id - model with the given ID value, if exists, is being deleted 
         * @return redirectToAction(list) - returns the user to given action
         */

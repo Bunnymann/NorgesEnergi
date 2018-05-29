@@ -9,12 +9,13 @@ using System.Web.Mvc;
 using API.Models;
 using Dapper;
 
-/**
-*The main Helptexttag controller
-*Contains all methods regarding this database table
-*/
 namespace NorgesEnergi.Controllers
 {
+    /**
+    *The main Helptexttag controller
+    *Contains all methods regarding this database table
+    */
+
     public class HelptexttagController : Controller
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());

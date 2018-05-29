@@ -210,3 +210,9 @@ C:\Users\benja\Documents\NorgesEnergi\API\bin\System.Web.Http.WebHost.dll
 C:\Users\benja\Documents\NorgesEnergi\API\bin\System.Net.Http.Formatting.xml
 C:\Users\benja\Documents\NorgesEnergi\API\bin\System.Web.Http.xml
 C:\Users\benja\Documents\NorgesEnergi\API\bin\System.Web.Http.WebHost.xml
+C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\System.Net.Http.Formatting.dll
+C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\System.Web.Http.dll
+C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\System.Web.Http.WebHost.dll
+C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\System.Net.Http.Formatting.xml
+C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\System.Web.Http.xml
+C:\Users\Eirsl\Documents\GitHub\NorgesEnergi\API\bin\System.Web.Http.WebHost.xml

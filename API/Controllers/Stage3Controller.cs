@@ -9,12 +9,13 @@ using System.Web.Mvc;
 using API.Models;
 using System.Data.Entity.Infrastructure;
 
-/**
-*The main Stage3 controller
-*Contains all methods regarding this database table
-*/
 namespace NorgesEnergi.Controllers
 {
+    /**
+    *The main Stage3 controller
+    *Contains all methods regarding this database table
+    */
+
     public class stage3Controller : Controller
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
@@ -67,7 +68,6 @@ namespace NorgesEnergi.Controllers
 
         /**
         * Creates a new row in the database in Stage3 table
-        *	
         * 
         * @param Stage3 model - the model that is being created. Values are filled in using a view 
         * related to this method. 
