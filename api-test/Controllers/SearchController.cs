@@ -11,16 +11,19 @@ namespace api_test.Controllers
     public class SearchController : ApiController
     {
         // GET api/<controller>
-        public string Get()
+        [HttpGet]
+        public string GetResult()
         {
-            var obj = new librarytest.search().getSearch("nor,us");
+            var obj = new search().GetSearch("nor,us");
             return obj;
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        [HttpGet]
+        public int GetbyID(int id)
         {
-            return "value";
+            var obj = new search().GetHelptextID(id);
+            return obj;
         }
 
         // POST api/<controller>

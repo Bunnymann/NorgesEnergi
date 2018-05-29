@@ -32,7 +32,7 @@ namespace API.Controllers
         [HttpGet]
         public string GetSearch(string tags)
         {
-                var obj = new librarytest.search().getSearch(tags);
+                var obj = new librarytest.search().GetSearch(tags);
                 return obj;
         }
 
