@@ -11,6 +11,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Data.Entity.Infrastructure;
 using System.Net;
+using api-test;
 
 namespace API.Controllers
 {
@@ -47,9 +48,10 @@ namespace API.Controllers
          * @return View(result) - returns a list-view for the recrods build
          */
         [HttpGet]
-        public ActionResult Index(string tags)
+        public ActionResult Index()
         {
-            var obj = conn.Query<InfoViewModel>(GetSearch(tags)).Take(4).ToList();
+            var query = new librarytest.search().Index());
+            var obj = conn.Query<InfoViewModel>(query).Take(4).ToList();
             
             List<InfoViewModel> result = new List<InfoViewModel>();
             if (obj != null)

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using librarytest;
+using librarytest.Model;
 
 namespace api_test.Controllers
 {
@@ -12,18 +13,12 @@ namespace api_test.Controllers
     {
         // GET api/<controller>
         [HttpGet]
-        public string GetResult()
+        public List<InfoViewModel> GetResult()
         {
             var obj = new search().GetSearch("nor,us");
-            return obj;
-        }
 
-        // GET api/<controller>/5
-        [HttpGet]
-        public int GetbyID(int id)
-        {
-            var obj = new search().GetHelptextID(id);
-            return obj;
+            var result = new search().Index(obj);
+            return result;
         }
 
         // POST api/<controller>

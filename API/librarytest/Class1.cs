@@ -10,8 +10,7 @@ namespace librarytest
 {
     public class search
     {
-       SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
-
+        string conn = new connection().NewConnection();
         public string GetSearch(string tags)
         {
             List<string> taglist = new List<string>();
@@ -93,6 +92,7 @@ namespace librarytest
          */
         public List<InfoViewModel> Index(string tags)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             var obj = conn.Query<InfoViewModel>(GetSearch(tags)).Take(4).ToList();
 
             List<InfoViewModel> result = new List<InfoViewModel>();
@@ -128,6 +128,7 @@ namespace librarytest
          */
         public string GetStage1(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             var obj = conn.Query<stage1>("select stage1_name from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage1 on info.stage1_ID = stage1.stage1_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage1_name;
 
             return obj;
@@ -143,6 +144,7 @@ namespace librarytest
         */
         public string GetStage2(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             var obj = conn.Query<stage2>("select stage2_name from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage2 on info.stage2_ID = stage2.stage2_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage2_name;
 
             return obj;
@@ -158,6 +160,7 @@ namespace librarytest
         */
         public string GetStage3(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             var obj = conn.Query<stage3>("select stage3_name from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID inner join stage3 on info.stage3_ID = stage3.stage3_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage3_name;
 
             return obj;
@@ -173,6 +176,7 @@ namespace librarytest
         */
         public string GetStage4(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             var obj = conn.Query<stage4>("select stage4_name from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID;", new { infoID = id }).FirstOrDefault().stage4_name;
 
             return obj;
@@ -187,6 +191,7 @@ namespace librarytest
         */
         public string GetLongText(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             var obj = conn.Query<helptext>("SELECT helptext.helptext_long FROM helptext where helptext_ID = @helpID;", new { helpID = id }).FirstOrDefault().helptext_long;
 
             return obj;
@@ -201,6 +206,7 @@ namespace librarytest
         */
         public string GetShortText(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             var obj = conn.Query<helptext>("SELECT helptext.helptext_short FROM helptext WHERE helptext_ID = @helpID;", new { helpID = id }).FirstOrDefault().helptext_short;
 
             return obj;
@@ -215,6 +221,7 @@ namespace librarytest
         */
         public string GetHelptextHeader(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             var obj = conn.Query<helptext>("SELECT helptext_header from helptext where helptext_ID = @helpID", new { helpid = id }).FirstOrDefault().helptext_header;
 
             return obj;
@@ -229,6 +236,7 @@ namespace librarytest
         */
         public int GetHelptextID(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             int obj = conn.Query<helptext>("SELECT helptext.helptext_ID from helptext inner join stage4 on helptext.helptext_ID = stage4.helptext_ID inner join info on stage4.stage4_ID = info.stage4_ID where info.info_ID = @infoID", new { infoID = id }).FirstOrDefault().helptext_ID;
 
             return obj;
@@ -245,6 +253,7 @@ namespace librarytest
         */
         public string GetTags(int id)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TelosNE"].ToString());
             List<string> tags = new List<string>();
             var obj = conn.Query<metatag>("SELECT metatag.tag FROM info INNER JOIN stage1 ON info.stage1_ID = stage1.stage1_ID INNER JOIN stage2 ON info.stage2_ID = stage2.stage2_ID INNER JOIN stage3 ON info.stage3_ID = stage3.stage3_ID INNER JOIN stage4 ON info.stage4_ID = stage4.stage4_ID INNER JOIN helptext ON stage4.helptext_ID = helptext.helptext_ID INNER JOIN helptexttag ON helptext.helptext_ID = helptexttag.helptext_ID INNER JOIN metatag ON helptexttag.metatag_ID = metatag.metatag_ID where info_ID = @infoID;", new { infoID = id });
 

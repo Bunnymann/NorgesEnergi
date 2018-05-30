@@ -165,3 +165,4 @@ C:\Users\mariu\Documents\NorgesEnergi\api-test\obj\Debug\api-test.pdb
 C:\Users\mariu\Documents\NorgesEnergi\api-test\bin\Dapper.dll
 C:\Users\mariu\Documents\NorgesEnergi\api-test\bin\System.Configuration.ConfigurationManager.dll
 C:\Users\mariu\Documents\NorgesEnergi\api-test\bin\Dapper.xml
+C:\Users\mariu\Documents\NorgesEnergi\api-test\bin\System.Data.SqlClient.dll
