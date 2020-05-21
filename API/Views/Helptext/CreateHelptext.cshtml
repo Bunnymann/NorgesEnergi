@@ -1,0 +1,56 @@
+﻿@model API.Models.helptext
+@{
+    ViewBag.Title = "CreateHelptext";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateHelpText</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Info</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.helptext_header, new { @class = "control-label col-md 2" })
+            <p> </p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.helptext_header)
+                @Html.ValidationMessageFor(model => model.helptext_header)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.helptext_short, new { @class = "control-label col-md 2" })
+            <p> </p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.helptext_short)
+                @Html.ValidationMessageFor(model => model.helptext_short)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.helptext_long, new { @class = "control-label col-md 2" })
+            <p> </p>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.helptext_long, new { @rows = 10 })
+                @Html.ValidationMessageFor(model => model.helptext_long)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="brn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to list", "List")
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

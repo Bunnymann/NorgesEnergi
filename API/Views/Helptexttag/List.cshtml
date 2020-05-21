@@ -1,0 +1,46 @@
+﻿@model IEnumerable<API.Models.HelpTagsViewModel>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateMetahelp")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.helptext_header)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.helptext_short)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tag)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.helptext_header)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.helptext_short)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tag)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

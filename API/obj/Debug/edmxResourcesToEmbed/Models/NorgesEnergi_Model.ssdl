@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Norges_EnergiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="helptext">
+    <Key>
+      <PropertyRef Name="helptext_ID" />
+    </Key>
+    <Property Name="helptext_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="helptext_header" Type="varchar" MaxLength="90" Nullable="false" />
+    <Property Name="helptext_short" Type="text" />
+    <Property Name="helptext_long" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="helptexttag">
+    <Key>
+      <PropertyRef Name="helptexttag_ID" />
+    </Key>
+    <Property Name="helptexttag_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="helptext_ID" Type="int" Nullable="false" />
+    <Property Name="metatag_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="info">
+    <Key>
+      <PropertyRef Name="info_ID" />
+    </Key>
+    <Property Name="info_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stage1_ID" Type="int" Nullable="false" />
+    <Property Name="stage2_ID" Type="int" />
+    <Property Name="stage3_ID" Type="int" />
+    <Property Name="stage4_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="metatag">
+    <Key>
+      <PropertyRef Name="metatag_ID" />
+    </Key>
+    <Property Name="metatag_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tag" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="stage1">
+    <Key>
+      <PropertyRef Name="stage1_ID" />
+    </Key>
+    <Property Name="stage1_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stage1_name" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="helptext_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="stage2">
+    <Key>
+      <PropertyRef Name="stage2_ID" />
+    </Key>
+    <Property Name="stage2_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stage2_name" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="helptext_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="stage3">
+    <Key>
+      <PropertyRef Name="stage3_ID" />
+    </Key>
+    <Property Name="stage3_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stage3_name" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="helptext_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="stage4">
+    <Key>
+      <PropertyRef Name="stage4_ID" />
+    </Key>
+    <Property Name="stage4_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stage4_name" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="helptext_ID" Type="int" />
+  </EntityType>
+  <Association Name="htt_helptext_FK">
+    <End Role="helptext" Type="Self.helptext" Multiplicity="1" />
+    <End Role="helptexttag" Type="Self.helptexttag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="helptext">
+        <PropertyRef Name="helptext_ID" />
+      </Principal>
+      <Dependent Role="helptexttag">
+        <PropertyRef Name="helptext_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="htt_metatag_FK">
+    <End Role="metatag" Type="Self.metatag" Multiplicity="1" />
+    <End Role="helptexttag" Type="Self.helptexttag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="metatag">
+        <PropertyRef Name="metatag_ID" />
+      </Principal>
+      <Dependent Role="helptexttag">
+        <PropertyRef Name="metatag_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="s1_helptext_FK">
+    <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
+    <End Role="stage1" Type="Self.stage1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="helptext">
+        <PropertyRef Name="helptext_ID" />
+      </Principal>
+      <Dependent Role="stage1">
+        <PropertyRef Name="helptext_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="s2_helptext_FK">
+    <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
+    <End Role="stage2" Type="Self.stage2" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="helptext">
+        <PropertyRef Name="helptext_ID" />
+      </Principal>
+      <Dependent Role="stage2">
+        <PropertyRef Name="helptext_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="s3_helptext_FK">
+    <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
+    <End Role="stage3" Type="Self.stage3" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="helptext">
+        <PropertyRef Name="helptext_ID" />
+      </Principal>
+      <Dependent Role="stage3">
+        <PropertyRef Name="helptext_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="s4_helptext_FK">
+    <End Role="helptext" Type="Self.helptext" Multiplicity="0..1" />
+    <End Role="stage4" Type="Self.stage4" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="helptext">
+        <PropertyRef Name="helptext_ID" />
+      </Principal>
+      <Dependent Role="stage4">
+        <PropertyRef Name="helptext_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="stage1_FK">
+    <End Role="stage1" Type="Self.stage1" Multiplicity="1" />
+    <End Role="info" Type="Self.info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stage1">
+        <PropertyRef Name="stage1_ID" />
+      </Principal>
+      <Dependent Role="info">
+        <PropertyRef Name="stage1_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="stage2_FK">
+    <End Role="stage2" Type="Self.stage2" Multiplicity="0..1" />
+    <End Role="info" Type="Self.info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stage2">
+        <PropertyRef Name="stage2_ID" />
+      </Principal>
+      <Dependent Role="info">
+        <PropertyRef Name="stage2_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="stage3_FK">
+    <End Role="stage3" Type="Self.stage3" Multiplicity="0..1" />
+    <End Role="info" Type="Self.info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stage3">
+        <PropertyRef Name="stage3_ID" />
+      </Principal>
+      <Dependent Role="info">
+        <PropertyRef Name="stage3_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="stage4_FK">
+    <End Role="stage4" Type="Self.stage4" Multiplicity="0..1" />
+    <End Role="info" Type="Self.info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stage4">
+        <PropertyRef Name="stage4_ID" />
+      </Principal>
+      <Dependent Role="info">
+        <PropertyRef Name="stage4_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Norges_EnergiModelStoreContainer">
+    <EntitySet Name="helptext" EntityType="Self.helptext" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="helptexttag" EntityType="Self.helptexttag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="info" EntityType="Self.info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="metatag" EntityType="Self.metatag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stage1" EntityType="Self.stage1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stage2" EntityType="Self.stage2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stage3" EntityType="Self.stage3" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stage4" EntityType="Self.stage4" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="htt_helptext_FK" Association="Self.htt_helptext_FK">
+      <End Role="helptext" EntitySet="helptext" />
+      <End Role="helptexttag" EntitySet="helptexttag" />
+    </AssociationSet>
+    <AssociationSet Name="htt_metatag_FK" Association="Self.htt_metatag_FK">
+      <End Role="metatag" EntitySet="metatag" />
+      <End Role="helptexttag" EntitySet="helptexttag" />
+    </AssociationSet>
+    <AssociationSet Name="s1_helptext_FK" Association="Self.s1_helptext_FK">
+      <End Role="helptext" EntitySet="helptext" />
+      <End Role="stage1" EntitySet="stage1" />
+    </AssociationSet>
+    <AssociationSet Name="s2_helptext_FK" Association="Self.s2_helptext_FK">
+      <End Role="helptext" EntitySet="helptext" />
+      <End Role="stage2" EntitySet="stage2" />
+    </AssociationSet>
+    <AssociationSet Name="s3_helptext_FK" Association="Self.s3_helptext_FK">
+      <End Role="helptext" EntitySet="helptext" />
+      <End Role="stage3" EntitySet="stage3" />
+    </AssociationSet>
+    <AssociationSet Name="s4_helptext_FK" Association="Self.s4_helptext_FK">
+      <End Role="helptext" EntitySet="helptext" />
+      <End Role="stage4" EntitySet="stage4" />
+    </AssociationSet>
+    <AssociationSet Name="stage1_FK" Association="Self.stage1_FK">
+      <End Role="stage1" EntitySet="stage1" />
+      <End Role="info" EntitySet="info" />
+    </AssociationSet>
+    <AssociationSet Name="stage2_FK" Association="Self.stage2_FK">
+      <End Role="stage2" EntitySet="stage2" />
+      <End Role="info" EntitySet="info" />
+    </AssociationSet>
+    <AssociationSet Name="stage3_FK" Association="Self.stage3_FK">
+      <End Role="stage3" EntitySet="stage3" />
+      <End Role="info" EntitySet="info" />
+    </AssociationSet>
+    <AssociationSet Name="stage4_FK" Association="Self.stage4_FK">
+      <End Role="stage4" EntitySet="stage4" />
+      <End Role="info" EntitySet="info" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

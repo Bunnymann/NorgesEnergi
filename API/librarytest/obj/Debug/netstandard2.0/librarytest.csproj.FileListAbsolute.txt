@@ -1,0 +1,9 @@
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\bin\Debug\netstandard2.0\librarytest.deps.json
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\bin\Debug\netstandard2.0\librarytest.dll
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\bin\Debug\netstandard2.0\librarytest.pdb
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\obj\Debug\netstandard2.0\librarytest.csprojResolveAssemblyReference.cache
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\obj\Debug\netstandard2.0\librarytest.csproj.CoreCompileInputs.cache
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\obj\Debug\netstandard2.0\librarytest.AssemblyInfoInputs.cache
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\obj\Debug\netstandard2.0\librarytest.AssemblyInfo.cs
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\obj\Debug\netstandard2.0\librarytest.dll
+C:\Users\mariu\Documents\NorgesEnergi\API\librarytest\obj\Debug\netstandard2.0\librarytest.pdb

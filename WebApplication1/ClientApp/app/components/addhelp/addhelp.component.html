@@ -1,0 +1,30 @@
+<head>
+    <title>@ViewBag.Title</title>
+    <script src="https://code.angularjs.org/1.3.0-beta.5/angular.js"></script>
+    <script src="JavaScript1.js"></script>
+</head>
+<div class="login-block">
+    <h1><span style="color:#800080">{{title}}</span></h1>
+
+    <hr />
+    <input type="text" placeholder="search" id="search" />
+    <select [(ngModel)]="selectedStage1">
+        <option *ngFor="let s of stage1" [ngValue]="s"> {{s.name}} </option>
+    </select>
+    <select [(ngModel)]="selectedStage2">
+        <option *ngFor="let s of stage2" [ngValue]="s"> {{s.name}} </option>
+    </select>
+    <select [(ngModel)]="selectedStage3">
+        <option *ngFor="let s of stage3" [ngValue]="s"> {{s.name}} </option>
+    </select>
+    <select [(ngModel)]="selectedStage4">
+        <option *ngFor="let s of stage4" [ngValue]="s"> {{s.name}} </option>
+    </select>
+    <input type="text" placeholder="header" id="header" /><br />
+    <input type="text" placeholder="summary" id="summary" /><br />
+    <input type="text" placeholder="long help text" id="longtext" /><br />
+    <input type="text" placeholder="metatags" id="header" />
+    <button (click)="alertAdd()">Add help</button>
+    <button (click)="alertEdit()">Edit help</button>
+    <button (click)="alertDelete()">Delete help</button>
+</div>

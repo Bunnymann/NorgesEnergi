@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Norges_EnergiModelStoreContainer" CdmEntityContainer="NE_Entities">
+    <EntitySetMapping Name="stage1">
+      <EntityTypeMapping TypeName="Norges_EnergiModel.stage1">
+        <MappingFragment StoreEntitySet="stage1">
+          <ScalarProperty Name="stage1_ID" ColumnName="stage1_ID" />
+          <ScalarProperty Name="stage1_name" ColumnName="stage1_name" />
+          <ScalarProperty Name="helptext_ID" ColumnName="helptext_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

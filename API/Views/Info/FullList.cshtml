@@ -1,0 +1,96 @@
+﻿@model IEnumerable<API.Models.InfoViewModel>
+
+@{
+    ViewBag.Title = "Full List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Helptexts</h2>
+
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" id="Search" placeholder="Nation" class="form-control" />
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage1_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage2_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage3_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage4_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Helptext_header)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Helptext_short)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Helptext_long)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tag)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage1_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage2_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage3_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage4_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Helptext_header)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Helptext_short)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Helptext_long)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+        </tr>
+    }
+</table>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>

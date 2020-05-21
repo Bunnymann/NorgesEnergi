@@ -1,0 +1,40 @@
+﻿@model IEnumerable<API.Models.metatag>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.metatag_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tag)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.metatag_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tag)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.metatag_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.metatag_ID  }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.metatag_ID  })
+        </td>
+    </tr>
+}
+
+</table>

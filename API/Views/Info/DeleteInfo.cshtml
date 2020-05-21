@@ -1,0 +1,110 @@
+﻿@model API.Models.InfoViewModel
+
+@{
+    ViewBag.Title = "Info details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Information details</h2>
+
+<div>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Info_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Info_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stage1_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stage1_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stage2_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stage2_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stage3_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stage3_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stage4_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stage4_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Helptext_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Helptext_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Helptext_header)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Helptext_header)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Helptext_short)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Helptext_short)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Helptext_long)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Helptext_long)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tag)
+        </dd>
+
+    </dl>
+</div>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" />
+    </div>
+}
+
+<h3>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Helptext_ID })
+</h3>
+<p>
+    @Html.ActionLink("Back to List", "FullList_Admin")
+</p>
+

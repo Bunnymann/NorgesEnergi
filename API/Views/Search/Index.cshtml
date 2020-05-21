@@ -1,0 +1,73 @@
+﻿@model IEnumerable<API.Models.InfoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search texts</h2>
+
+@using (Html.BeginForm("GetSearch", "Search", FormMethod.Get))
+{
+    @Html.TextBox("tags") <input type="submit"
+                                 name="submit"
+                                 value="Search" />
+}
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage3_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage4_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Helptext_header)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Helptext_short)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Helptext_long)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tag)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage3_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage4_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Helptext_header)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Helptext_short)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Helptext_long)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+            <td>
+                <h5>
+                    @Html.ActionLink("SELECT", "Details", new { id = item.Helptext_ID })
+                </h5>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    }
+
+</table>

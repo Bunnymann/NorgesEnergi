@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "GetInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+
+<div class="page-header">
+    <h1>Search API</h1>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Info</h2>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled" data-bind="foreach: info">
+                    <li>
+                        <strong><span data-bind="text: Info_ID"></span></strong>: <span data-bind="text: Stage4_ID"></span>
+                        <small><a href="#">Details</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+    </div>
+
+    <div class="col-md-4">
+        <!-- TODO: Book details -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- TODO: Add new book -->
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@model WebApplication1.ClientApp.Model.Stage1;
+
+@{
+    ViewData["Title"] = "dropdownList";
+}
+
+<h2>dropdownList</h2>
+
+<!Doctype html>
+<html>
+    <head>
+    </head>
+
+        <body>
+            @using (Html.BeginForm("dropdownlist", "stage1", FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td></td>
+                        <td>stage 1</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.stage1_ID)</td>
+                        <td>@Html.DropDownListFor(model => model.stage1_ID, new SelectList(Model.stage1_name, "Stage1_ID","Stage1_Name"), "Select")</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Submit" /></td>
+                    </tr>
+                    
+                </table>
+              
+
+            }
+    </body>
+</html>
+

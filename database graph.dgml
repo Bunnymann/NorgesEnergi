@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Database" Category="Database" Bounds="-17,-173.9028636209,979.053333333334,433.8063272416" Group="Expanded" Label="Data Source=neb-server.database.windows.net;Initial Catalog=NorgesEnergi;Persist Security Info=True;User ID=mariusfosseli@hotmail.com@neb-server;Password=ne_bachelor_1" UseManualLocation="True" />
+    <Node Id="dbo" Category="Schema" Bounds="208.359891786667,-133.919818147649,528.33354976,373.8400362952" Group="Expanded" Label="dbo" />
+    <Node Id="dbo.help_table" Category="Table" Bounds="285.636490453333,78.0002000063511,118.166666666667,141.9200000256" Group="Expanded" Label="dbo.help_table" />
+    <Node Id="dbo.help_table_help_ID" Category="Field Primary" Bounds="310.75815712,118.000200019151,59.6133333333333,25.96" Description="int" Label="help_ID" />
+    <Node Id="dbo.help_table_help_text" Category="Field" Bounds="310.75815712,173.960200019151,67.9233333333333,25.96" Description="ntext" Label="help_text" />
+    <Node Id="dbo.helpedit_table" Category="Table" Bounds="403.48071712,-93.919800044849,138.483333333333,141.9200000384" Group="Expanded" Label="dbo.helpedit_table" />
+    <Node Id="dbo.helpedit_table_help_ID" Category="Field Foreign" Bounds="442.91571712,2.04019998075105,59.6133333333333,25.96" Description="int" Label="help_ID" />
+    <Node Id="dbo.helpedit_table_user_ID" Category="Field Foreign" Bounds="442.91571712,-53.919800032049,58.92,25.96" Description="int" Label="user_ID" />
+    <Node Id="dbo.helppage_table" Category="Table" Bounds="228.345980746667,-93.9198300304541,144.67,141.9200300304" Group="Expanded" Label="dbo.helppage_table" />
+    <Node Id="dbo.helppage_table_help_ID" Category="Field Foreign" Bounds="269.135980746667,-53.9198150152541,59.6133333333333,25.96" Description="int" Label="help_ID" />
+    <Node Id="dbo.helppage_table_page_ID" Category="Field Foreign" Bounds="269.135980746667,2.040184984746,63.09,25.96" Description="int" Label="page_ID" />
+    <Node Id="dbo.page_table" Category="Table" Bounds="433.85975712,78.0002000127511,121.643333333333,141.9200000256" Group="Expanded" Label="dbo.page_table" />
+    <Node Id="dbo.page_table_page_ID" Category="Field Primary" Bounds="458.981423786667,118.000200025551,63.09,25.96" Description="int" Label="page_ID" />
+    <Node Id="dbo.page_table_page_text" Category="Field Optional" Bounds="458.981423786667,173.960200025551,71.4000000000001,25.96" Description="ntext" Label="page_text" />
+    <Node Id="dbo.user_table" Category="Table" Bounds="585.96370112,78.0002000063511,117.473333333333,141.9200000384" Group="Expanded" Label="dbo.user_table" />
+    <Node Id="dbo.user_table_user_ID" Category="Field Primary" Bounds="606.28870112,118.000200019151,58.92,25.96" Description="int" Label="user_ID" />
+    <Node Id="dbo.user_table_user_name" Category="Field Optional" Bounds="606.28870112,173.960200031951,76.8233333333334,25.96" Description="nvarchar(50)" Label="user_name" />
+    <Node Id="dbo.userpage_table" Category="Table" Bounds="572.690018453333,-93.912317113649,143.976666666667,141.90503424" Group="Expanded" Label="dbo.userpage_table" />
+    <Node Id="dbo.userpage_table_page_ID" Category="Field Foreign" Bounds="613.12817504,2.03540000635104,63.0899999999998,25.96" Description="int" Label="page_ID" />
+    <Node Id="dbo.userpage_table_user_ID" Category="Field Foreign" Bounds="613.12817504,-53.917437113649,58.9200000000001,25.96" Description="int" Label="user_ID" />
+  </Nodes>
+  <Links>
+    <Link Source="Database" Target="dbo" Category="Contains" />
+    <Link Source="dbo" Target="dbo.help_table" Category="Contains" />
+    <Link Source="dbo" Target="dbo.helpedit_table" Category="Contains" />
+    <Link Source="dbo" Target="dbo.helppage_table" Category="Contains" />
+    <Link Source="dbo" Target="dbo.page_table" Category="Contains" />
+    <Link Source="dbo" Target="dbo.user_table" Category="Contains" />
+    <Link Source="dbo" Target="dbo.userpage_table" Category="Contains" />
+    <Link Source="dbo.help_table" Target="dbo.help_table_help_ID" Category="Contains" />
+    <Link Source="dbo.help_table" Target="dbo.help_table_help_text" Category="Contains" />
+    <Link Source="dbo.helpedit_table" Target="dbo.helpedit_table_help_ID" Category="Contains" />
+    <Link Source="dbo.helpedit_table" Target="dbo.helpedit_table_user_ID" Category="Contains" />
+    <Link Source="dbo.helpedit_table_help_ID" Target="dbo.help_table_help_ID" Category="Foreign Key" Label="helpedit_help_FK" />
+    <Link Source="dbo.helpedit_table_user_ID" Target="dbo.user_table_user_ID" Category="Foreign Key" Label="helpedit_user_FK" />
+    <Link Source="dbo.helppage_table" Target="dbo.helppage_table_help_ID" Category="Contains" />
+    <Link Source="dbo.helppage_table" Target="dbo.helppage_table_page_ID" Category="Contains" />
+    <Link Source="dbo.helppage_table_help_ID" Target="dbo.help_table_help_ID" Category="Foreign Key" Label="helppage_help_FK" />
+    <Link Source="dbo.helppage_table_page_ID" Target="dbo.page_table_page_ID" Category="Foreign Key" Label="helppage_page_FK" />
+    <Link Source="dbo.page_table" Target="dbo.page_table_page_ID" Category="Contains" />
+    <Link Source="dbo.page_table" Target="dbo.page_table_page_text" Category="Contains" />
+    <Link Source="dbo.user_table" Target="dbo.user_table_user_ID" Category="Contains" />
+    <Link Source="dbo.user_table" Target="dbo.user_table_user_name" Category="Contains" />
+    <Link Source="dbo.userpage_table" Target="dbo.userpage_table_page_ID" Category="Contains" />
+    <Link Source="dbo.userpage_table" Target="dbo.userpage_table_user_ID" Category="Contains" />
+    <Link Source="dbo.userpage_table_page_ID" Target="dbo.page_table_page_ID" Category="Foreign Key" Label="userpage_page_FK" />
+    <Link Source="dbo.userpage_table_user_ID" Target="dbo.user_table_user_ID" Category="Foreign Key" Label="userpage_user_FK" />
+  </Links>
+  <Categories>
+    <Category Id="Contains" Label="Contains" Description="Whether the source of the link contains the target object" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+    <Category Id="Database" />
+    <Category Id="Field" />
+    <Category Id="Field Foreign" />
+    <Category Id="Field Optional" />
+    <Category Id="Field Primary" />
+    <Category Id="Foreign Key" />
+    <Category Id="Schema" />
+    <Category Id="Table" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="Description" Label="Description" Description="Description" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="Group" Label="Group" Description="Display the node as a group" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Table" ValueLabel="True">
+      <Condition Expression="HasCategory('Table')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Schema" ValueLabel="True">
+      <Condition Expression="HasCategory('Schema')" />
+      <Setter Property="Background" Value="#FF7F9169" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field" ValueLabel="True">
+      <Condition Expression="HasCategory('Field')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Database" ValueLabel="True">
+      <Condition Expression="HasCategory('Database')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+</DirectedGraph>
